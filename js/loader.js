@@ -57,6 +57,12 @@ async function enrutador() {
 
     // Una vez inyectada la página (ej. home.html), cargamos sus componentes internos
     await cargarComponentes();
+
+    window.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: 'auto'
+    });
 }
 
 /* =========================================
