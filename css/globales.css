@@ -8,18 +8,26 @@
     font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
 }
 
-/* Bloqueo estricto para evitar que la pantalla se expanda o haga cosas raras */
+/* Bloqueo estricto para evitar scroll fantasma y rebotes */
+/* Bloqueo estricto para evitar scroll fantasma y rebotes */
 html, body {
     width: 100%;
     max-width: 100vw;
+    min-height: 100vh; /* 1. Obliga a la página a medir al menos toda tu pantalla */
     overflow-x: hidden !important; 
-    overscroll-behavior-x: none; /* Bloquea el rebote en Android */
+    overscroll-behavior-x: none; 
     position: relative;
-    background-color: #000; /* Fondo negro general para la página */
-    color: #fff;
+    
+    /* ✨ FONDO GENERAL BLANCO PERLADO / GLOSSY */
+    background: linear-gradient(135deg, #ffffff 0%, #f1f5f9 45%, #ffffff 50%, #e2e8f0 100%); 
+    background-attachment: fixed; 
+    background-repeat: no-repeat; /* 2. Evita que el fondo se duplique creando líneas */
+    background-size: cover; /* 3. Estira el fondo sin deformarlo */
+    
+    color: #1e293b; 
 }
 
-/* Previene el zoom por "doble toque" en Safari/iOS */
+/* Previene el zoom accidental por "doble toque" en Safari/iOS */
 a, button, input, select, textarea {
     touch-action: manipulation;
 }
@@ -44,7 +52,6 @@ a, button, input, select, textarea {
     z-index: 1000;
 }
 
-/* --- LOGO --- */
 .navbar-logo img {
     height: 48px;
     width: auto;
@@ -56,7 +63,6 @@ a, button, input, select, textarea {
     transform: scale(1.03); 
 }
 
-/* --- CONTENEDOR DEL MENÚ --- */
 .navbar-menu {
     list-style: none;
     display: flex;
@@ -64,7 +70,6 @@ a, button, input, select, textarea {
     gap: 2.5rem;
 }
 
-/* --- ESTILO DE LOS ENLACES --- */
 .navbar-menu li a {
     color: #334155; 
     text-decoration: none;
@@ -77,7 +82,7 @@ a, button, input, select, textarea {
     transition: color 0.3s ease;
 }
 
-/* Animación de la línea azul debajo del texto */
+/* Línea animada azul debajo del texto */
 .navbar-menu li a::after {
     content: '';
     position: absolute;
@@ -97,7 +102,7 @@ a, button, input, select, textarea {
     width: 100%; 
 }
 
-/* --- BOTÓN DE IDIOMA --- */
+/* Botón de idioma (Ghost Button) */
 .btn-lang {
     background-color: transparent;
     color: #65789A;
@@ -128,7 +133,7 @@ a, button, input, select, textarea {
     border: none;
     cursor: pointer;
     position: relative; 
-    z-index: 2000; /* Siempre arriba del menú abierto */
+    z-index: 2000; /* Siempre por encima del menú desplegado */
 }
 
 .hamburger .line {
@@ -139,32 +144,42 @@ a, button, input, select, textarea {
     transition: all 0.3s ease;
 }
 
+/* =========================================
+   4. DISEÑO RESPONSIVO (BLANCO, ELEGANTE Y ANIMADO)
+   ========================================= */
 @media (max-width: 768px) {
     
-    /* 1. EL TRUCO SALVAVIDAS: Apagamos el efecto cristal en móviles 
-          para que no "atrape" al menú de pantalla completa */
+    /* Barra superior blanca y sin cristal para evitar bugs en Android */
     .navbar {
         backdrop-filter: none !important;
         -webkit-backdrop-filter: none !important;
         background-color: #ffffff !important; 
+        border-bottom: 1px solid #f1f5f9; /* Línea súper sutil */
     }
 
     .hamburger {
         display: flex; 
     }
 
-    /* 2. MENÚ LIBERADO A PANTALLA COMPLETA */
+    /* Rayitas de la hamburguesa en gris oscuro */
+    .hamburger .line {
+        background-color: #334155; 
+    }
+
+    /* EL CONTENEDOR PRINCIPAL: Blanco y luminoso */
     .navbar-menu {
         position: fixed;
         top: 0;
         left: 0;
-        width: 100vw; /* Asegura el 100% del ancho del dispositivo */
-        height: 100vh; /* Asegura el 100% del alto del dispositivo */
-        background-color: #ffffff; /* Fondo blanco sólido para tapar lo negro */
+        width: 100vw; 
+        height: 100vh; 
+        
+        /* Un degradado blanco muy sutil para que no se vea plano */
+        background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%); 
+        
         flex-direction: column;
         justify-content: center;
         align-items: center; 
-        
         z-index: 1999; 
         
         /* Lo enviamos a la derecha */
@@ -172,37 +187,68 @@ a, button, input, select, textarea {
         opacity: 0;
         pointer-events: none; 
         
-        transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s ease; 
+        transition: transform 0.5s cubic-bezier(0.77, 0, 0.175, 1), opacity 0.5s ease; 
     }
 
-    /* ESTADO ACTIVO (MENÚ ABIERTO) */
+    /* Cuando el menú se abre */
     .navbar-menu.active {
         transform: translateX(0); 
         opacity: 1; 
         pointer-events: all;
     }
 
-    /* Ajustes de letra para el menú móvil */
+    /* ✨ ANIMACIÓN EN CASCADA PARA LOS ENLACES */
+    .navbar-menu li {
+        opacity: 0;
+        transform: translateY(20px); /* Bajan un poquito */
+        transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .navbar-menu.active li {
+        opacity: 1;
+        transform: translateY(0); /* Suben a su lugar */
+    }
+
+    /* Retrasos escalonados para crear la cascada */
+    .navbar-menu.active li:nth-child(1) { transition-delay: 0.1s; }
+    .navbar-menu.active li:nth-child(2) { transition-delay: 0.15s; }
+    .navbar-menu.active li:nth-child(3) { transition-delay: 0.2s; }
+    .navbar-menu.active li:nth-child(4) { transition-delay: 0.25s; }
+    .navbar-menu.active li:nth-child(5) { transition-delay: 0.3s; }
+    .navbar-menu.active li:nth-child(6) { transition-delay: 0.35s; }
+    .navbar-menu.active li:nth-child(7) { transition-delay: 0.4s; } /* El botón */
+
+    /* Tipografía móvil: Oscura para contrastar con el fondo blanco */
     .navbar-menu li a {
-        font-size: 1.5rem; 
+        font-size: 1.6rem; 
+        font-weight: 600; 
+        color: #1e293b; /* Gris oscuro corporativo */
         padding: 15px 0;
         display: block;
+        letter-spacing: 2px;
     }
 
+    /* Botón de idioma */
     .btn-lang {
         margin-top: 30px;
-        font-size: 1.2rem;
-        padding: 15px 40px;
+        font-size: 1.1rem;
+        padding: 14px 45px;
+        background-color: #65789A; /* Azul/Grisáceo de acento */
+        color: #ffffff;
+        border: none;
+        box-shadow: 0 8px 15px rgba(101, 120, 154, 0.2); 
     }
 
-    /* Animación del botón: de Hamburguesa a 'X' */
+    /* Animación de la hamburguesa a 'X' (Se mantiene oscura) */
     .hamburger.active .line:nth-child(1) {
         transform: translateY(9px) rotate(45deg);
+        background-color: #1e293b; 
     }
     .hamburger.active .line:nth-child(2) {
         opacity: 0; 
     }
     .hamburger.active .line:nth-child(3) {
         transform: translateY(-9px) rotate(-45deg);
+        background-color: #1e293b;
     }
 }
