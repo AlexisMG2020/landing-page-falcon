@@ -1,56 +1,114 @@
-// Esperamos a que el esqueleto de la página (index.html) cargue
-document.addEventListener("DOMContentLoaded", () => {
-    cargarComponentes();
+/* =========================================
+   1. DICCIONARIO DE RUTAS
+   ========================================= */
+const rutas = {
+    '/': 'pages/home.html',
+    '/about': 'pages/about.html',
+    '/news': 'pages/news.html',
+    '/portfolio': 'pages/portfolio.html',
+    '/team': 'pages/team.html',
+    '/contact': 'pages/contact.html'
+};
+
+/* =========================================
+   2. EL MOTOR DE ENRUTAMIENTO (ROUTER)
+   ========================================= */
+async function enrutador() {
+    // Obtenemos la URL actual (ej. "/about")
+    let path = window.location.pathname;
+    
+    // Si la ruta no existe, mandamos al Home por defecto
+    const archivoRuta = rutas[path] || rutas['/'];
+    
+    // Buscamos el escenario vacío en el index.html
+    const appRoot = document.getElementById('app-root');
+    
+    if (appRoot) {
+        try {
+            // Buscamos e inyectamos la página correspondiente
+            const respuesta = await fetch(archivoRuta);
+            if (respuesta.ok) {
+                appRoot.innerHTML = await respuesta.text();
+            } else {
+                appRoot.innerHTML = `<h1 style="text-align:center; padding: 50px;">Error 404: Página no encontrada</h1>`;
+            }
+        } catch (error) {
+            console.error("Error cargando la ruta:", error);
+        }
+    }
+
+    // Una vez inyectada la página (ej. home.html), cargamos sus componentes internos
+    await cargarComponentes();
+}
+
+/* =========================================
+   3. INTERCEPTORES DE NAVEGACIÓN
+   ========================================= */
+// Evita que la página recargue al hacer clic en los enlaces del menú
+document.addEventListener("click", e => {
+    // Busca si el clic fue en un enlace con el atributo 'data-route'
+    if (e.target.matches("[data-route]")) {
+        e.preventDefault(); // Detiene la recarga molesta
+        window.history.pushState(null, null, e.target.href); // Cambia la URL arriba
+        enrutador(); // Pinta la nueva pantalla
+    }
 });
 
-// Función para abrir y cerrar el menú en celulares
+// Detecta cuando el usuario usa las flechas de "Atrás" o "Adelante" del navegador
+window.addEventListener("popstate", enrutador);
+
+// Arranca el router apenas se abre la página
+document.addEventListener("DOMContentLoaded", () => {
+    enrutador(); 
+});
+
+/* =========================================
+   4. CONTROL DEL MENÚ MÓVIL
+   ========================================= */
 window.toggleMenu = function() {
     const menu = document.getElementById('nav-menu');
     const hamburger = document.querySelector('.hamburger');
     
-    // Si existen en la pantalla, les ponemos o quitamos la clase 'active'
     if(menu && hamburger) {
         menu.classList.toggle('active');
         hamburger.classList.toggle('active');
     }
 };
 
+/* =========================================
+   5. INYECTOR DE COMPONENTES ANIDADOS
+   ========================================= */
 async function cargarComponentes() {
-    // 1. Buscamos todos los "contenedores vacíos" que piden un componente
-    const elementos = document.querySelectorAll('[data-include]');
+    let elementos = document.querySelectorAll('[data-include]');
 
-    // 2. Iteramos sobre cada uno para ir a buscar su archivo HTML
-    for (let el of elementos) {
-        const archivo = el.getAttribute('data-include');
-        
-        try {
-            // Hacemos la petición HTTP al servidor (o al Live Server)
-            const respuesta = await fetch(archivo);
-            
-            if (respuesta.ok) {
-                // Si lo encuentra, lo convertimos a texto
-                const html = await respuesta.text();
-                
-                // Lo inyectamos en la pantalla
-                el.innerHTML = html;
-                
-                // Limpiamos la etiqueta para que el código final quede impecable
+    // Mientras sigan existiendo etiquetas 'data-include', el bucle sigue buscando
+    while (elementos.length > 0) {
+        const promesas = Array.from(elementos).map(async (el) => {
+            const archivo = el.getAttribute('data-include');
+            try {
+                const respuesta = await fetch(archivo);
+                if (respuesta.ok) {
+                    el.innerHTML = await respuesta.text();
+                } else {
+                    console.error(`Falta el componente: ${archivo}`);
+                }
+            } catch (error) {
+                console.error(`Error de red con ${archivo}:`, error);
+            } finally {
+                // Removemos el atributo para no crear un bucle infinito
                 el.removeAttribute('data-include'); 
-            } else {
-                console.error(`Error 404: No se pudo cargar el archivo ${archivo}`);
-                el.innerHTML = `<p style="color:red; padding: 20px;">Falta el componente: ${archivo}</p>`;
             }
-        } catch (error) {
-            console.error(`Error de red al intentar cargar ${archivo}:`, error);
-        }
+        });
+
+        // Esperamos a que todos los HTML de esta pasada se inyecten
+        await Promise.all(promesas);
+        
+        // Volvemos a escanear por si un HTML nuevo traía más componentes adentro
+        elementos = document.querySelectorAll('[data-include]');
     }
 
-    // 3. ✨ LA MAGIA FINAL: Activamos el traductor
-    // Validamos que la función exista (por si algún día quitas el traductor.js, que no falle todo)
+    // ✨ LA MAGIA FINAL: Todo está inyectado, activamos el idioma
     if (typeof traducirPagina === "function") {
-        console.log("Componentes cargados. Iniciando traducción...");
         traducirPagina();
-    } else {
-        console.warn("Aviso: El archivo traductor.js no está enlazado o no se encontró la función.");
     }
 }

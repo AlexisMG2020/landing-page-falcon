@@ -9,11 +9,10 @@
 }
 
 /* Bloqueo estricto para evitar scroll fantasma y rebotes */
-/* Bloqueo estricto para evitar scroll fantasma y rebotes */
 html, body {
     width: 100%;
     max-width: 100vw;
-    min-height: 100vh; /* 1. Obliga a la página a medir al menos toda tu pantalla */
+    min-height: 100vh; 
     overflow-x: hidden !important; 
     overscroll-behavior-x: none; 
     position: relative;
@@ -21,8 +20,8 @@ html, body {
     /* ✨ FONDO GENERAL BLANCO PERLADO / GLOSSY */
     background: linear-gradient(135deg, #ffffff 0%, #f1f5f9 45%, #ffffff 50%, #e2e8f0 100%); 
     background-attachment: fixed; 
-    background-repeat: no-repeat; /* 2. Evita que el fondo se duplique creando líneas */
-    background-size: cover; /* 3. Estira el fondo sin deformarlo */
+    background-repeat: no-repeat; 
+    background-size: cover; 
     
     color: #1e293b; 
 }
@@ -32,8 +31,13 @@ a, button, input, select, textarea {
     touch-action: manipulation;
 }
 
+/* 🚀 AJUSTE PARA QUE LA NAVBAR FIXED NO TAPE EL CONTENIDO (ERROR 404, ETC) */
+main, section, .error-container, .content-wrapper, .container {
+    margin-top: 80px; 
+}
+
 /* =========================================
-   2. NAVBAR - DISEÑO PRINCIPAL (ESCRITORIO)
+   2. NAVBAR - DISEÑO PRINCIPAL (FIJA)
    ========================================= */
 .navbar {
     display: flex;
@@ -47,9 +51,14 @@ a, button, input, select, textarea {
     
     padding: 1rem 5%;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05); 
-    position: sticky;
+    
+    /* Navbar siempre arriba */
+    position: fixed;
     top: 0;
-    z-index: 1000;
+    left: 0;
+    width: 100%;
+    z-index: 9999;
+    height: 80px;
 }
 
 .navbar-logo img {
@@ -102,7 +111,7 @@ a, button, input, select, textarea {
     width: 100%; 
 }
 
-/* Botón de idioma (Ghost Button) */
+/* Botón de idioma */
 .btn-lang {
     background-color: transparent;
     color: #65789A;
@@ -123,7 +132,7 @@ a, button, input, select, textarea {
 }
 
 /* =========================================
-   3. BOTÓN HAMBURGUESA (OCULTO EN PC)
+   3. BOTÓN HAMBURGUESA
    ========================================= */
 .hamburger {
     display: none; 
@@ -133,7 +142,7 @@ a, button, input, select, textarea {
     border: none;
     cursor: pointer;
     position: relative; 
-    z-index: 2000; /* Siempre por encima del menú desplegado */
+    z-index: 10000; 
 }
 
 .hamburger .line {
@@ -145,110 +154,296 @@ a, button, input, select, textarea {
 }
 
 /* =========================================
-   4. DISEÑO RESPONSIVO (BLANCO, ELEGANTE Y ANIMADO)
+   4. DISEÑO RESPONSIVO (MÓVIL)
    ========================================= */
 @media (max-width: 768px) {
     
-    /* Barra superior blanca y sin cristal para evitar bugs en Android */
+    main, section, .error-container, .content-wrapper, .container {
+        margin-top: 70px; 
+    }
+
     .navbar {
         backdrop-filter: none !important;
         -webkit-backdrop-filter: none !important;
         background-color: #ffffff !important; 
-        border-bottom: 1px solid #f1f5f9; /* Línea súper sutil */
+        border-bottom: 1px solid #f1f5f9; 
+        height: 70px;
     }
 
     .hamburger {
         display: flex; 
     }
 
-    /* Rayitas de la hamburguesa en gris oscuro */
-    .hamburger .line {
-        background-color: #334155; 
-    }
-
-    /* EL CONTENEDOR PRINCIPAL: Blanco y luminoso */
     .navbar-menu {
         position: fixed;
         top: 0;
         left: 0;
         width: 100vw; 
         height: 100vh; 
-        
-        /* Un degradado blanco muy sutil para que no se vea plano */
         background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%); 
-        
         flex-direction: column;
         justify-content: center;
         align-items: center; 
-        z-index: 1999; 
-        
-        /* Lo enviamos a la derecha */
+        z-index: 9999; 
         transform: translateX(100%); 
         opacity: 0;
         pointer-events: none; 
-        
         transition: transform 0.5s cubic-bezier(0.77, 0, 0.175, 1), opacity 0.5s ease; 
     }
 
-    /* Cuando el menú se abre */
     .navbar-menu.active {
         transform: translateX(0); 
         opacity: 1; 
         pointer-events: all;
     }
 
-    /* ✨ ANIMACIÓN EN CASCADA PARA LOS ENLACES */
+    /* Animación en cascada */
     .navbar-menu li {
         opacity: 0;
-        transform: translateY(20px); /* Bajan un poquito */
+        transform: translateY(20px); 
         transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
 
     .navbar-menu.active li {
         opacity: 1;
-        transform: translateY(0); /* Suben a su lugar */
+        transform: translateY(0); 
     }
 
-    /* Retrasos escalonados para crear la cascada */
     .navbar-menu.active li:nth-child(1) { transition-delay: 0.1s; }
     .navbar-menu.active li:nth-child(2) { transition-delay: 0.15s; }
     .navbar-menu.active li:nth-child(3) { transition-delay: 0.2s; }
     .navbar-menu.active li:nth-child(4) { transition-delay: 0.25s; }
     .navbar-menu.active li:nth-child(5) { transition-delay: 0.3s; }
-    .navbar-menu.active li:nth-child(6) { transition-delay: 0.35s; }
-    .navbar-menu.active li:nth-child(7) { transition-delay: 0.4s; } /* El botón */
 
-    /* Tipografía móvil: Oscura para contrastar con el fondo blanco */
     .navbar-menu li a {
         font-size: 1.6rem; 
         font-weight: 600; 
-        color: #1e293b; /* Gris oscuro corporativo */
+        color: #1e293b; 
         padding: 15px 0;
         display: block;
         letter-spacing: 2px;
     }
 
-    /* Botón de idioma */
-    .btn-lang {
-        margin-top: 30px;
-        font-size: 1.1rem;
-        padding: 14px 45px;
-        background-color: #65789A; /* Azul/Grisáceo de acento */
-        color: #ffffff;
-        border: none;
-        box-shadow: 0 8px 15px rgba(101, 120, 154, 0.2); 
-    }
+    /* Animación hamburguesa a X */
+    .hamburger.active .line:nth-child(1) { transform: translateY(9px) rotate(45deg); }
+    .hamburger.active .line:nth-child(2) { opacity: 0; }
+    .hamburger.active .line:nth-child(3) { transform: translateY(-9px) rotate(-45deg); }
+}
 
-    /* Animación de la hamburguesa a 'X' (Se mantiene oscura) */
-    .hamburger.active .line:nth-child(1) {
-        transform: translateY(9px) rotate(45deg);
-        background-color: #1e293b; 
-    }
-    .hamburger.active .line:nth-child(2) {
-        opacity: 0; 
-    }
-    .hamburger.active .line:nth-child(3) {
-        transform: translateY(-9px) rotate(-45deg);
-        background-color: #1e293b;
-    }
+/* =========================================
+   5. SECCIÓN HERO
+   ========================================= */
+.hero {
+    position: relative;
+    width: 100%;
+    height: 100vh; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background-color: #0f172a; 
+    margin-top: 0 !important; /* El hero anula el margen de 80px porque usa toda la pantalla */
+}
+
+.hero-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; 
+    object-position: center center; 
+    z-index: 1;
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, rgba(15, 23, 42, 0.4), rgba(15, 23, 42, 0.6));
+    z-index: 2;
+}
+
+.hero-title {
+    position: relative;
+    z-index: 3; 
+    color: #ffffff;
+    font-size: clamp(2.5rem, 8vw, 5rem); 
+    font-weight: 800;
+    text-align: center;
+    padding: 0 5%;
+    max-width: 1200px;
+    line-height: 1;
+    letter-spacing: -2px;
+    text-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    animation: fadeInUp 1.2s cubic-bezier(0.2, 1, 0.3, 1) forwards;
+}
+
+@keyframes fadeInUp {
+    0% { opacity: 0; transform: translateY(40px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+/* =========================================
+   6. FOOTER PROFESIONAL (FALCON VENTURES)
+   ========================================= */
+.footer {
+    background: #ffffff;
+    padding: 80px 5% 20px;
+    border-top: 1px solid #e2e8f0;
+    position: relative;
+    z-index: 10;
+    margin-top: 0 !important;
+}
+
+.footer-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 60px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.footer-brand {
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: #1e293b;
+    letter-spacing: -1px;
+    margin-bottom: 5px;
+}
+
+.footer-subtitle {
+    font-size: 0.85rem;
+    color: #65789A;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 30px;
+}
+
+.footer-title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #1e293b;
+    margin-bottom: 25px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    position: relative;
+}
+
+.footer-title::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -10px;
+    width: 40px;
+    height: 3px;
+    background-color: #65789A;
+}
+
+.footer-info {
+    list-style: none;
+    margin-bottom: 25px;
+}
+
+.footer-info li {
+    margin-bottom: 12px;
+    font-size: 0.95rem;
+    color: #475569;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    line-height: 1.4;
+}
+
+.footer-social {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 25px;
+}
+
+.social-link {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f1f5f9;
+    color: #1e293b;
+    text-decoration: none;
+    border-radius: 50%;
+    font-size: 0.75rem;
+    font-weight: 800;
+    transition: all 0.3s ease;
+    border: 1px solid #e2e8f0;
+}
+
+.social-link:hover {
+    background: #65789A;
+    color: #ffffff;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(101, 120, 154, 0.3);
+}
+
+.footer-map {
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+    border: 1px solid #f1f5f9;
+    margin-top: 10px;
+}
+
+.footer-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.footer-form input, 
+.footer-form textarea {
+    width: 100%;
+    padding: 14px 18px;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    background: #f8fafc;
+    font-size: 0.95rem;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.footer-form input:focus, 
+.footer-form textarea:focus {
+    border-color: #65789A;
+    background: #ffffff;
+    box-shadow: 0 0 0 4px rgba(101, 120, 154, 0.1);
+}
+
+.btn-submit {
+    background-color: #1e293b;
+    color: #ffffff;
+    padding: 16px;
+    border: none;
+    border-radius: 10px;
+    font-weight: 700;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+}
+
+.btn-submit:hover {
+    background-color: #65789A;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(101, 120, 154, 0.3);
+}
+
+.footer-bottom {
+    margin-top: 60px;
+    padding-top: 20px;
+    border-top: 1px solid #f1f5f9;
+    text-align: center;
+    font-size: 0.85rem;
+    color: #94a3b8;
 }

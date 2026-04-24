@@ -8,7 +8,9 @@ const diccionario = {
         "nav-team": "Team",
         "nav-contact": "Contact",
         "hero-title": "Investing in a safe Future",
-        "hero-subtitle": "Private Equity & Business Group"
+        "hero-subtitle": "Private Equity & Business Group",
+        "investing-in-a-safe-Future": "Investing in a safe future",
+        "envia-mensaje":"Send Us a Message"
     },
     es: {
         "nav-home": "Inicio",
@@ -18,7 +20,9 @@ const diccionario = {
         "nav-team": "Equipo",
         "nav-contact": "Contacto",
         "hero-title": "Invirtiendo en un futuro seguro",
-        "hero-subtitle": "Grupo de Capital Privado y Negocios"
+        "hero-subtitle": "Grupo de Capital Privado y Negocios",
+        "investing-in-a-safe-Future": "Invertir en un futuro seguro",
+        "envia-mensaje":"Envíanos un mensaje"
     }
 };
 
