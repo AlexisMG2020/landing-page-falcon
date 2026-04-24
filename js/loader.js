@@ -10,20 +10,33 @@ const rutas = {
     '/contact': 'pages/contact.html'
 };
 
+function obtenerRutaActual() {
+    const hash = window.location.hash || '#/';
+    const ruta = hash.slice(1);
+
+    return rutas[ruta] ? ruta : ruta || '/';
+}
+
 /* =========================================
    2. EL MOTOR DE ENRUTAMIENTO (ROUTER)
    ========================================= */
 async function enrutador() {
-    // Obtenemos la URL actual (ej. "/about")
-    let path = window.location.pathname;
+    // Obtenemos la ruta desde el hash (ej. "#/about" -> "/about")
+    const path = obtenerRutaActual();
     
-    // Si la ruta no existe, mandamos al Home por defecto
-    const archivoRuta = rutas[path] || rutas['/'];
+    // Si la ruta no existe, mostramos el 404 dentro de la app
+    const archivoRuta = rutas[path];
     
     // Buscamos el escenario vacío en el index.html
     const appRoot = document.getElementById('app-root');
     
     if (appRoot) {
+        if (!archivoRuta) {
+            appRoot.innerHTML = `<h1 style="text-align:center; padding: 50px;">Error 404: Página no encontrada</h1>`;
+            await cargarComponentes();
+            return;
+        }
+
         try {
             // Buscamos e inyectamos la página correspondiente
             const respuesta = await fetch(archivoRuta);
@@ -46,16 +59,19 @@ async function enrutador() {
    ========================================= */
 // Evita que la página recargue al hacer clic en los enlaces del menú
 document.addEventListener("click", e => {
+    const enlace = e.target.closest("[data-route]");
+
     // Busca si el clic fue en un enlace con el atributo 'data-route'
-    if (e.target.matches("[data-route]")) {
+    if (enlace) {
         e.preventDefault(); // Detiene la recarga molesta
-        window.history.pushState(null, null, e.target.href); // Cambia la URL arriba
+        const url = new URL(enlace.href);
+        window.location.hash = url.hash || `#${url.pathname}`; // Cambia la URL arriba
         enrutador(); // Pinta la nueva pantalla
     }
 });
 
-// Detecta cuando el usuario usa las flechas de "Atrás" o "Adelante" del navegador
-window.addEventListener("popstate", enrutador);
+// Detecta cambios en el hash y las flechas de "Atrás" o "Adelante"
+window.addEventListener("hashchange", enrutador);
 
 // Arranca el router apenas se abre la página
 document.addEventListener("DOMContentLoaded", () => {
