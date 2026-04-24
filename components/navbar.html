@@ -1,0 +1,27 @@
+<nav class="navbar">
+    <div class="navbar-logo">
+        <img src="https://static.wixstatic.com/media/423b16_75aaf836c99a47dbbac5fedc906ace3e~mv2.png/v1/crop/x_0,y_170,w_3000,h_733/fill/w_532,h_130,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/Color%20logo%20-%20no%20background_edited.png" 
+             alt="Falcon Ventures Logo">
+    </div>
+
+    <button class="hamburger" onclick="toggleMenu()">
+        <span class="line"></span>
+        <span class="line"></span>
+        <span class="line"></span>
+    </button>
+
+    <ul class="navbar-menu" id="nav-menu">
+        <li><a href="#home" data-i18n="nav-home" onclick="toggleMenu()">Home</a></li>
+        <li><a href="#about" data-i18n="nav-about" onclick="toggleMenu()">About</a></li>
+        <li><a href="#news" data-i18n="nav-news" onclick="toggleMenu()">News</a></li>
+        <li><a href="#portfolio" data-i18n="nav-portfolio" onclick="toggleMenu()">Portfolio</a></li>
+        <li><a href="#team" data-i18n="nav-team" onclick="toggleMenu()">Team</a></li>
+        <li><a href="#contact" data-i18n="nav-contact" onclick="toggleMenu()">Contact</a></li>
+        
+        <li>
+            <button id="btn-idioma" class="btn-lang" onclick="cambiarIdioma()">
+                ESPAÑOL
+            </button>
+        </li>
+    </ul>
+</nav>
