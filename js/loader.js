@@ -2,19 +2,24 @@
    1. DICCIONARIO DE RUTAS
    ========================================= */
 const rutas = {
-    '/': 'pages/home.html',
-    '/about': 'pages/about.html',
-    '/news': 'pages/news.html',
-    '/portfolio': 'pages/portfolio.html',
-    '/team': 'pages/team.html',
-    '/contact': 'pages/contact.html'
+    '/': '/pages/home.html',
+    '/about': '/pages/about.html',
+    '/news': '/pages/news.html',
+    '/portfolio': '/pages/portfolio.html',
+    '/team': '/pages/team.html',
+    '/contact': '/pages/contact.html'
 };
 
-function obtenerRutaActual() {
-    const hash = window.location.hash || '#/';
-    const ruta = hash.slice(1);
+const pagina404 = '/pages/404.html';
 
-    return rutas[ruta] ? ruta : ruta || '/';
+function obtenerRutaActual() {
+    if (!window.location.hash) {
+        return window.location.pathname === '/' ? '/' : window.location.pathname;
+    }
+
+    const ruta = window.location.hash.slice(1);
+
+    return ruta || '/';
 }
 
 /* =========================================
@@ -32,8 +37,7 @@ async function enrutador() {
     
     if (appRoot) {
         if (!archivoRuta) {
-            appRoot.innerHTML = `<h1 style="text-align:center; padding: 50px;">Error 404: Página no encontrada</h1>`;
-            await cargarComponentes();
+            await mostrar404(appRoot);
             return;
         }
 
@@ -43,10 +47,11 @@ async function enrutador() {
             if (respuesta.ok) {
                 appRoot.innerHTML = await respuesta.text();
             } else {
-                appRoot.innerHTML = `<h1 style="text-align:center; padding: 50px;">Error 404: Página no encontrada</h1>`;
+                await mostrar404(appRoot);
             }
         } catch (error) {
             console.error("Error cargando la ruta:", error);
+            await mostrar404(appRoot);
         }
     }
 
@@ -65,13 +70,28 @@ document.addEventListener("click", e => {
     if (enlace) {
         e.preventDefault(); // Detiene la recarga molesta
         const url = new URL(enlace.href);
-        window.location.hash = url.hash || `#${url.pathname}`; // Cambia la URL arriba
-        enrutador(); // Pinta la nueva pantalla
+        const esHome = url.pathname === '/' && !url.hash;
+
+        if (esHome) {
+            window.history.pushState(null, null, url.pathname);
+            enrutador();
+            return;
+        }
+
+        const nuevaRuta = url.hash || `#${url.pathname}`;
+
+        if (window.location.hash === nuevaRuta) {
+            enrutador();
+            return;
+        }
+
+        window.location.hash = nuevaRuta; // Cambia la URL arriba
     }
 });
 
-// Detecta cambios en el hash y las flechas de "Atrás" o "Adelante"
+// Detecta cambios en el hash y navegación del historial
 window.addEventListener("hashchange", enrutador);
+window.addEventListener("popstate", enrutador);
 
 // Arranca el router apenas se abre la página
 document.addEventListener("DOMContentLoaded", () => {
@@ -127,4 +147,21 @@ async function cargarComponentes() {
     if (typeof traducirPagina === "function") {
         traducirPagina();
     }
+}
+
+async function mostrar404(appRoot) {
+    try {
+        const respuesta = await fetch(pagina404);
+
+        if (respuesta.ok) {
+            appRoot.innerHTML = await respuesta.text();
+        } else {
+            appRoot.innerHTML = `<h1 style="text-align:center; padding: 50px;">Error 404: Pagina no encontrada</h1>`;
+        }
+    } catch (error) {
+        console.error("Error cargando la pagina 404:", error);
+        appRoot.innerHTML = `<h1 style="text-align:center; padding: 50px;">Error 404: Pagina no encontrada</h1>`;
+    }
+
+    await cargarComponentes();
 }
