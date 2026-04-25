@@ -32,6 +32,31 @@ const diccionario = {
         "industry-surveillance": "SURVEILLANCE",
         "industry-artificial-intelligence": "ARTIFICIAL<br />INTELLIGENCE",
         "industry-real-estate": "REAL<br />ESTATE",
+        "stat-partners": "Partners",
+        "stat-employees": "Employees",
+        "stat-investments": "Investments",
+        "stat-success": "Success",
+        "news-section-title": "Recent News",
+        "news-1-alt": "Venture Capital in Latin America",
+        "news-1-category": "Industry",
+        "news-1-title": "Venture Capital gains ground in Latin America",
+        "news-1-excerpt": "Jose Carlos Mapelli Mozzi, Chairman of Falcon Ventures, analyzes the growth of startup investment and Mexico's key role.",
+        "news-1-link": "Read on Reforma",
+        "news-2-alt": "Zascita Outstanding Company",
+        "news-2-category": "Portfolio",
+        "news-2-title": "Zascita de Mexico receives recognition as an \"Outstanding Company\"",
+        "news-2-excerpt": "The Business Coordinating Council honors Zascita, a portfolio company that achieved 180% growth.",
+        "news-2-link": "Read on Mundo Ejecutivo",
+        "news-3-alt": "Award in Private Security",
+        "news-3-category": "Impact",
+        "news-3-title": "Portfolio company recognized in the private security sector",
+        "news-3-excerpt": "They highlight venture capital's positive influence in the region: Falcon Ventures' strategic investment accelerated Zascita's expansion.",
+        "news-3-link": "Read on El Heraldo",
+        "news-4-alt": "Recognition for Company",
+        "news-4-category": "Recognition",
+        "news-4-title": "Falcon Ventures company receives recognition",
+        "news-4-excerpt": "Special coverage on milestones achieved by our portfolio companies, validating our focus on operational profitability.",
+        "news-4-link": "Read on Reforma",
         "error-code": "Error 404",
         "error-title": "Page not found",
         "error-description": "The route you tried to open does not exist or has not been created in the project yet.",
@@ -69,6 +94,31 @@ const diccionario = {
         "industry-surveillance": "VIGILANCIA",
         "industry-artificial-intelligence": "INTELIGENCIA<br />ARTIFICIAL",
         "industry-real-estate": "BIENES<br />RAÍCES",
+        "stat-partners": "Socios",
+        "stat-employees": "Empleados",
+        "stat-investments": "Inversiones",
+        "stat-success": "Éxito",
+        "news-section-title": "Noticias Recientes",
+        "news-1-alt": "Venture Capital en America Latina",
+        "news-1-category": "Industria",
+        "news-1-title": "Venture Capital gana terreno en America Latina",
+        "news-1-excerpt": "Jose Carlos Mapelli Mozzi, presidente del Consejo de Falcon Ventures, analiza el crecimiento de la inversion en startups y el papel clave de Mexico.",
+        "news-1-link": "Leer en Reforma",
+        "news-2-alt": "Zascita Empresa Excepcional",
+        "news-2-category": "Portafolio",
+        "news-2-title": "Zascita de Mexico recibe reconocimiento como \"Empresa Excepcional\"",
+        "news-2-excerpt": "El Consejo Coordinador Empresarial galardona a Zascita, empresa de nuestro portafolio que experimento un crecimiento del 180%.",
+        "news-2-link": "Leer en Mundo Ejecutivo",
+        "news-3-alt": "Galardon en Seguridad Privada",
+        "news-3-category": "Impacto",
+        "news-3-title": "Galardonan a firma del portafolio en el sector de seguridad privada",
+        "news-3-excerpt": "Destacan la influencia positiva del venture capital en la region: la inversion estrategica de Falcon Ventures acelero la expansion de Zascita.",
+        "news-3-link": "Leer en El Heraldo",
+        "news-4-alt": "Reconocimiento a Compania",
+        "news-4-category": "Reconocimiento",
+        "news-4-title": "Reconocen a compania de Falcon Ventures",
+        "news-4-excerpt": "Cobertura especial sobre los hitos alcanzados por las empresas de nuestro portafolio, validando nuestro enfoque en la rentabilidad operativa.",
+        "news-4-link": "Leer en Reforma",
         "error-code": "Error 404",
         "error-title": "Página no encontrada",
         "error-description": "La ruta que intentaste abrir no existe o todavía no fue creada dentro del proyecto.",
@@ -113,6 +163,16 @@ function traducirPagina() {
 
         if (traducciones[clave]) {
             el.placeholder = traducciones[clave];
+        }
+    });
+
+    const alts = document.querySelectorAll('[data-i18n-alt]');
+
+    alts.forEach(el => {
+        const clave = el.getAttribute('data-i18n-alt');
+
+        if (traducciones[clave]) {
+            el.alt = traducciones[clave];
         }
     });
 

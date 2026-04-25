@@ -861,6 +861,177 @@ main, .error-container, .content-wrapper {
 /* =========================================
    9. RESPONSIVIDAD SECCIÓN DE DATOS
    ========================================= */
+
+   /* =========================================
+   10. SECCIÓN DE NOTICIAS (GRILLA)
+   ========================================= */
+.news-section {
+    padding: 80px 5%;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.news-header {
+    text-align: center;
+    margin-bottom: 60px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.news-grid {
+    display: grid;
+    /* Auto-fill permite que las columnas se adapten solas al ancho disponible */
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 40px;
+}
+
+/* Tarjeta Individual */
+.news-card {
+    background: #ffffff;
+    border: 1px solid rgba(101, 120, 154, 0.15);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.02);
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.news-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(101, 120, 154, 0.12);
+    border-color: rgba(101, 120, 154, 0.3);
+}
+
+/* Imagen de la noticia (o placeholder) */
+.news-image {
+    width: 100%;
+    height: 200px;
+    background-color: #e2e8f0;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Efecto de zoom sutil en la imagen al hacer hover */
+.news-card:hover .news-image {
+    filter: brightness(1.05);
+}
+
+/* Gradientes placeholders para que se vea profesional sin imágenes reales */
+.bg-gradient-1 { background: linear-gradient(135deg, #0f172a, #334155); }
+.bg-gradient-2 { background: linear-gradient(135deg, #1e293b, #65789A); }
+.bg-gradient-3 { background: linear-gradient(135deg, #334155, #94a3b8); }
+.bg-gradient-4 { background: linear-gradient(135deg, #0f172a, #475569); }
+.bg-gradient-5 { background: linear-gradient(135deg, #1e293b, #475569); }
+
+/* Contenido de la tarjeta */
+.news-content {
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1; /* Permite que el botón quede siempre abajo */
+}
+
+.news-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    font-size: 0.8rem;
+    font-weight: 700;
+}
+
+.news-date {
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.news-category {
+    color: #65789A;
+    background: rgba(101, 120, 154, 0.1);
+    padding: 4px 12px;
+    border-radius: 20px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.news-title {
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: #0f172a;
+    line-height: 1.4;
+    margin-bottom: 15px;
+    letter-spacing: -0.5px;
+}
+
+.news-excerpt {
+    font-size: 0.95rem;
+    color: #64748b;
+    line-height: 1.6;
+    margin-bottom: 25px;
+    flex-grow: 1; /* Empuja el enlace hacia el fondo */
+}
+
+.news-link {
+    color: #0f172a;
+    font-weight: 800;
+    font-size: 0.9rem;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    transition: color 0.3s ease;
+    align-self: flex-start;
+}
+
+.news-link::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: #65789A;
+    transition: width 0.3s ease;
+}
+
+.news-card:hover .news-link {
+    color: #65789A;
+}
+
+.news-card:hover .news-link::after {
+    width: 100%;
+}
+
+.news-image {
+    width: 100%;
+    height: 200px;
+    background-color: #f1f5f9; /* Color gris claro mientras carga la foto */
+    position: relative;
+    overflow: hidden;
+}
+
+/* Estilos directos a la etiqueta img */
+.news-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Evita que la imagen se estire o se aplaste */
+    display: block;
+    transition: transform 0.5s ease; /* Transición suave para el zoom */
+}
+
+/* Efecto de zoom sutil en la imagen al hacer hover en la tarjeta */
+.news-card:hover .news-image img {
+    transform: scale(1.05);
+}
+
+
+
 @media (max-width: 1024px) {
     .stats-glass-panel {
         grid-template-columns: repeat(2, 1fr);
@@ -892,4 +1063,19 @@ main, .error-container, .content-wrapper {
     .stat-num {
         font-size: 3.5rem;
     }
+
+    .news-section {
+        padding: 60px 20px;
+    }
+    .news-grid {
+        grid-template-columns: 1fr; /* Una sola columna en móviles */
+        gap: 30px;
+    }
+    .news-image {
+        height: 180px;
+    }
+    .news-content {
+        padding: 24px;
+    }
+
 }
