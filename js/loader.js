@@ -12,6 +12,14 @@ const rutas = {
 
 const pagina404 = '/pages/404.html';
 
+function obtenerTitulo404Fallback() {
+    const idiomaGuardado = localStorage.getItem('idioma') || 'en';
+
+    return idiomaGuardado === 'es'
+        ? 'Error 404: Pagina no encontrada'
+        : 'Error 404: Page not found';
+}
+
 function obtenerRutaActual() {
     if (!window.location.hash) {
         return window.location.pathname === '/' ? '/' : window.location.pathname;
@@ -162,11 +170,11 @@ async function mostrar404(appRoot) {
         if (respuesta.ok) {
             appRoot.innerHTML = await respuesta.text();
         } else {
-            appRoot.innerHTML = `<h1 style="text-align:center; padding: 50px;">Error 404: Pagina no encontrada</h1>`;
+            appRoot.innerHTML = `<h1 style="text-align:center; padding: 50px;">${obtenerTitulo404Fallback()}</h1>`;
         }
     } catch (error) {
         console.error("Error cargando la pagina 404:", error);
-        appRoot.innerHTML = `<h1 style="text-align:center; padding: 50px;">Error 404: Pagina no encontrada</h1>`;
+        appRoot.innerHTML = `<h1 style="text-align:center; padding: 50px;">${obtenerTitulo404Fallback()}</h1>`;
     }
 
     await cargarComponentes();
