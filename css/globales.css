@@ -27,7 +27,7 @@ a, button, input, select, textarea {
     touch-action: manipulation;
 }
 
-main, section, .error-container, .content-wrapper, .container-main {
+main, .error-container, .content-wrapper {
     margin-top: 80px; 
 }
 
@@ -197,9 +197,10 @@ main, section, .error-container, .content-wrapper, .container-main {
    5. SECCIÓN ACERCA DE (ESTRUCTURA GENERAL)
    ========================================= */
 .about-section {
-    padding: 100px 5% 80px; 
+    padding: 48px 5% 36px; 
     max-width: 1400px; 
     margin: 0 auto;
+    margin-top: 0 !important;
 }
 
 .about-top-wrapper {
@@ -456,7 +457,7 @@ main, section, .error-container, .content-wrapper, .container-main {
    ========================================= */
 .footer {
     background: #ffffff;
-    padding: 100px 5% 40px;
+    padding: 48px 5% 0;
     border-top: 1px solid #f1f5f9;
     position: relative;
     z-index: 10;
@@ -610,11 +611,14 @@ main, section, .error-container, .content-wrapper, .container-main {
 
 .footer-bottom {
     text-align: center;
+    background-color: #1e293b;
     margin-top: 100px;
-    padding-top: 30px;
-    border-top: 1px solid #f1f5f9;
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+    padding: 30px 5% 30px;
+    width: 100vw;
     font-size: 0.8rem;
-    color: #94a3b8;
+    color: #ffffff;
 }
 
 /* =========================================
@@ -637,7 +641,7 @@ main, section, .error-container, .content-wrapper, .container-main {
 }
 
 @media (max-width: 768px) {
-    main, section, .error-container, .content-wrapper, .container-main {
+    main, .error-container, .content-wrapper {
         margin-top: 70px; 
     }
 
@@ -680,7 +684,10 @@ main, section, .error-container, .content-wrapper, .container-main {
         padding: 15px 0;
     }
 
-    .about-section { padding: 60px 20px; }
+    .about-section {
+        padding: 36px 20px 28px;
+        margin-top: 0 !important;
+    }
     
     .about-top-wrapper {
         gap: 24px;
