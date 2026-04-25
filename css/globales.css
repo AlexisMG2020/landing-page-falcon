@@ -712,3 +712,184 @@ main, .error-container, .content-wrapper {
     .industry-grid { grid-template-columns: 1fr; gap: 20px; }
     .industry-card { height: 230px; } 
 }
+
+/* =========================================
+   8. SECCIÓN DE DATOS - ESTILO PREMIUM GLASSMORPHISM ANIMADO
+   ========================================= */
+.premium-data-section {
+    position: relative;
+    width: 100%;
+    min-height: 60vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 100px 5%;
+    margin-top: 0 !important;
+    overflow: hidden;
+}
+
+.data-bg-image {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+}
+
+.data-bg-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.data-bg-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(15, 23, 42, 0.85) 0%, rgba(15, 23, 42, 0.4) 100%);
+    z-index: 2;
+}
+
+.data-content-wrapper {
+    position: relative;
+    z-index: 3;
+    width: 100%;
+    max-width: 1200px;
+    /* Animación de entrada de la tarjeta completa */
+    opacity: 0;
+    transform: translateY(30px);
+    animation: glassFloatIn 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.stats-glass-panel {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    background: rgba(15, 23, 42, 0.6); 
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(101, 120, 154, 0.3);
+    border-radius: 12px;
+    padding: 60px 40px;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
+    position: relative;
+    overflow: hidden; /* Necesario para el efecto shimmer */
+}
+
+/* Efecto Shimmer (Destello) cruzando el cristal */
+.stats-glass-panel::before {
+    content: '';
+    position: absolute;
+    top: 0; 
+    left: -100%;
+    width: 40%; 
+    height: 100%;
+    background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.05), transparent);
+    transform: skewX(-25deg);
+    animation: cyberShimmer 7s infinite ease-in-out;
+    pointer-events: none;
+}
+
+.stat-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    /* Preparación para la animación en cascada */
+    opacity: 0;
+    transform: translateY(20px);
+    animation: statPopIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Tiempos en cascada para cada elemento */
+.stat-box:nth-child(1) { animation-delay: 0.4s; }
+.stat-box:nth-child(2) { animation-delay: 0.6s; }
+.stat-box:nth-child(3) { animation-delay: 0.8s; }
+.stat-box:nth-child(4) { animation-delay: 1.0s; }
+
+.stat-box:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 15%;
+    height: 70%;
+    width: 1px;
+    background: linear-gradient(to bottom, transparent, rgba(101, 120, 154, 0.5), transparent);
+}
+
+.stat-num {
+    font-size: clamp(3rem, 5vw, 4.5rem);
+    font-weight: 800;
+    color: #ffffff;
+    line-height: 1;
+    margin-bottom: 16px;
+    letter-spacing: -2px;
+    transition: all 0.4s ease; /* Transición suave para el hover */
+}
+
+.stat-text {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #65789A;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    white-space: nowrap; 
+}
+
+/* Efecto hover suave en los números (sin esconder información) */
+.stat-box:hover .stat-num {
+    transform: scale(1.05) translateY(-5px);
+    text-shadow: 0 0 25px rgba(255, 255, 255, 0.5), 0 0 45px rgba(101, 120, 154, 0.8);
+    color: #ffffff;
+}
+
+/* --- KEYFRAMES DE ANIMACIÓN --- */
+@keyframes glassFloatIn {
+    0% { opacity: 0; transform: translateY(30px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes statPopIn {
+    0% { opacity: 0; transform: translateY(20px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes cyberShimmer {
+    0% { left: -100%; }
+    15% { left: 200%; }
+    100% { left: 200%; } /* El espacio largo crea una pausa entre destellos */
+}
+
+/* =========================================
+   9. RESPONSIVIDAD SECCIÓN DE DATOS
+   ========================================= */
+@media (max-width: 1024px) {
+    .stats-glass-panel {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 50px 0;
+        padding: 50px 30px;
+    }
+    
+    .stat-box:nth-child(2)::after {
+        display: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .premium-data-section {
+        padding: 80px 20px;
+    }
+
+    .stats-glass-panel {
+        grid-template-columns: 1fr;
+        gap: 40px 0;
+        padding: 40px 20px;
+        background: rgba(15, 23, 42, 0.8); 
+    }
+
+    .stat-box::after {
+        display: none;
+    }
+    
+    .stat-num {
+        font-size: 3.5rem;
+    }
+}
