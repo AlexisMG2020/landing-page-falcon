@@ -1,0 +1,156 @@
+/* portfolio.css - Compact & Unified High-Tech Edition */
+
+.portfolio-page {
+    animation: fadeInContainer 0.8s ease-out;
+}
+
+@keyframes fadeInContainer {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Reducción de separación entre cabecera y contenido */
+.about-top-wrapper {
+    margin-bottom: 30px !important; 
+    padding-bottom: 20px !important;
+}
+
+/* Grilla de Portafolio más junta */
+.independent-portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px; /* Reducido de 25px */
+    margin-top: 20px; /* Reducido de 40px */
+}
+
+/* Tarjeta Compacta */
+.portfolio-item-independent {
+    position: relative;
+    background: #ffffff;
+    border-radius: 4px;
+    padding: 10px;
+    border: 1px solid rgba(101, 120, 154, 0.15);
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.portfolio-image-wrapper {
+    position: relative;
+    width: 100%;
+    height: 200px; /* Un poco más pequeña para mayor cohesión */
+    background: #f8fafc;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    border: 1px solid rgba(101, 120, 154, 0.05);
+}
+
+.portfolio-image-wrapper img {
+    max-width: 280px; /* Ajuste para que no sature el contenedor */
+    height: auto;         
+    transition: all 0.5s ease;
+}
+
+.portfolio-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.9);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.case-study-box {
+    color: #ffffff;
+    font-size: 0.65rem;
+    font-weight: 800;
+    letter-spacing: 3px;
+    padding: 8px 16px;
+    border: 1px solid #65789A;
+}
+
+/* Hover */
+.portfolio-item-independent:hover {
+    border-color: #65789A;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(101, 120, 154, 0.08);
+}
+
+.portfolio-item-independent:hover .portfolio-overlay {
+    opacity: 1;
+}
+
+.portfolio-info {
+    margin-top: 12px;
+    padding: 0 5px;
+}
+
+.project-name {
+    font-size: 0.85rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    color: #0f172a;
+}
+
+/* --- SECCIÓN DE COMENTARIOS (JUNTOS) --- */
+.portfolio-testimonials {
+    margin-top: 30px; /* Reducido drásticamente de 60px */
+    padding-top: 30px;
+    border-top: 1px solid rgba(101, 120, 154, 0.1);
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px; /* Comentarios más pegados */
+}
+
+.testimonial-item {
+    background: #f8fafc;
+    padding: 20px; /* Reducido de 25px */
+    border-left: 3px solid #65789A;
+}
+
+.testimonial-item p {
+    color: #475569;
+    font-size: 0.8rem; /* Un poco más compacto */
+    line-height: 1.5;
+    margin-bottom: 10px;
+}
+
+.testimonial-item cite {
+    color: #0f172a;
+    font-weight: 800;
+    font-size: 0.65rem;
+    text-transform: uppercase;
+}
+
+/* --- AJUSTES EDITORIAL SECTION --- */
+.editorial-news-section {
+    margin-bottom: 25px; /* Reducido de 40px */
+}
+
+.editorial-header {
+    margin-bottom: 15px !important; /* Reducido de 30px */
+}
+
+.editorial-empty-state {
+    padding: 20px 0 !important; /* Reducido de 40px */
+}
+
+.editorial-empty-title {
+    font-size: 1.8rem !important;
+}
+
+.editorial-accent-line {
+    margin-bottom: 15px !important;
+    height: 40px !important;
+}
+
+/* Mobile Fix */
+@media (max-width: 768px) {
+    .portfolio-testimonials {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+}
