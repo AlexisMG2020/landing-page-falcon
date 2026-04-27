@@ -1,0 +1,119 @@
+/* team.css - Integración Nativa con Globales */
+
+.team-page {
+    animation: fadeInContainer 0.8s ease-out;
+}
+
+@keyframes fadeInContainer {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Imagen General del Equipo */
+.team-main-image-container {
+    width: 100%;
+    margin-top: 25px;
+    background: #ffffff;
+    border: 1px solid rgba(101, 120, 154, 0.15);
+    padding: 10px;
+}
+
+.main-team-photo {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+    display: block;
+}
+
+/* Grillas Configurables */
+.team-grid {
+    display: grid;
+    gap: 25px;
+    margin-top: 20px;
+}
+
+.grid-3 { grid-template-columns: repeat(3, 1fr); }
+.grid-6 { grid-template-columns: repeat(3, 1fr); }
+
+/* Tarjetas de Miembros */
+.team-card {
+    background: #ffffff;
+    border: 1px solid rgba(101, 120, 154, 0.12);
+    padding: 25px; /* Más espacio para las redes */
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.team-card:hover {
+    border-color: #65789A;
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(101, 120, 154, 0.08);
+}
+
+.member-photo-wrapper {
+    width: 100%;
+    aspect-ratio: 1/1;
+    background: #f8fafc;
+    overflow: hidden;
+    margin-bottom: 15px;
+}
+
+.member-photo-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Tipografía */
+.member-name {
+    font-size: 1.05rem;
+    font-weight: 800;
+    color: #0f172a;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+}
+
+.member-role {
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: #65789A;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.member-bio {
+    font-size: 0.85rem;
+    line-height: 1.6;
+    color: #475569;
+    margin-bottom: 20px;
+    flex-grow: 1; /* Empuja las redes al fondo de la tarjeta */
+}
+
+/* REUTILIZACIÓN DE REDES SOCIALES (GLOBALES.CSS) */
+.team-card .footer-social {
+    justify-content: flex-start !important; /* Alineado a la izquierda */
+    margin-top: auto;
+    padding-top: 15px;
+    border-top: 1px solid rgba(101, 120, 154, 0.1);
+    background: transparent !important;
+}
+
+.team-card .social-link {
+    width: 38px !important; /* Un poco más pequeños que en el footer */
+    height: 38px !important;
+    font-size: 0.95rem !important;
+}
+
+/* Adaptación para celular */
+@media (max-width: 992px) {
+    .grid-3, .grid-6 { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 600px) {
+    .grid-3, .grid-6 { grid-template-columns: 1fr; }
+    .main-team-photo { height: 250px; }
+}

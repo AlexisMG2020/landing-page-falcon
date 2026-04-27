@@ -119,6 +119,33 @@ main, .error-container, .content-wrapper {
     box-shadow: 0 4px 10px rgba(101, 120, 154, 0.3);
 }
 
+.nav-consultoria {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 38px;
+    padding: 8px 18px;
+    border-radius: 999px;
+    border: 1.5px solid rgba(101, 120, 154, 0.45);
+    color: #475569;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    background: rgba(255, 255, 255, 0.72);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease, color 0.3s ease, background-color 0.3s ease;
+}
+
+.nav-consultoria:hover {
+    color: #ffffff;
+    border-color: #65789A;
+    background: #65789A;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 22px rgba(101, 120, 154, 0.28);
+}
+
 /* =========================================
    3. BOTÓN HAMBURGUESA
    ========================================= */
@@ -641,6 +668,48 @@ main, .error-container, .content-wrapper {
     margin: 4px 0 8px;
 }
 
+.footer-divider-block {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-top: 6px;
+}
+
+.footer-divider-block::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, rgba(142, 162, 200, 0.55), rgba(142, 162, 200, 0.08));
+}
+
+.footer-mini-title {
+    display: inline-flex;
+    align-items: center;
+    white-space: nowrap;
+    font-size: 0.74rem;
+    font-weight: 800;
+    letter-spacing: 2.2px;
+    text-transform: uppercase;
+    color: #d9e4f8;
+}
+
+.footer-lang-switch {
+    margin: 2px 0 10px;
+}
+
+.footer-lang-btn {
+    color: #dbe6fb;
+    border-color: rgba(184, 199, 227, 0.55);
+    background: rgba(255, 255, 255, 0.03);
+}
+
+.footer-lang-btn:hover {
+    background: #8ea2c8;
+    border-color: #8ea2c8;
+    color: #0f172a;
+    box-shadow: 0 10px 24px rgba(142, 162, 200, 0.28);
+}
+
 /* =========================================
    REDISEÑO: ELEGANCIA Y EQUILIBRIO (SIN CHOQUES)
    ========================================= */
@@ -986,6 +1055,26 @@ main, .error-container, .content-wrapper {
 }
 
 @media (max-width: 768px) {
+    .nav-consultoria {
+        width: 100%;
+        justify-content: center;
+        padding: 12px 18px;
+        border: 1.5px solid rgba(101, 120, 154, 0.45);
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.92);
+        color: #475569;
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        box-shadow: 0 8px 20px rgba(15, 23, 42, 0.08);
+    }
+
+    .nav-consultoria:hover {
+        color: #ffffff;
+        border-color: #65789A;
+        background: #65789A;
+        box-shadow: 0 10px 22px rgba(101, 120, 154, 0.28);
+    }
+
     .footer {
         padding: 44px 20px 0;
     }
@@ -996,6 +1085,15 @@ main, .error-container, .content-wrapper {
 
     .footer-social {
         gap: 12px;
+    }
+
+    .footer-divider-block {
+        gap: 10px;
+    }
+
+    .footer-mini-title {
+        font-size: 0.7rem;
+        letter-spacing: 2px;
     }
 
     .footer-map iframe {
