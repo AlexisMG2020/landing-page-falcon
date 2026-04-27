@@ -547,9 +547,9 @@ main, .error-container, .content-wrapper {
    6. FOOTER PROFESIONAL
    ========================================= */
 .footer {
-    background: #ffffff;
-    padding: 48px 5% 0;
-    border-top: 1px solid #f1f5f9;
+    background: #1e293b;
+    padding: 56px 5% 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
     position: relative;
     z-index: 10;
     margin-top: 0 !important;
@@ -557,34 +557,44 @@ main, .error-container, .content-wrapper {
 
 .footer-container {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 60px;
+    grid-template-columns: minmax(320px, 1.05fr) minmax(320px, 0.95fr);
+    gap: 56px;
     max-width: 1300px;
     margin: 0 auto;
+    align-items: start;
+    padding-bottom: 8px;
+}
+
+.footer-section {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
 }
 
 .footer-brand {
-    font-size: 1.6rem;
+    font-size: 2rem;
     font-weight: 800;
-    color: #0f172a;
-    margin-bottom: 8px;
+    color: #f8fafc;
+    margin-bottom: 4px;
+    letter-spacing: -0.02em;
 }
 
 .footer-subtitle {
     font-size: 0.75rem;
-    color: #65789A;
+    color: #b8c7e3;
     font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 2.5px;
+    letter-spacing: 3px;
 }
 
 .footer-title {
     font-size: 0.9rem;
     font-weight: 800;
-    color: #0f172a;
+    color: #f8fafc;
     text-transform: uppercase;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
     position: relative;
+    letter-spacing: 1.4px;
 }
 
 .footer-title::after {
@@ -592,31 +602,43 @@ main, .error-container, .content-wrapper {
     position: absolute;
     left: 0;
     bottom: -10px;
-    width: 30px;
+    width: 34px;
     height: 2px;
-    background: #65789A;
+    background: #8ea2c8;
 }
 
 .footer-info {
     list-style: none;
-    margin-bottom: 25px;
+    margin-bottom: 6px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
 }
 
 .footer-info li {
     font-size: 0.95rem;
-    color: #64748b;
-    margin-bottom: 18px;
+    color: rgba(226, 232, 240, 0.84);
     display: flex;
     align-items: flex-start;
-    gap: 12px;
-    line-height: 1.5;
+    gap: 14px;
+    line-height: 1.6;
+}
+
+.footer-info .icon {
+    width: 20px;
+    min-width: 20px;
+    display: inline-flex;
+    justify-content: center;
+    margin-top: 2px;
+    font-style: normal;
 }
 
 .footer-social {
     display: flex;
-    gap: 12px;
+    align-items: center;
+    gap: 14px;
     flex-wrap: wrap;
-    margin-bottom: 25px;
+    margin: 4px 0 8px;
 }
 
 /* =========================================
@@ -753,19 +775,19 @@ main, .error-container, .content-wrapper {
 
 
 .social-link {
-    width: 40px;
-    height: 40px;
+    width: 44px;
+    height: 44px;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #f8fafc;
+    background: rgba(255, 255, 255, 0.96);
     color: #1e293b;
     text-decoration: none;
     border-radius: 50%;
-    font-size: 1rem;
+    font-size: 1.05rem;
     font-weight: 800;
     transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
-    border: 1px solid #e2e8f0;
+    border: 1px solid rgba(255, 255, 255, 0.4);
     position: relative;
     overflow: hidden;
 }
@@ -850,73 +872,88 @@ main, .error-container, .content-wrapper {
 }
 
 .footer-map {
-    border-radius: 15px;
+    border-radius: 18px;
     overflow: hidden;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
-    border: 1px solid #f1f5f9;
-    margin-top: 10px;
+    box-shadow: 0 18px 40px rgba(15, 23, 42, 0.28);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    margin-top: 8px;
+}
+
+.footer-map iframe {
+    display: block;
+    min-height: 255px;
 }
 
 .footer-form {
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 16px;
 }
 
 .footer-form input, 
 .footer-form textarea {
     width: 100%;
-    padding: 16px;
-    border: 1px solid #e2e8f0;
-    border-radius: 14px;
-    background: #fdfdfd;
+    padding: 17px 18px;
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.97);
     font-size: 0.95rem;
+    color: #0f172a;
     outline: none;
     transition: all 0.3s ease;
+    box-shadow: 0 14px 30px rgba(15, 23, 42, 0.08);
+}
+
+.footer-form input::placeholder,
+.footer-form textarea::placeholder {
+    color: #64748b;
 }
 
 .footer-form textarea {
     resize: vertical;
-    min-height: 140px;
+    min-height: 138px;
     max-width: 100%;
 }
 
 .footer-form input:focus, 
 .footer-form textarea:focus {
-    border-color: #65789A;
+    border-color: #8ea2c8;
     background: #ffffff;
-    box-shadow: 0 0 0 4px rgba(101, 120, 154, 0.05);
+    box-shadow: 0 0 0 4px rgba(142, 162, 200, 0.12), 0 16px 32px rgba(15, 23, 42, 0.14);
 }
 
 .btn-submit {
-    background: #0f172a;
+    background: #111827;
     color: #fff;
     border: none;
-    padding: 16px;
-    border-radius: 14px;
-    font-weight: 700;
+    padding: 17px;
+    border-radius: 16px;
+    font-weight: 800;
     cursor: pointer;
     width: 100%;
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 1.4px;
     transition: all 0.3s ease;
+    box-shadow: 0 18px 35px rgba(9, 14, 28, 0.3);
 }
 
 .btn-submit:hover {
-    background: #65789A;
+    background: #0b1222;
     transform: translateY(-2px);
-    box-shadow: 0 10px 20px rgba(101, 120, 154, 0.2);
+    box-shadow: 0 18px 30px rgba(9, 14, 28, 0.38);
 }
 
 .footer-bottom {
     text-align: center;
-    background-color: #1e293b;
-    margin-top: 100px;
+    background-color: #65789A;
+    margin-top: 72px;
     margin-left: calc(50% - 50vw);
     margin-right: calc(50% - 50vw);
-    padding: 30px 5% 30px;
+    padding: 24px 5%;
     width: 100vw;
-    font-size: 0.8rem;
+    font-size: 0.82rem;
+    line-height: 1.5;
+    letter-spacing: 0.01em;
     color: #ffffff;
 }
 
@@ -924,6 +961,15 @@ main, .error-container, .content-wrapper {
    7. DISEÑO RESPONSIVO (UNIFICADO)
    ========================================= */
 @media (max-width: 1024px) {
+    .footer-container {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+
+    .footer-bottom {
+        margin-top: 56px;
+    }
+
     .about-top-wrapper {
         grid-template-columns: 1fr;
         gap: 30px;
@@ -940,6 +986,28 @@ main, .error-container, .content-wrapper {
 }
 
 @media (max-width: 768px) {
+    .footer {
+        padding: 44px 20px 0;
+    }
+
+    .footer-brand {
+        font-size: 1.7rem;
+    }
+
+    .footer-social {
+        gap: 12px;
+    }
+
+    .footer-map iframe {
+        min-height: 220px;
+    }
+
+    .footer-form input,
+    .footer-form textarea,
+    .btn-submit {
+        border-radius: 16px;
+    }
+
     main, .error-container, .content-wrapper {
         margin-top: 70px; 
     }
