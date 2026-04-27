@@ -527,131 +527,136 @@ main, .error-container, .content-wrapper {
     margin-bottom: 25px;
 }
 
-/* --- PREMIUM ABOUT SECTION --- */
-.premium-about {
-    padding: 140px 5% 100px;
-    background: #ffffff;
-    overflow: hidden;
+/* =========================================
+   REDISEÑO: ELEGANCIA Y EQUILIBRIO (SIN CHOQUES)
+   ========================================= */
+
+.about-hero-modern {
+    padding: 100px 5% 120px;
+    background-color: #ffffff;
 }
 
-.p-container {
-    max-width: 1200px;
+.hero-container {
+    max-width: 1250px;
     margin: 0 auto;
 }
 
-/* Título Impactante */
-.p-main-title {
-    font-size: clamp(3rem, 7vw, 5rem);
+/* Título superior con mucho aire */
+.hero-header-text {
+    margin-bottom: 90px;
+}
+
+.main-display-title {
+    font-size: clamp(3rem, 6vw, 4.8rem);
     font-weight: 850;
     color: #0f172a;
-    line-height: 0.95;
-    letter-spacing: -3px;
-    margin-bottom: 80px;
+    line-height: 1;
+    letter-spacing: -2.5px;
 }
 
-.p-accent {
+.text-indigo {
     color: #65789A;
-    opacity: 0.8;
+    display: block; /* Hace que el color vaya abajo para mejor ritmo */
 }
 
-/* Grilla Principal */
-.p-content-grid {
+/* Layout de dos columnas limpias */
+.hero-main-layout {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1.1fr 0.9fr;
     gap: 100px;
     align-items: center;
 }
 
-/* Efecto Imagen */
-.p-image-wrapper {
+/* Estilo de Imagen */
+.hero-visual-frame {
     position: relative;
 }
 
-.p-image-card {
+.image-wrapper-border {
     position: relative;
     z-index: 2;
     border-radius: 4px;
     overflow: hidden;
-    box-shadow: 40px 40px 80px rgba(15, 23, 42, 0.1);
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.05);
 }
 
-.p-image-card img {
+.image-wrapper-border img {
     width: 100%;
     display: block;
-    transition: transform 0.6s ease;
+    transform: scale(1.01);
 }
 
-.p-image-card:hover img {
-    transform: scale(1.05);
-}
-
-/* El cuadro gris que ves en tu imagen lo hacemos más elegante */
-.p-image-decorator {
+.floating-accent-box {
     position: absolute;
-    top: -30px;
-    left: -30px;
-    width: 150px;
-    height: 150px;
-    border-top: 2px solid #65789A;
-    border-left: 2px solid #65789A;
+    top: -20px;
+    left: -20px;
+    width: 120px;
+    height: 120px;
+    border-top: 3px solid #65789A;
+    border-left: 3px solid #65789A;
     z-index: 1;
 }
 
-/* Texto y Jerarquía */
-.p-label-group {
+/* Estilo de Contenido */
+.content-tag {
     display: flex;
     align-items: center;
-    gap: 15px;
-    margin-bottom: 30px;
-}
-
-.p-line {
-    width: 40px;
-    height: 1px;
-    background: #65789A;
-}
-
-.p-label {
-    font-size: 0.8rem;
-    font-weight: 800;
-    letter-spacing: 4px;
-    color: #65789A;
-}
-
-.p-lead {
-    font-size: 1.8rem;
-    line-height: 1.3;
-    color: #334155;
-    font-weight: 400;
-    margin-bottom: 40px;
-}
-
-.p-dark-bold {
-    color: #0f172a;
-    font-weight: 700;
-}
-
-.p-body-text p {
-    font-size: 1.1rem;
-    line-height: 1.8;
-    color: #64748b;
+    gap: 12px;
     margin-bottom: 25px;
 }
 
-/* Subrayado elegante para keywords */
-.p-keyword {
-    color: #0f172a;
-    font-weight: 600;
-    box-shadow: inset 0 -8px 0 rgba(101, 120, 154, 0.1);
+.tag-line {
+    width: 30px;
+    height: 2px;
+    background: #65789A;
 }
 
-/* Móvil */
+.tag-text {
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 3px;
+    color: #65789A;
+}
+
+.content-headline {
+    font-size: 1.9rem;
+    line-height: 1.35;
+    color: #1e293b;
+    margin-bottom: 35px;
+    font-weight: 400;
+}
+
+.weight-700 {
+    font-weight: 700;
+    color: #0f172a;
+}
+
+.content-description p {
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: #64748b;
+    margin-bottom: 20px;
+}
+
+.inline-bold {
+    color: #1e293b;
+    font-weight: 600;
+    border-bottom: 1px solid rgba(101, 120, 154, 0.3);
+}
+
+.secondary-info {
+    font-size: 0.95rem !important;
+    opacity: 0.8;
+}
+
+/* Responsividad */
 @media (max-width: 992px) {
-    .p-content-grid {
+    .hero-main-layout {
         grid-template-columns: 1fr;
         gap: 60px;
     }
-    .p-main-title { font-size: 3.5rem; margin-bottom: 40px; }
+    .hero-header-text { margin-bottom: 50px; }
+    .main-display-title { font-size: 3rem; }
 }
 
 
