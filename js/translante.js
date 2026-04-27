@@ -70,9 +70,9 @@ const diccionario = {
     },
     es: {
         "nav-home": "Inicio",
-        "nav-about": "Nosotros",
+        "nav-about": "Acerca de",
         "nav-news": "Noticias",
-        "nav-portfolio": "Portafolio",
+        "nav-portfolio": "Cartera",
         "nav-team": "Equipo",
         "nav-contact": "Contacto",
         "about-kicker": "Acerca de Nosotros",
