@@ -1,45 +1,55 @@
-/* team.css - Integración Nativa con Globales */
+/* team.css - Diseño Premium y Proporcional */
 
 .team-page {
     animation: fadeInContainer 0.8s ease-out;
 }
 
 @keyframes fadeInContainer {
-    from { opacity: 0; transform: translateY(10px); }
+    from { opacity: 0; transform: translateY(15px); }
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* Imagen General del Equipo */
+/* --- SECCIÓN DE IMAGEN PRINCIPAL (HERO) --- */
 .team-main-image-container {
+    position: relative;
     width: 100%;
-    margin-top: 25px;
-    background: #ffffff;
-    border: 1px solid rgba(101, 120, 154, 0.15);
-    padding: 10px;
+    margin-top: 40px;
+    margin-bottom: 60px;
+    overflow: hidden;
+    border-radius: 24px; /* Bordes redondeados modernos */
+    box-shadow: 0 25px 50px -12px rgba(15, 23, 42, 0.15); /* Sombra de profundidad */
+    background: #f8fafc; /* Fondo neutro para evitar espacios vacíos */
 }
 
 .main-team-photo {
     width: 100%;
-    height: 400px;
-    object-fit: cover;
+    height: auto; /* Permite que la imagen mantenga su proporción original */
+    max-height: 650px; /* Evita que crezca demasiado en pantallas gigantes */
+    object-fit: contain; /* Muestra la imagen completa sin recortes */
     display: block;
+    transition: transform 1.2s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
-/* Grillas Configurables */
+.team-main-image-container:hover .main-team-photo {
+    transform: scale(1.02); /* Zoom muy sutil */
+}
+
+/* --- GRILLAS Y ESTRUCTURA --- */
 .team-grid {
     display: grid;
-    gap: 25px;
-    margin-top: 20px;
+    gap: 32px;
+    margin-top: 30px;
+    margin-bottom: 50px;
 }
 
 .grid-3 { grid-template-columns: repeat(3, 1fr); }
-.grid-6 { grid-template-columns: repeat(3, 1fr); }
 
-/* Tarjetas de Miembros */
+/* --- TARJETAS DE MIEMBROS --- */
 .team-card {
     background: #ffffff;
-    border: 1px solid rgba(101, 120, 154, 0.12);
-    padding: 25px; /* Más espacio para las redes */
+    border: 1px solid rgba(101, 120, 154, 0.08);
+    border-radius: 16px;
+    padding: 32px;
     transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
     display: flex;
     flex-direction: column;
@@ -47,73 +57,97 @@
 }
 
 .team-card:hover {
-    border-color: #65789A;
-    transform: translateY(-5px);
-    box-shadow: 0 10px 25px rgba(101, 120, 154, 0.08);
+    border-color: rgba(101, 120, 154, 0.2);
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(101, 120, 154, 0.1);
 }
 
 .member-photo-wrapper {
     width: 100%;
-    aspect-ratio: 1/1;
-    background: #f8fafc;
+    aspect-ratio: 1 / 1;
+    background: #f1f5f9;
     overflow: hidden;
-    margin-bottom: 15px;
+    margin-bottom: 24px;
+    border-radius: 12px;
 }
 
 .member-photo-wrapper img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: cover; /* Las fotos individuales sí deben llenar el cuadro */
+    filter: grayscale(15%);
+    transition: all 0.5s ease;
 }
 
-/* Tipografía */
+.team-card:hover .member-photo-wrapper img {
+    filter: grayscale(0%);
+    transform: scale(1.05);
+}
+
+/* --- TIPOGRAFÍA --- */
 .member-name {
-    font-size: 1.05rem;
+    font-size: 1.15rem;
     font-weight: 800;
     color: #0f172a;
-    text-transform: uppercase;
-    margin-bottom: 5px;
+    letter-spacing: -0.01em;
+    margin-bottom: 6px;
 }
 
 .member-role {
-    font-size: 0.7rem;
+    font-size: 0.75rem;
     font-weight: 700;
     color: #65789A;
-    letter-spacing: 1px;
     text-transform: uppercase;
+    letter-spacing: 1.2px;
     display: block;
-    margin-bottom: 10px;
+    margin-bottom: 16px;
 }
 
 .member-bio {
-    font-size: 0.85rem;
-    line-height: 1.6;
+    font-size: 0.92rem;
+    line-height: 1.65;
     color: #475569;
-    margin-bottom: 20px;
-    flex-grow: 1; /* Empuja las redes al fondo de la tarjeta */
+    margin-bottom: 25px;
+    flex-grow: 1;
 }
 
-/* REUTILIZACIÓN DE REDES SOCIALES (GLOBALES.CSS) */
+/* --- REDES SOCIALES (Integración con Globales) --- */
 .team-card .footer-social {
-    justify-content: flex-start !important; /* Alineado a la izquierda */
+    display: flex;
+    gap: 12px;
+    justify-content: flex-start !important;
     margin-top: auto;
-    padding-top: 15px;
-    border-top: 1px solid rgba(101, 120, 154, 0.1);
+    padding-top: 20px;
+    border-top: 1px solid rgba(101, 120, 154, 0.08);
     background: transparent !important;
 }
 
 .team-card .social-link {
-    width: 38px !important; /* Un poco más pequeños que en el footer */
-    height: 38px !important;
-    font-size: 0.95rem !important;
+    width: 40px !important;
+    height: 40px !important;
+    background: #f8fafc !important;
+    color: #65789A !important;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    text-decoration: none;
 }
 
-/* Adaptación para celular */
-@media (max-width: 992px) {
-    .grid-3, .grid-6 { grid-template-columns: repeat(2, 1fr); }
+.team-card .social-link:hover {
+    background: #0f172a !important;
+    color: #ffffff !important;
+    transform: translateY(-3px);
 }
 
-@media (max-width: 600px) {
-    .grid-3, .grid-6 { grid-template-columns: 1fr; }
-    .main-team-photo { height: 250px; }
+/* --- RESPONSIVE --- */
+@media (max-width: 1024px) {
+    .grid-3 { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 640px) {
+    .grid-3 { grid-template-columns: 1fr; }
+    .team-main-image-container { border-radius: 16px; margin-top: 20px; }
+    .main-team-photo { max-height: 400px; }
 }
