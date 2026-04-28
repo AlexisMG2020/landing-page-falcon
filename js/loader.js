@@ -582,14 +582,59 @@ function inicializarValidacionFormularios() {
     }
 
     if (contactForm && contactForm.dataset.submitBound !== 'true') {
-        contactForm.addEventListener('submit', (event) => {
+        contactForm.addEventListener('submit', async (event) => {
             event.preventDefault();
 
             if (!validarFormulario(contactForm)) {
                 return;
             }
 
-            console.log('Formulario contacto listo para enviar');
+            const status = document.getElementById('contactFormStatus');
+            const submitButton = contactForm.querySelector('.btn-submit-premium');
+            const traducciones = typeof diccionario !== 'undefined'
+                ? (diccionario[localStorage.getItem('idioma') || 'en'] || diccionario.en)
+                : {};
+
+            if (status) {
+                status.textContent = traducciones['contact-form-sending'] || 'Sending message...';
+                status.className = 'form-status is-visible';
+            }
+
+            if (submitButton) {
+                submitButton.disabled = true;
+            }
+
+            try {
+                const formData = new FormData(contactForm);
+                const response = await fetch('/php/mensaje_contact.php', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const data = await response.json();
+
+                if (!response.ok || !data.ok) {
+                    throw new Error(data.message || 'Contact form request failed');
+                }
+
+                if (status) {
+                    status.textContent = traducciones['contact-form-success'] || 'Your message was sent successfully.';
+                    status.className = 'form-status is-visible is-success';
+                }
+
+                contactForm.reset();
+            } catch (error) {
+                console.error('Error enviando formulario contacto:', error);
+
+                if (status) {
+                    status.textContent = traducciones['contact-form-error'] || 'We could not send your message right now.';
+                    status.className = 'form-status is-visible is-error';
+                }
+            } finally {
+                if (submitButton) {
+                    submitButton.disabled = false;
+                }
+            }
         });
 
         contactForm.dataset.submitBound = 'true';
