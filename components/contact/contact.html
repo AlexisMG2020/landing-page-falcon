@@ -72,22 +72,22 @@
                     <div class="form-row">
                         <div class="form-group">
                             <label for="firstName" data-i18n="contact-first-name-label">Nombre</label>
-                            <input type="text" id="firstName" placeholder="Ej. Carlos" data-i18n-placeholder="contact-first-name-placeholder" data-error-key="validation-contact-first-name" required>
+                            <input type="text" id="firstName" placeholder="Ej. Carlos" data-i18n-placeholder="contact-first-name-placeholder" data-error-key="validation-contact-first-name" data-format="name" required>
                         </div>
                         <div class="form-group">
                             <label for="lastName" data-i18n="contact-last-name-label">Apellido</label>
-                            <input type="text" id="lastName" placeholder="Ej. Mendoza" data-i18n-placeholder="contact-last-name-placeholder" data-error-key="validation-contact-last-name" required>
+                            <input type="text" id="lastName" placeholder="Ej. Mendoza" data-i18n-placeholder="contact-last-name-placeholder" data-error-key="validation-contact-last-name" data-format="name" required>
                         </div>
                     </div>
                     
                     <div class="form-row">
                         <div class="form-group">
                             <label for="email" data-i18n="contact-email-field-label">Correo Electrónico</label>
-                            <input type="email" id="email" placeholder="correo@empresa.com" data-i18n-placeholder="contact-email-field-placeholder" data-error-key="validation-contact-email" required>
+                            <input type="email" id="email" placeholder="correo@empresa.com" data-i18n-placeholder="contact-email-field-placeholder" data-error-key="validation-contact-email" data-error-key-format="validation-email-invalid" required>
                         </div>
                         <div class="form-group">
                             <label for="phone" data-i18n="contact-phone-field-label">Teléfono (Opcional)</label>
-                            <input type="tel" id="phone" placeholder="+52 55 0000 0000" data-i18n-placeholder="contact-phone-field-placeholder">
+                            <input type="tel" id="phone" placeholder="+52 55 0000 0000" data-i18n-placeholder="contact-phone-field-placeholder" data-format="phone" data-error-key-format="validation-phone-invalid" inputmode="numeric" maxlength="10">
                         </div>
                     </div>
 

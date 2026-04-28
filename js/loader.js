@@ -376,15 +376,43 @@ function campoVacio(input) {
     return !input.value.trim();
 }
 
-function marcarCampo(input, invalido) {
+function esEmailValido(valor) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(valor);
+}
+
+function normalizarNombre(valor) {
+    return valor
+        .trim()
+        .toLocaleLowerCase()
+        .replace(/(^|[\s-])([a-záéíóúñ])/gi, (match, separator, letter) => {
+            return `${separator}${letter.toLocaleUpperCase()}`;
+        });
+}
+
+function obtenerClaveError(input, tipoError) {
+    if (tipoError === 'format' && input.dataset.errorKeyFormat) {
+        return input.dataset.errorKeyFormat;
+    }
+
+    return input.dataset.errorKey || 'validation-required';
+}
+
+function marcarCampo(input, invalido, tipoError = 'required') {
     const error = obtenerErrorCampo(input);
     const formGroup = input.closest('.form-group');
+    const footerGroup = input.closest('.footer-form-group');
 
     input.classList.toggle('is-invalid', invalido);
 
     if (formGroup) {
         formGroup.classList.toggle('form-group--invalid', invalido);
     }
+
+    if (footerGroup) {
+        footerGroup.classList.toggle('footer-form-group--invalid', invalido);
+    }
+
+    error.setAttribute('data-i18n-error', obtenerClaveError(input, tipoError));
 
     error.classList.toggle('is-visible', invalido);
 
@@ -394,9 +422,31 @@ function marcarCampo(input, invalido) {
 }
 
 function validarCampo(input) {
-    const invalido = input.hasAttribute('required') && campoVacio(input);
-    marcarCampo(input, invalido);
-    return !invalido;
+    const valor = input.value.trim();
+
+    if (input.hasAttribute('required') && campoVacio(input)) {
+        marcarCampo(input, true, 'required');
+        return false;
+    }
+
+    if (input.type === 'email' && valor && !esEmailValido(valor)) {
+        marcarCampo(input, true, 'format');
+        return false;
+    }
+
+    if (input.dataset.format === 'phone' && valor) {
+        const soloDigitos = valor.replace(/\D/g, '');
+
+        if (soloDigitos.length !== 10) {
+            marcarCampo(input, true, 'format');
+            return false;
+        }
+
+        input.value = soloDigitos;
+    }
+
+    marcarCampo(input, false);
+    return true;
 }
 
 function validarFormulario(form) {
@@ -432,6 +482,24 @@ function prepararFormulario(form) {
         const evento = campo instanceof HTMLSelectElement ? 'change' : 'input';
 
         campo.addEventListener(evento, () => {
+            if (campo.classList.contains('is-invalid')) {
+                validarCampo(campo);
+            }
+        });
+
+        campo.addEventListener('blur', () => {
+            if (campo.dataset.format === 'name' && campo.value.trim()) {
+                campo.value = normalizarNombre(campo.value);
+            }
+
+            validarCampo(campo);
+        });
+    });
+
+    form.querySelectorAll('[data-format="phone"]').forEach((campo) => {
+        campo.addEventListener('input', () => {
+            campo.value = campo.value.replace(/\D/g, '').slice(0, 10);
+
             if (campo.classList.contains('is-invalid')) {
                 validarCampo(campo);
             }
@@ -483,6 +551,34 @@ function inicializarValidacionFormularios() {
     }
 }
 
+function resetLoginState() {
+    const modal = document.getElementById('loginModal');
+    const form = document.getElementById('loginForm');
+
+    if (!modal || !form) {
+        return;
+    }
+
+    modal.classList.remove('login-modal--success');
+    form.reset();
+
+    form.querySelectorAll('.is-invalid').forEach((campo) => {
+        campo.classList.remove('is-invalid');
+    });
+
+    form.querySelectorAll('.form-group--invalid').forEach((group) => {
+        group.classList.remove('form-group--invalid');
+    });
+
+    form.querySelectorAll('.footer-form-group--invalid').forEach((group) => {
+        group.classList.remove('footer-form-group--invalid');
+    });
+
+    form.querySelectorAll('.field-error.is-visible').forEach((error) => {
+        error.classList.remove('is-visible');
+    });
+}
+
 /* =========================================
    6. CONTROL DEL MODAL DE LOGIN
    ========================================= */
@@ -503,6 +599,7 @@ window.openLogin = function() {
         loginModalScrollY = window.scrollY || window.pageYOffset || 0;
         document.body.classList.add('login-modal-open');
         document.body.style.top = `-${loginModalScrollY}px`;
+        resetLoginState();
         
         // Mostrar el modal
         modal.classList.add('is-visible');
@@ -544,5 +641,10 @@ window.handleLogin = function(event) {
     const email = document.getElementById('loginEmail').value;
     const password = document.getElementById('loginPassword').value;
     console.log("Credenciales para validar:", { email, password });
-    // Aquí es donde harás tu fetch() POST
+
+    const modal = document.getElementById('loginModal');
+
+    if (modal) {
+        modal.classList.add('login-modal--success');
+    }
 };

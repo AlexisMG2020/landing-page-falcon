@@ -180,6 +180,79 @@ body.login-modal-open {
     gap: 22px;
 }
 
+.login-success {
+    display: none;
+    opacity: 0;
+    transform: translateY(18px);
+}
+
+.login-modal.login-modal--success .login-header,
+.login-modal.login-modal--success .premium-form {
+    display: none;
+}
+
+.login-modal.login-modal--success .login-success {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    animation: cascadeUp 0.55s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.login-success__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #65789A;
+}
+
+.login-success__eyebrow::before {
+    content: "";
+    width: 28px;
+    height: 2px;
+    background: #65789A;
+}
+
+.login-success__title {
+    font-size: 2rem;
+    line-height: 1.05;
+    letter-spacing: -1.2px;
+    color: #0f172a;
+}
+
+.login-success__text {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #64748b;
+}
+
+.login-success__link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: fit-content;
+    min-width: 210px;
+    padding: 15px 20px;
+    border-radius: 14px;
+    background: #0f172a;
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 800;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+}
+
+.login-success__link:hover {
+    background: #1e293b;
+    transform: translateY(-2px);
+    box-shadow: 0 14px 28px rgba(15, 23, 42, 0.18);
+}
+
 .login-modal .form-group {
     display: flex;
     flex-direction: column;
@@ -383,6 +456,10 @@ body.login-modal-open {
         font-size: 1.8rem;
     }
 
+    .login-success__title {
+        font-size: 1.7rem;
+    }
+
     .login-modal__close-float {
         top: 15px;
         right: 15px;
@@ -439,6 +516,14 @@ body.login-modal-open {
 
     .login-modal .premium-form {
         gap: 16px;
+    }
+
+    .login-success__title {
+        font-size: 1.5rem;
+    }
+
+    .login-success__text {
+        font-size: 0.95rem;
     }
 
     .login-actions {
