@@ -68,22 +68,22 @@
                     <span class="editorial-label" data-i18n="contact-form-label">Envíenos un mensaje</span>
                 </div>
                 
-                <form class="premium-form">
+                <form class="premium-form" id="contactForm" novalidate>
                     <div class="form-row">
                         <div class="form-group">
                             <label for="firstName" data-i18n="contact-first-name-label">Nombre</label>
-                            <input type="text" id="firstName" placeholder="Ej. Carlos" data-i18n-placeholder="contact-first-name-placeholder" required>
+                            <input type="text" id="firstName" placeholder="Ej. Carlos" data-i18n-placeholder="contact-first-name-placeholder" data-error-key="validation-contact-first-name" required>
                         </div>
                         <div class="form-group">
                             <label for="lastName" data-i18n="contact-last-name-label">Apellido</label>
-                            <input type="text" id="lastName" placeholder="Ej. Mendoza" data-i18n-placeholder="contact-last-name-placeholder" required>
+                            <input type="text" id="lastName" placeholder="Ej. Mendoza" data-i18n-placeholder="contact-last-name-placeholder" data-error-key="validation-contact-last-name" required>
                         </div>
                     </div>
                     
                     <div class="form-row">
                         <div class="form-group">
                             <label for="email" data-i18n="contact-email-field-label">Correo Electrónico</label>
-                            <input type="email" id="email" placeholder="correo@empresa.com" data-i18n-placeholder="contact-email-field-placeholder" required>
+                            <input type="email" id="email" placeholder="correo@empresa.com" data-i18n-placeholder="contact-email-field-placeholder" data-error-key="validation-contact-email" required>
                         </div>
                         <div class="form-group">
                             <label for="phone" data-i18n="contact-phone-field-label">Teléfono (Opcional)</label>
@@ -93,7 +93,7 @@
 
                     <div class="form-group">
                         <label for="subject" data-i18n="contact-subject-label">Asunto</label>
-                        <select id="subject" required>
+                        <select id="subject" data-error-key="validation-contact-subject" required>
                             <option value="" disabled selected data-i18n="contact-subject-placeholder">Seleccione una opción...</option>
                             <option value="investment" data-i18n="contact-subject-investment">Oportunidad de Inversión</option>
                             <option value="consulting" data-i18n="contact-subject-consulting">Consultoría Estratégica</option>
@@ -104,7 +104,7 @@
 
                     <div class="form-group">
                         <label for="message" data-i18n="contact-message-label">Mensaje</label>
-                        <textarea id="message" rows="5" placeholder="¿En qué podemos ayudarle?" data-i18n-placeholder="contact-message-placeholder" required></textarea>
+                        <textarea id="message" rows="5" placeholder="¿En qué podemos ayudarle?" data-i18n-placeholder="contact-message-placeholder" data-error-key="validation-contact-message" required></textarea>
                     </div>
 
                     <button type="submit" class="btn-submit-premium">

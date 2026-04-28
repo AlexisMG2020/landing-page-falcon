@@ -53,10 +53,16 @@
 
         <div class="footer-section footer-section-form">
             <h3 class="footer-title" data-i18n="envia-mensaje">Envíanos un mensaje</h3>
-            <form class="footer-form">
-                <input type="text" name="name" placeholder="Tu nombre completo" data-i18n-placeholder="form-name-placeholder" required>
-                <input type="email" name="email" placeholder="Correo electrónico" data-i18n-placeholder="form-email-placeholder" required>
-                <textarea name="message" rows="4" placeholder="¿En qué podemos ayudarte?" data-i18n-placeholder="form-message-placeholder" required></textarea>
+            <form class="footer-form" id="footerForm" novalidate>
+                <div class="footer-form-group">
+                    <input type="text" name="name" placeholder="Tu nombre completo" data-i18n-placeholder="form-name-placeholder" data-error-key="validation-footer-name" required>
+                </div>
+                <div class="footer-form-group">
+                    <input type="email" name="email" placeholder="Correo electrónico" data-i18n-placeholder="form-email-placeholder" data-error-key="validation-footer-email" required>
+                </div>
+                <div class="footer-form-group">
+                    <textarea name="message" rows="4" placeholder="¿En qué podemos ayudarte?" data-i18n-placeholder="form-message-placeholder" data-error-key="validation-footer-message" required></textarea>
+                </div>
                 <button type="submit" class="btn-submit" data-i18n="form-submit">Enviar Mensaje</button>
             </form>
         </div>

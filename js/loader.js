@@ -184,6 +184,7 @@ async function cargarComponentes() {
 
     actualizarNavActivo();
     inicializarTeamModal();
+    inicializarValidacionFormularios();
 }
 
 async function mostrar404(appRoot) {
@@ -351,6 +352,137 @@ function manejarEscapeTeamModal(event) {
     }
 }
 
+function obtenerErrorCampo(input) {
+    let error = input.parentElement?.querySelector('.field-error');
+    const errorKey = input.dataset.errorKey || 'validation-required';
+
+    if (!error) {
+        error = document.createElement('span');
+        error.className = 'field-error';
+        error.setAttribute('data-i18n-error', errorKey);
+        input.insertAdjacentElement('afterend', error);
+    } else {
+        error.setAttribute('data-i18n-error', errorKey);
+    }
+
+    return error;
+}
+
+function campoVacio(input) {
+    if (input instanceof HTMLSelectElement) {
+        return !input.value;
+    }
+
+    return !input.value.trim();
+}
+
+function marcarCampo(input, invalido) {
+    const error = obtenerErrorCampo(input);
+    const formGroup = input.closest('.form-group');
+
+    input.classList.toggle('is-invalid', invalido);
+
+    if (formGroup) {
+        formGroup.classList.toggle('form-group--invalid', invalido);
+    }
+
+    error.classList.toggle('is-visible', invalido);
+
+    if (typeof traducirPagina === 'function') {
+        traducirPagina();
+    }
+}
+
+function validarCampo(input) {
+    const invalido = input.hasAttribute('required') && campoVacio(input);
+    marcarCampo(input, invalido);
+    return !invalido;
+}
+
+function validarFormulario(form) {
+    const campos = Array.from(form.querySelectorAll('[required]'));
+    let primerInvalido = null;
+
+    campos.forEach((campo) => {
+        const esValido = validarCampo(campo);
+
+        if (!esValido && !primerInvalido) {
+            primerInvalido = campo;
+        }
+    });
+
+    if (primerInvalido) {
+        primerInvalido.focus();
+        return false;
+    }
+
+    return true;
+}
+
+function prepararFormulario(form) {
+    if (!form || form.dataset.validationBound === 'true') {
+        return;
+    }
+
+    form.noValidate = true;
+
+    form.querySelectorAll('[required]').forEach((campo) => {
+        obtenerErrorCampo(campo);
+
+        const evento = campo instanceof HTMLSelectElement ? 'change' : 'input';
+
+        campo.addEventListener(evento, () => {
+            if (campo.classList.contains('is-invalid')) {
+                validarCampo(campo);
+            }
+        });
+
+        campo.addEventListener('blur', () => {
+            validarCampo(campo);
+        });
+    });
+
+    form.dataset.validationBound = 'true';
+}
+
+function inicializarValidacionFormularios() {
+    const footerForm = document.getElementById('footerForm');
+    const contactForm = document.getElementById('contactForm');
+    const loginForm = document.getElementById('loginForm');
+
+    prepararFormulario(footerForm);
+    prepararFormulario(contactForm);
+    prepararFormulario(loginForm);
+
+    if (footerForm && footerForm.dataset.submitBound !== 'true') {
+        footerForm.addEventListener('submit', (event) => {
+            event.preventDefault();
+
+            if (!validarFormulario(footerForm)) {
+                return;
+            }
+
+            console.log('Formulario footer listo para enviar');
+        });
+
+        footerForm.dataset.submitBound = 'true';
+    }
+
+    if (contactForm && contactForm.dataset.submitBound !== 'true') {
+        contactForm.addEventListener('submit', (event) => {
+            event.preventDefault();
+
+            if (!validarFormulario(contactForm)) {
+                return;
+            }
+
+            console.log('Formulario contacto listo para enviar');
+        });
+
+        contactForm.dataset.submitBound = 'true';
+    }
+}
+
 /* =========================================
    6. CONTROL DEL MODAL DE LOGIN
    ========================================= */
@@ -403,6 +535,12 @@ document.addEventListener('keydown', function(event) {
 // Manejar el envío del formulario (para tu lógica de backend posterior)
 window.handleLogin = function(event) {
     event.preventDefault(); // Evita recarga de página
+    const form = document.getElementById('loginForm');
+
+    if (!form || !validarFormulario(form)) {
+        return;
+    }
+
     const email = document.getElementById('loginEmail').value;
     const password = document.getElementById('loginPassword').value;
     console.log("Credenciales para validar:", { email, password });

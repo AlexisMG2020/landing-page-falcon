@@ -30,6 +30,17 @@ const diccionario = {
         "form-email-placeholder": "Email address",
         "form-message-placeholder": "How can we help you?",
         "form-submit": "Send Message",
+        "validation-required": "Required field",
+        "validation-footer-name": "Enter your name",
+        "validation-footer-email": "Enter your email",
+        "validation-footer-message": "Enter your message",
+        "validation-contact-first-name": "Enter your first name",
+        "validation-contact-last-name": "Enter your last name",
+        "validation-contact-email": "Enter your email",
+        "validation-contact-subject": "Select a subject",
+        "validation-contact-message": "Enter your message",
+        "validation-login-email": "Enter your email",
+        "validation-login-password": "Enter your password",
         "login-logo-alt": "Falcon Ventures Logo",
         "login-title": "Log In",
         "login-subtitle": "Enter your credentials to continue.",
@@ -185,6 +196,17 @@ const diccionario = {
         "form-email-placeholder": "Correo electrónico",
         "form-message-placeholder": "¿En qué podemos ayudarte?",
         "form-submit": "Enviar Mensaje",
+        "validation-required": "Campo obligatorio",
+        "validation-footer-name": "Ingresa tu nombre",
+        "validation-footer-email": "Ingresa tu correo electronico",
+        "validation-footer-message": "Ingresa tu mensaje",
+        "validation-contact-first-name": "Ingresa tu nombre",
+        "validation-contact-last-name": "Ingresa tu apellido",
+        "validation-contact-email": "Ingresa tu correo electronico",
+        "validation-contact-subject": "Selecciona un asunto",
+        "validation-contact-message": "Ingresa tu mensaje",
+        "validation-login-email": "Ingresa tu correo electronico",
+        "validation-login-password": "Ingresa tu contraseña",
         "login-logo-alt": "Logotipo de Falcon Ventures",
         "login-title": "Iniciar Sesión",
         "login-subtitle": "Introduce tus credenciales para continuar.",
@@ -359,6 +381,16 @@ function traducirPagina() {
 
         if (traducciones[clave]) {
             el.alt = traducciones[clave];
+        }
+    });
+
+    const errores = document.querySelectorAll('[data-i18n-error]');
+
+    errores.forEach(el => {
+        const clave = el.getAttribute('data-i18n-error');
+
+        if (traducciones[clave]) {
+            el.textContent = traducciones[clave];
         }
     });
 

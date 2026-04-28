@@ -259,6 +259,30 @@
     background: #ffffff;
 }
 
+.field-error {
+    display: none;
+    margin-top: 4px;
+    font-size: 0.72rem;
+    line-height: 1.15;
+    font-weight: 700;
+    color: #ef4444;
+}
+
+.field-error.is-visible {
+    display: block;
+}
+
+.form-group--invalid input,
+.form-group--invalid select,
+.form-group--invalid textarea,
+.form-group input.is-invalid,
+.form-group select.is-invalid,
+.form-group textarea.is-invalid {
+    border-color: rgba(239, 68, 68, 0.95);
+    background: #fff7f7;
+    box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.14);
+}
+
 /* Botón de Enviar */
 .btn-submit-premium {
     display: inline-flex;

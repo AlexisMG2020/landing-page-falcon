@@ -213,6 +213,26 @@ body.login-modal-open {
     transform: translateY(-2px);
 }
 
+.login-modal .field-error {
+    display: none;
+    margin-top: 4px;
+    font-size: 0.72rem;
+    line-height: 1.15;
+    font-weight: 700;
+    color: #ef4444;
+}
+
+.login-modal .field-error.is-visible {
+    display: block;
+}
+
+.login-modal .form-group--invalid input,
+.login-modal .form-group input.is-invalid {
+    border-color: rgba(239, 68, 68, 0.95);
+    background: #fff7f7;
+    box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.14);
+}
+
 .login-actions {
     display: flex;
     flex-direction: column;

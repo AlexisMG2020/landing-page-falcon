@@ -1009,6 +1009,12 @@ main, .error-container, .content-wrapper {
     gap: 12px;
 }
 
+.footer-form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
 .footer-section-form .footer-title {
     margin-bottom: 10px;
 }
@@ -1043,6 +1049,26 @@ main, .error-container, .content-wrapper {
     border-color: #8ea2c8;
     background: #ffffff;
     box-shadow: 0 0 0 4px rgba(142, 162, 200, 0.12), 0 16px 32px rgba(15, 23, 42, 0.14);
+}
+
+.footer-form .field-error {
+    display: none;
+    margin-top: 0;
+    font-size: 0.68rem;
+    line-height: 1.15;
+    font-weight: 700;
+    color: #ef4444;
+}
+
+.footer-form .field-error.is-visible {
+    display: block;
+}
+
+.footer-form input.is-invalid,
+.footer-form textarea.is-invalid {
+    border-color: #ef4444;
+    background: #fff7f7;
+    box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.14);
 }
 
 .btn-submit {
