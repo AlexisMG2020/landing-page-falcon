@@ -11,6 +11,7 @@ const rutas = {
 };
 
 const pagina404 = '/pages/404.html';
+let teamModalScrollY = 0;
 
 function obtenerTitulo404Fallback() {
     const idiomaGuardado = localStorage.getItem('idioma') || 'en';
@@ -233,21 +234,26 @@ function prepararModalTeam() {
         modal.innerHTML = `
             <div class="team-modal__backdrop" data-team-close="true"></div>
             <div class="team-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="team-modal-name">
-                <button type="button" class="team-modal__close" aria-label="Cerrar" data-team-close="true">
-                    <i class="bi bi-x-lg"></i>
-                </button>
-                <div class="team-modal__content">
-                    <div class="team-modal__media">
-                        <div class="team-modal__image-frame">
-                            <img class="team-modal__image" src="" alt="">
+                <div class="team-modal__topbar">
+                    <span class="team-modal__topbar-label">Perfil</span>
+                    <button type="button" class="team-modal__close" aria-label="Cerrar" data-team-close="true">
+                        <i class="bi bi-x-lg"></i>
+                    </button>
+                </div>
+                <div class="team-modal__scroll">
+                    <div class="team-modal__content">
+                        <div class="team-modal__media">
+                            <div class="team-modal__image-frame">
+                                <img class="team-modal__image" src="" alt="">
+                            </div>
                         </div>
-                    </div>
-                    <div class="team-modal__body">
-                        <span class="team-modal__eyebrow">Falcon Ventures</span>
-                        <h2 class="team-modal__name" id="team-modal-name"></h2>
-                        <div class="team-modal__role"></div>
-                        <p class="team-modal__bio"></p>
-                        <div class="team-modal__social"></div>
+                        <div class="team-modal__body">
+                            <span class="team-modal__eyebrow">Falcon Ventures</span>
+                            <h2 class="team-modal__name" id="team-modal-name"></h2>
+                            <div class="team-modal__role"></div>
+                            <p class="team-modal__bio"></p>
+                            <div class="team-modal__social"></div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -297,8 +303,10 @@ function abrirTeamModal(card) {
     modalSocial.innerHTML = social ? social.innerHTML : '';
     modalSocial.style.display = modalSocial.children.length ? 'flex' : 'none';
 
+    teamModalScrollY = window.scrollY || window.pageYOffset || 0;
     modal.classList.add('is-visible');
     document.body.classList.add('team-modal-open');
+    document.body.style.top = `-${teamModalScrollY}px`;
     window.requestAnimationFrame(() => {
         closeButton.focus();
     });
@@ -313,6 +321,8 @@ function cerrarTeamModal() {
 
     modal.classList.remove('is-visible');
     document.body.classList.remove('team-modal-open');
+    document.body.style.top = '';
+    window.scrollTo(0, teamModalScrollY);
 }
 
 function manejarEscapeTeamModal(event) {

@@ -241,6 +241,10 @@
 
 body.team-modal-open {
     overflow: hidden;
+    position: fixed;
+    width: 100%;
+    left: 0;
+    right: 0;
 }
 
 .team-modal {
@@ -273,7 +277,7 @@ body.team-modal-open {
     position: relative;
     width: min(980px, 100%);
     max-height: min(88vh, 920px);
-    overflow: auto;
+    overflow: hidden;
     border-radius: 28px;
     background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(244, 247, 251, 0.98));
     border: 1px solid rgba(101, 120, 154, 0.15);
@@ -281,6 +285,8 @@ body.team-modal-open {
     transform: translateY(34px) scale(0.97);
     opacity: 0;
     transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.35s ease;
+    display: flex;
+    flex-direction: column;
 }
 
 .team-modal.is-visible .team-modal__dialog {
@@ -288,10 +294,28 @@ body.team-modal-open {
     opacity: 1;
 }
 
+.team-modal__topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 18px 18px 10px 26px;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(249, 251, 253, 0.96));
+    border-bottom: 1px solid rgba(101, 120, 154, 0.08);
+    flex-shrink: 0;
+    z-index: 2;
+}
+
+.team-modal__topbar-label {
+    color: #65789A;
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+}
+
 .team-modal__close {
-    position: absolute;
-    top: 18px;
-    right: 18px;
+    position: relative;
     width: 46px;
     height: 46px;
     border: 1px solid rgba(101, 120, 154, 0.18);
@@ -302,11 +326,21 @@ body.team-modal-open {
     cursor: pointer;
     transition: transform 0.25s ease, background-color 0.25s ease;
     z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .team-modal__close:hover {
     transform: rotate(90deg);
     background: #ffffff;
+}
+
+.team-modal__scroll {
+    overflow: auto;
+    padding: 0;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
 }
 
 .team-modal__content {
@@ -468,6 +502,11 @@ body.team-modal-open {
 
     .team-modal__dialog {
         border-radius: 22px;
+        max-height: min(92vh, 920px);
+    }
+
+    .team-modal__topbar {
+        padding: 14px 14px 10px 18px;
     }
 
     .team-modal__content {
