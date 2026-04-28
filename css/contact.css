@@ -388,6 +388,65 @@
     }
 }
 
+@media (max-width: 932px) and (max-height: 500px) and (orientation: landscape) {
+    .contact-page {
+        min-height: auto;
+        justify-content: flex-start;
+        padding-bottom: 24px;
+    }
+
+    .contact-main-grid {
+        grid-template-columns: 0.95fr 1.05fr;
+        gap: 18px;
+        margin-bottom: 16px;
+    }
+
+    .contact-info-shell,
+    .contact-form-shell {
+        padding: 22px 18px;
+        border-radius: 20px;
+    }
+
+    .contact-info-shell .editorial-header,
+    .contact-form-shell .editorial-header {
+        margin-bottom: 18px;
+        padding-bottom: 12px;
+    }
+
+    .contact-details-list {
+        gap: 14px;
+        margin-bottom: 18px;
+    }
+
+    .contact-details-list li {
+        gap: 12px;
+        padding: 10px 0;
+    }
+
+    .contact-map-wrapper {
+        height: 160px;
+    }
+
+    .form-row {
+        grid-template-columns: 1fr 1fr;
+        gap: 14px;
+    }
+
+    .premium-form {
+        gap: 14px;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+        padding: 12px 14px;
+    }
+
+    .form-group textarea {
+        min-height: 96px;
+    }
+}
+
 @media (prefers-reduced-motion: reduce) {
     .contact-page::before,
     .contact-page::after,

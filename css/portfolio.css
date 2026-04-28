@@ -490,6 +490,38 @@
     }
 }
 
+@media (max-width: 932px) and (max-height: 500px) and (orientation: landscape) {
+    .portfolio-page {
+        min-height: auto;
+        padding-bottom: 24px;
+    }
+
+    .portfolio-current-shell,
+    .portfolio-past-shell,
+    .portfolio-testimonials-shell {
+        padding: 22px 18px;
+        margin-bottom: 24px;
+        border-radius: 20px;
+    }
+
+    .independent-portfolio-grid {
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 18px;
+    }
+
+    .portfolio-image-wrapper {
+        height: 180px;
+    }
+
+    .portfolio-current-header {
+        margin-bottom: 18px !important;
+    }
+
+    .editorial-empty-inner {
+        padding: 28px 18px;
+    }
+}
+
 @media (prefers-reduced-motion: reduce) {
     .reveal,
     .scale-up,

@@ -370,3 +370,67 @@ body.login-modal-open {
         height: 36px;
     }
 }
+
+@media (max-width: 932px) and (max-height: 500px) and (orientation: landscape) {
+    .login-modal {
+        padding: 12px 16px;
+        align-items: flex-start;
+    }
+
+    .login-modal__dialog {
+        width: min(940px, 100%);
+        min-height: auto;
+        max-height: 88vh;
+        flex-direction: row;
+    }
+
+    .login-modal__branding-side {
+        width: 38%;
+        padding: 24px 20px;
+        align-items: center;
+        text-align: center;
+        border-right: 1px solid rgba(101, 120, 154, 0.08);
+        border-bottom: none;
+    }
+
+    .login-logo-img {
+        max-width: 170px;
+    }
+
+    .login-modal__form-side {
+        width: 62%;
+        padding: 22px 22px 24px;
+        justify-content: flex-start;
+        overflow-y: auto;
+    }
+
+    .login-header {
+        margin-bottom: 18px;
+        text-align: left;
+    }
+
+    .login-title {
+        font-size: 1.65rem;
+    }
+
+    .login-subtitle {
+        font-size: 0.95rem;
+    }
+
+    .login-modal .premium-form {
+        gap: 16px;
+    }
+
+    .login-actions {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        gap: 14px;
+        margin-top: 8px;
+    }
+
+    .forgot-password {
+        text-align: left;
+        padding: 0;
+    }
+}
