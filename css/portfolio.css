@@ -177,32 +177,39 @@
     position: relative;
     height: 232px;
     border-radius: 14px;
-    background: linear-gradient(135deg, #f8fafc, #f1f5f9);
+    background: #ffffff !important; /* Fondo blanco puro para fundir el logo */
     display: flex;
     align-items: center;
     justify-content: center;
     overflow: hidden;
-    border: 1px solid rgba(15, 23, 42, 0.05);
+    border: 1px solid rgba(15, 23, 42, 0.08); /* Borde sutil */
 }
 
 .portfolio-image-wrapper img {
-    max-width: 65%;
+    max-width: 70%; /* Ajustado para mejor visibilidad */
     z-index: 5;
-    transition: transform 0.8s cubic-bezier(0.22, 1, 0.36, 1), filter 0.4s ease;
-    filter: drop-shadow(0 15px 20px rgba(0,0,0,0.1));
+    transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1); /* Suavizado */
+    
+    /* TRUCO MAESTRO: */
+    mix-blend-mode: multiply; 
+    filter: brightness(1.05) contrast(1.1); 
+    
+    /* Quitamos cualquier sombra que traiga la imagen original */
+    object-fit: contain;
 }
-
+/* Efecto Hover actualizado */
 .portfolio-item-independent:hover .portfolio-image-wrapper img {
-    transform: scale(1.08) translateY(-5px);
-    filter: drop-shadow(0 25px 30px rgba(0,0,0,0.15));
+    transform: scale(1.1) translateY(-5px);
+    filter: contrast(1.1) drop-shadow(0 20px 25px rgba(0,0,0,0.1));
 }
 
 /* Elementos UI / Cybernetic dentro de la imagen */
 .portfolio-image-orbit {
     position: absolute;
     border-radius: 50%;
-    border: 1px dashed rgba(101, 120, 154, 0.3);
+    border: 1px dashed rgba(101, 120, 154, 0.15); /* Más suave */
     animation: rotateSlow 20s linear infinite;
+    pointer-events: none;
 }
 .portfolio-image-orbit-a { width: 180px; height: 180px; }
 .portfolio-image-orbit-b { width: 260px; height: 260px; animation-direction: reverse; }
@@ -560,4 +567,10 @@
     .case-study-box {
         opacity: 1;
     }
+}
+
+.portfolio-image-ring, 
+.portfolio-image-glow, 
+.portfolio-image-gridline {
+    display: none;
 }
