@@ -551,10 +551,17 @@ function inicializarValidacionFormularios() {
                     body: formData
                 });
 
-                const data = await response.json();
+                const responseText = await response.text();
+                let data = null;
 
-                if (!response.ok || !data.ok) {
-                    throw new Error(data.message || 'Footer form request failed');
+                try {
+                    data = responseText ? JSON.parse(responseText) : null;
+                } catch (parseError) {
+                    throw new Error(`Respuesta no valida del servidor (${response.status})`);
+                }
+
+                if (!response.ok || !data || !data.ok) {
+                    throw new Error(data?.message || `Footer form request failed (${response.status})`);
                 }
 
                 if (status) {
@@ -610,10 +617,17 @@ function inicializarValidacionFormularios() {
                     body: formData
                 });
 
-                const data = await response.json();
+                const responseText = await response.text();
+                let data = null;
 
-                if (!response.ok || !data.ok) {
-                    throw new Error(data.message || 'Contact form request failed');
+                try {
+                    data = responseText ? JSON.parse(responseText) : null;
+                } catch (parseError) {
+                    throw new Error(`Respuesta no valida del servidor (${response.status})`);
+                }
+
+                if (!response.ok || !data || !data.ok) {
+                    throw new Error(data?.message || `Contact form request failed (${response.status})`);
                 }
 
                 if (status) {
