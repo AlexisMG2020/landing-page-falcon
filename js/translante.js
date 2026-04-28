@@ -1,6 +1,8 @@
-// 1. Nuestro Diccionario de Idiomas
+// Diccionario de Idiomas
 const diccionario = {
     en: {
+        "app-title": "Falcon Ventures: Private Equity",
+        "app-description": "Private Business Group investing in early or growth-stage security companies.",
         "nav-home": "Home",
         "nav-about": "About",
         "nav-news": "News",
@@ -14,6 +16,7 @@ const diccionario = {
         "hero-title": "Investing in a safe Future",
         "hero-subtitle": "Private Equity & Business Group",
         "investing-in-a-safe-Future": "Investing in a safe future",
+        "hero-bg-alt": "Safe Future",
         "about-page-title": "We look for a <span class=\"text-indigo\">safer world.</span>",
         "about-page-image-alt": "Strategic Oversight",
         "about-page-tag": "COMPANY PROFILE",
@@ -86,16 +89,19 @@ const diccionario = {
         "news-1-excerpt": "Jose Carlos Mapelli Mozzi, Chairman of Falcon Ventures, analyzes the growth of startup investment and Mexico's key role.",
         "news-1-link": "Read on Reforma",
         "news-2-alt": "Zascita Outstanding Company",
+        "news-2-date": "Feb 21, 2024",
         "news-2-category": "Portfolio",
         "news-2-title": "Zascita de Mexico receives recognition as an \"Outstanding Company\"",
         "news-2-excerpt": "The Business Coordinating Council honors Zascita, a portfolio company that achieved 180% growth.",
         "news-2-link": "Read on Mundo Ejecutivo",
         "news-3-alt": "Award in Private Security",
+        "news-3-date": "Feb 21, 2024",
         "news-3-category": "Impact",
         "news-3-title": "Portfolio company recognized in the private security sector",
         "news-3-excerpt": "They highlight venture capital's positive influence in the region: Falcon Ventures' strategic investment accelerated Zascita's expansion.",
         "news-3-link": "Read on El Heraldo",
         "news-4-alt": "Recognition for Company",
+        "news-4-date": "2024",
         "news-4-category": "Recognition",
         "news-4-title": "Falcon Ventures company receives recognition",
         "news-4-excerpt": "Special coverage on milestones achieved by our portfolio companies, validating our focus on operational profitability.",
@@ -179,6 +185,8 @@ const diccionario = {
         "error-back-home": "Back to home"
     },
     es: {
+        "app-title": "Falcon Ventures: Capital Privado",
+        "app-description": "Grupo privado de negocios que invierte en empresas de seguridad en etapa temprana o de crecimiento.",
         "nav-home": "Inicio",
         "nav-about": "Acerca de",
         "nav-news": "Noticias",
@@ -192,6 +200,7 @@ const diccionario = {
         "hero-title": "Invirtiendo en un futuro seguro",
         "hero-subtitle": "Grupo de Capital Privado y Negocios",
         "investing-in-a-safe-Future": "Invertir en un futuro seguro",
+        "hero-bg-alt": "Futuro seguro",
         "about-page-title": "Buscamos un <span class=\"text-indigo\">mundo más seguro.</span>",
         "about-page-image-alt": "Supervisión estratégica",
         "about-page-tag": "PERFIL DE LA EMPRESA",
@@ -264,16 +273,19 @@ const diccionario = {
         "news-1-excerpt": "Jose Carlos Mapelli Mozzi, presidente del Consejo de Falcon Ventures, analiza el crecimiento de la inversion en startups y el papel clave de Mexico.",
         "news-1-link": "Leer en Reforma",
         "news-2-alt": "Zascita Empresa Excepcional",
+        "news-2-date": "21 Feb 2024",
         "news-2-category": "Portafolio",
         "news-2-title": "Zascita de Mexico recibe reconocimiento como \"Empresa Excepcional\"",
         "news-2-excerpt": "El Consejo Coordinador Empresarial galardona a Zascita, empresa de nuestro portafolio que experimento un crecimiento del 180%.",
         "news-2-link": "Leer en Mundo Ejecutivo",
         "news-3-alt": "Galardon en Seguridad Privada",
+        "news-3-date": "21 Feb 2024",
         "news-3-category": "Impacto",
         "news-3-title": "Galardonan a firma del portafolio en el sector de seguridad privada",
         "news-3-excerpt": "Destacan la influencia positiva del venture capital en la region: la inversion estrategica de Falcon Ventures acelero la expansion de Zascita.",
         "news-3-link": "Leer en El Heraldo",
         "news-4-alt": "Reconocimiento a Compania",
+        "news-4-date": "2024",
         "news-4-category": "Reconocimiento",
         "news-4-title": "Reconocen a compania de Falcon Ventures",
         "news-4-excerpt": "Cobertura especial sobre los hitos alcanzados por las empresas de nuestro portafolio, validando nuestro enfoque en la rentabilidad operativa.",
@@ -365,14 +377,22 @@ let idiomaActual = localStorage.getItem('idioma') || 'en';
 function traducirPagina() {
     const traducciones = diccionario[idiomaActual] || diccionario.en;
 
+    document.documentElement.lang = idiomaActual;
+
+    if (traducciones["app-title"]) {
+        document.title = traducciones["app-title"];
+    }
+
+    const metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription && traducciones["app-description"]) {
+        metaDescription.setAttribute('content', traducciones["app-description"]);
+    }
+
     // Buscamos todas las etiquetas HTML que tengan el atributo 'data-i18n'
     const elementos = document.querySelectorAll('[data-i18n]');
     
     elementos.forEach(el => {
-        // Obtenemos la clave (ej. "nav-home")
         const clave = el.getAttribute('data-i18n'); 
-        
-        // Si esa clave existe en nuestro diccionario, cambiamos el texto
         if (traducciones[clave]) {
             el.textContent = traducciones[clave];
         }
@@ -418,7 +438,6 @@ function traducirPagina() {
         }
     });
 
-    // Cambiamos el texto del botón del idioma
     const btnIdioma = document.getElementById('btn-idioma');
     if(btnIdioma) {
         btnIdioma.textContent = idiomaActual === 'en' ? 'ESPAÑOL' : 'ENGLISH';

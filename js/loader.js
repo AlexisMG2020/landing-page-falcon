@@ -82,7 +82,6 @@ async function enrutador() {
         }
     }
 
-    // Una vez inyectada la página (ej. home.html), cargamos sus componentes internos
     await cargarComponentes();
     actualizarNavActivo();
 
