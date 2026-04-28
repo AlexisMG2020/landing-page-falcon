@@ -23,6 +23,30 @@ html, body {
     color: #1e293b; 
 }
 
+.scroll-progress {
+    position: fixed;
+    top: 80px;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: rgba(148, 163, 184, 0.16);
+    z-index: 9998;
+    pointer-events: none;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.scroll-progress-bar {
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: rgb(30, 41, 59);
+    box-shadow: 0 0 12px rgba(30, 41, 59, 0.28);
+    transform-origin: left center;
+    transform: scaleX(0);
+    transition: transform 0.12s ease-out;
+}
+
 a, button, input, select, textarea {
     touch-action: manipulation;
 }
@@ -1178,6 +1202,10 @@ main, .error-container, .content-wrapper {
         background-color: #ffffff !important;
     }
 
+    .scroll-progress {
+        top: 70px;
+    }
+
     .navbar-logo img {
         height: 40px;
     }
@@ -1337,6 +1365,10 @@ main, .error-container, .content-wrapper {
     .navbar {
         height: 64px;
         padding: 0.75rem 18px;
+    }
+
+    .scroll-progress {
+        top: 64px;
     }
 
     main, .error-container, .content-wrapper {

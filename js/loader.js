@@ -12,6 +12,7 @@ const rutas = {
 
 const pagina404 = '/pages/404.html';
 let teamModalScrollY = 0;
+let scrollProgressTicking = false;
 
 function obtenerTitulo404Fallback() {
     const idiomaGuardado = localStorage.getItem('idioma') || 'en';
@@ -46,6 +47,46 @@ function actualizarNavActivo() {
         } else {
             enlace.removeAttribute('aria-current');
         }
+    });
+}
+
+function actualizarProgresoScroll() {
+    const progressBar = document.getElementById('scroll-progress-bar');
+
+    if (!progressBar) {
+        return;
+    }
+
+    const doc = document.documentElement;
+    const body = document.body;
+    const scrollTop = window.scrollY || window.pageYOffset || doc.scrollTop || body.scrollTop || 0;
+    const scrollHeight = Math.max(
+        body.scrollHeight,
+        body.offsetHeight,
+        body.clientHeight,
+        doc.scrollHeight,
+        doc.offsetHeight,
+        doc.clientHeight
+    );
+    const viewportHeight = window.innerHeight || doc.clientHeight || 0;
+    const scrollTotal = Math.max(scrollHeight - viewportHeight, 0);
+    const progreso = scrollTotal > 0
+        ? Math.min(scrollTop / scrollTotal, 1)
+        : 0;
+
+    progressBar.style.transform = `scaleX(${progreso})`;
+}
+
+function programarActualizacionProgreso() {
+    if (scrollProgressTicking) {
+        return;
+    }
+
+    scrollProgressTicking = true;
+
+    window.requestAnimationFrame(() => {
+        actualizarProgresoScroll();
+        scrollProgressTicking = false;
     });
 }
 
@@ -90,6 +131,8 @@ async function enrutador() {
         left: 0,
         behavior: 'auto'
     });
+
+    programarActualizacionProgreso();
 }
 
 /* =========================================
@@ -128,8 +171,12 @@ window.addEventListener("popstate", enrutador);
 
 // Arranca el router apenas se abre la página
 document.addEventListener("DOMContentLoaded", () => {
+    actualizarProgresoScroll();
     enrutador(); 
 });
+
+window.addEventListener('scroll', programarActualizacionProgreso, { passive: true });
+window.addEventListener('resize', programarActualizacionProgreso);
 
 /* =========================================
    4. CONTROL DEL MENÚ MÓVIL
