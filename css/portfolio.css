@@ -148,6 +148,7 @@
     transition: var(--transition-smooth);
     position: relative;
     overflow: hidden;
+    isolation: isolate;
 }
 
 /* Línea decorativa superior */
@@ -183,6 +184,7 @@
     justify-content: center;
     overflow: hidden;
     border: 1px solid rgba(15, 23, 42, 0.08); /* Borde sutil */
+
 }
 
 .portfolio-image-wrapper img {
@@ -192,9 +194,10 @@
     
     /* TRUCO MAESTRO: */
     mix-blend-mode: multiply; 
-    filter: brightness(1.05) contrast(1.1); 
+    /* filter: brightness(1.05) contrast(1.1);  */
     
     /* Quitamos cualquier sombra que traiga la imagen original */
+    filter: contrast(1.1) brightness(1.02);
     object-fit: contain;
 }
 /* Efecto Hover actualizado */
@@ -251,19 +254,16 @@
 
 .case-study-box {
     position: absolute;
-    bottom: 15px;
-    left: 15px;
-    background: rgba(15, 23, 42, 0.9);
-    color: #fff;
-    font-size: 0.7rem;
-    font-weight: 700;
-    letter-spacing: 2px;
-    padding: 8px 16px;
-    border-radius: 30px;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.05);
+    backdrop-filter: blur(0px);
+    -webkit-backdrop-filter: blur(0px); /* Para iPhone */
+    display: flex;
+    align-items: center;
+    justify-content: center;
     z-index: 10;
-    transform: translateY(20px);
     opacity: 0;
-    transition: all 0.4s ease;
+    transition: all 0.5s ease;
 }
 
 .portfolio-item-independent:hover .case-study-box {
