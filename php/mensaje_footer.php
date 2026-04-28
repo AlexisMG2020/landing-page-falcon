@@ -114,84 +114,78 @@ function enviarCorreoSMTP(array $config, string $replyTo, string $nombre, string
 
         $htmlBody = "
         <!DOCTYPE html>
-        <html>
+        <html lang='es'>
         <head>
-            <style>
-                body { margin: 0; padding: 0; background-color: #ffffff; font-family: 'Segoe UI', Tahoma, sans-serif; -webkit-font-smoothing: antialiased; }
-                .email-wrapper { background-color: #f8fafc; padding: 60px 20px; }
-                .email-container { max-width: 620px; margin: 0 auto; background: #ffffff; border-radius: 32px; overflow: hidden; border: 1px solid #eef2f6; box-shadow: 0 40px 80px -20px rgba(15, 23, 42, 0.05); }
-                
-                .header { 
-                    padding: 55px 50px 45px; 
-                    background: #ffffff;
-                    text-align: left;
-                    border-bottom: 1px solid #f1f5f9;
-                }
-                .logo { height: 32px; width: auto; margin-bottom: 30px; }
-                .main-title { color: #0f172a; font-size: 24px; font-weight: 300; margin: 0; letter-spacing: -0.8px; }
-                .weight-800 { font-weight: 800; }
-
-                .content { padding: 50px; }
-                .data-table { width: 100%; border-collapse: collapse; margin-bottom: 10px; }
-                .label { font-size: 10px; font-weight: 800; color: #94a3b8; text-transform: uppercase; letter-spacing: 3px; padding-bottom: 12px; }
-                .value { font-size: 16px; color: #0f172a; font-weight: 500; padding-bottom: 35px; }
-                
-                /* DISEÑO ABIERTO SIN CUADRO (ESTILO IMAGEN) */
-                .message-container {
-                    margin-top: 10px;                    
-                }
-                .message-label {
-                    font-size: 10px;
-                    font-weight: 800;
-                    color: #65789A;
-                    text-transform: uppercase;
-                    letter-spacing: 3px;
-                    margin-bottom: 25px;
-                    display: block;
-                }
-                .message-text { 
-                    color: #334155; 
-                    font-size: 16px; 
-                    line-height: 1.9; 
-                    margin: 0;
-                    font-weight: 400;
-                }
-                
-                .footer { padding: 40px 50px; background: #ffffff; text-align: left; border-top: 1px solid #f1f5f9; }
-                .footer-brand { font-size: 13px; font-weight: 800; color: #0f172a; letter-spacing: 1px; text-transform: uppercase; }
-            </style>
+            <meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>
+            <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+            <title>$subject</title>
         </head>
-        <body>
-            <div class='email-wrapper'>
-                <div class='email-container'>
-                    <div class='header'>
-                        <img src='$logoUrl' alt='Falcon Ventures' class='logo'>
-                        <h1 class='main-title'>Nuevo <span class='weight-800'>Mensaje</span> Recibido</h1>
-                    </div>
-                    
-                    <div class='content'>
-                        <table class='data-table'>
-                            <tr><td class='label'>Fecha</td></tr>
-                            <tr><td class='value'>{$fechaHora['fecha']}</td></tr>
-                            <tr><td class='label'>Hora</td></tr>
-                            <tr><td class='value'>{$fechaHora['hora']} (Mexico City)</td></tr>
-                            <tr><td class='label'>Remitente</td></tr>
-                            <tr><td class='value'>$nombre</td></tr>
-                            <tr><td class='label'>Email de contacto</td></tr>
-                            <tr><td class='value'>$replyTo</td></tr>
+        <body style='margin:0; padding:0; background-color:#f8fafc;'>
+            <table role='presentation' cellpadding='0' cellspacing='0' border='0' width='100%' style='border-collapse:collapse; background-color:#f8fafc; mso-table-lspace:0pt; mso-table-rspace:0pt;'>
+                <tr>
+                    <td align='center' style='padding:32px 16px;'>
+                        <table role='presentation' cellpadding='0' cellspacing='0' border='0' width='620' style='width:620px; max-width:620px; border-collapse:collapse; background-color:#ffffff; border:1px solid #e2e8f0; mso-table-lspace:0pt; mso-table-rspace:0pt;'>
+                            <tr>
+                                <td style='padding:36px 40px 28px 40px; border-bottom:1px solid #e2e8f0;'>
+                                    <img src='$logoUrl' alt='Falcon Ventures' width='220' style='display:block; width:220px; max-width:100%; height:auto; border:0; margin:0 0 24px 0;'>
+                                    <div style='font-family:Segoe UI, Tahoma, Arial, sans-serif; font-size:28px; line-height:36px; color:#0f172a; font-weight:400;'>
+                                        Nuevo <strong style='font-weight:800;'>Mensaje</strong> Recibido
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style='padding:36px 40px 16px 40px;'>
+                                    <table role='presentation' cellpadding='0' cellspacing='0' border='0' width='100%' style='border-collapse:collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;'>
+                                        <tr>
+                                            <td style='padding:0 0 8px 0; font-family:Segoe UI, Tahoma, Arial, sans-serif; font-size:11px; line-height:16px; font-weight:700; color:#64748b; text-transform:uppercase; letter-spacing:1px;'>Fecha</td>
+                                        </tr>
+                                        <tr>
+                                            <td style='padding:0 0 24px 0; font-family:Segoe UI, Tahoma, Arial, sans-serif; font-size:16px; line-height:24px; color:#0f172a;'> {$fechaHora['fecha']} </td>
+                                        </tr>
+                                        <tr>
+                                            <td style='padding:0 0 8px 0; font-family:Segoe UI, Tahoma, Arial, sans-serif; font-size:11px; line-height:16px; font-weight:700; color:#64748b; text-transform:uppercase; letter-spacing:1px;'>Hora</td>
+                                        </tr>
+                                        <tr>
+                                            <td style='padding:0 0 24px 0; font-family:Segoe UI, Tahoma, Arial, sans-serif; font-size:16px; line-height:24px; color:#0f172a;'> {$fechaHora['hora']} (Mexico City)</td>
+                                        </tr>
+                                        <tr>
+                                            <td style='padding:0 0 8px 0; font-family:Segoe UI, Tahoma, Arial, sans-serif; font-size:11px; line-height:16px; font-weight:700; color:#64748b; text-transform:uppercase; letter-spacing:1px;'>Remitente</td>
+                                        </tr>
+                                        <tr>
+                                            <td style='padding:0 0 24px 0; font-family:Segoe UI, Tahoma, Arial, sans-serif; font-size:16px; line-height:24px; color:#0f172a;'>$nombre</td>
+                                        </tr>
+                                        <tr>
+                                            <td style='padding:0 0 8px 0; font-family:Segoe UI, Tahoma, Arial, sans-serif; font-size:11px; line-height:16px; font-weight:700; color:#64748b; text-transform:uppercase; letter-spacing:1px;'>Email de contacto</td>
+                                        </tr>
+                                        <tr>
+                                            <td style='padding:0 0 24px 0; font-family:Segoe UI, Tahoma, Arial, sans-serif; font-size:16px; line-height:24px; color:#2563eb;'>
+                                                <a href='mailto:$replyTo' style='color:#2563eb; text-decoration:underline;'>$replyTo</a>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style='padding:0 40px 36px 40px;'>
+                                    <table role='presentation' cellpadding='0' cellspacing='0' border='0' width='100%' style='border-collapse:collapse; border:1px solid #e2e8f0; background-color:#f8fafc; mso-table-lspace:0pt; mso-table-rspace:0pt;'>
+                                        <tr>
+                                            <td style='padding:18px 20px 10px 20px; font-family:Segoe UI, Tahoma, Arial, sans-serif; font-size:11px; line-height:16px; font-weight:700; color:#64748b; text-transform:uppercase; letter-spacing:1px;'>Mensaje</td>
+                                        </tr>
+                                        <tr>
+                                            <td style='padding:0 20px 20px 20px; font-family:Segoe UI, Tahoma, Arial, sans-serif; font-size:16px; line-height:28px; color:#334155;'>$mensaje</td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style='padding:20px 40px; border-top:1px solid #e2e8f0; font-family:Segoe UI, Tahoma, Arial, sans-serif; font-size:12px; line-height:18px; font-weight:700; color:#0f172a; text-transform:uppercase; letter-spacing:1px;'>
+                                    Falcon Ventures • 2026
+                                </td>
+                            </tr>
                         </table>
-
-                        <div class='message-container'>
-                            <span class='message-label'>Mensaje:</span>
-                            <p class='message-text'>$mensaje</p>
-                        </div>
-                    </div>
-
-                    <div class='footer'>
-                        <div class='footer-brand'>Falcon Ventures &bull; 2026</div>
-                    </div>
-                </div>
-            </div>
+                    </td>
+                </tr>
+            </table>
         </body>
         </html>";
 
