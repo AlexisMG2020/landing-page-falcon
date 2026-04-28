@@ -161,6 +161,8 @@ async function cargarComponentes() {
     if (typeof traducirPagina === "function") {
         traducirPagina();
     }
+
+    inicializarTeamModal();
 }
 
 async function mostrar404(appRoot) {
@@ -178,4 +180,143 @@ async function mostrar404(appRoot) {
     }
 
     await cargarComponentes();
+}
+
+function inicializarTeamModal() {
+    const teamPage = document.querySelector('.team-page');
+
+    if (!teamPage) {
+        cerrarTeamModal();
+        return;
+    }
+
+    prepararBotonesTeam(teamPage);
+    prepararModalTeam();
+}
+
+function prepararBotonesTeam(teamPage) {
+    const idioma = localStorage.getItem('idioma') || 'es';
+    const ctaLabel = idioma === 'es' ? 'Ver perfil' : 'View profile';
+
+    teamPage.querySelectorAll('.team-card').forEach((card, index) => {
+        card.style.animationDelay = `${Math.min(index * 0.06, 0.45)}s`;
+
+        let button = card.querySelector('.team-card-cta');
+        if (!button) {
+            button = document.createElement('button');
+            button.type = 'button';
+            button.className = 'team-card-cta';
+            card.querySelector('.member-info')?.insertBefore(
+                button,
+                card.querySelector('.footer-social')
+            );
+        }
+
+        button.textContent = ctaLabel;
+
+        if (button.dataset.bound === 'true') {
+            return;
+        }
+
+        button.addEventListener('click', () => abrirTeamModal(card));
+        button.dataset.bound = 'true';
+    });
+}
+
+function prepararModalTeam() {
+    let modal = document.getElementById('team-modal');
+
+    if (!modal) {
+        modal = document.createElement('div');
+        modal.id = 'team-modal';
+        modal.className = 'team-modal';
+        modal.innerHTML = `
+            <div class="team-modal__backdrop" data-team-close="true"></div>
+            <div class="team-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="team-modal-name">
+                <button type="button" class="team-modal__close" aria-label="Cerrar" data-team-close="true">
+                    <i class="bi bi-x-lg"></i>
+                </button>
+                <div class="team-modal__content">
+                    <div class="team-modal__media">
+                        <div class="team-modal__image-frame">
+                            <img class="team-modal__image" src="" alt="">
+                        </div>
+                    </div>
+                    <div class="team-modal__body">
+                        <span class="team-modal__eyebrow">Falcon Ventures</span>
+                        <h2 class="team-modal__name" id="team-modal-name"></h2>
+                        <div class="team-modal__role"></div>
+                        <p class="team-modal__bio"></p>
+                        <div class="team-modal__social"></div>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        document.body.appendChild(modal);
+
+        modal.addEventListener('click', (event) => {
+            if (event.target instanceof HTMLElement && event.target.closest('[data-team-close="true"]')) {
+                cerrarTeamModal();
+            }
+        });
+
+        document.addEventListener('keydown', manejarEscapeTeamModal);
+    }
+}
+
+function abrirTeamModal(card) {
+    const modal = document.getElementById('team-modal');
+
+    if (!modal) {
+        return;
+    }
+
+    const image = card.querySelector('.member-photo-wrapper img');
+    const name = card.querySelector('.member-name')?.textContent?.trim() || '';
+    const role = card.querySelector('.member-role')?.textContent?.trim() || '';
+    const bio = card.querySelector('.member-bio')?.textContent?.trim() || '';
+    const social = card.querySelector('.footer-social');
+
+    const modalImage = modal.querySelector('.team-modal__image');
+    const modalName = modal.querySelector('.team-modal__name');
+    const modalRole = modal.querySelector('.team-modal__role');
+    const modalBio = modal.querySelector('.team-modal__bio');
+    const modalSocial = modal.querySelector('.team-modal__social');
+    const closeButton = modal.querySelector('.team-modal__close');
+
+    if (!modalImage || !modalName || !modalRole || !modalBio || !modalSocial || !closeButton) {
+        return;
+    }
+
+    modalImage.src = image?.getAttribute('src') || '';
+    modalImage.alt = image?.getAttribute('alt') || name;
+    modalName.textContent = name;
+    modalRole.textContent = role;
+    modalBio.textContent = bio;
+    modalSocial.innerHTML = social ? social.innerHTML : '';
+    modalSocial.style.display = modalSocial.children.length ? 'flex' : 'none';
+
+    modal.classList.add('is-visible');
+    document.body.classList.add('team-modal-open');
+    window.requestAnimationFrame(() => {
+        closeButton.focus();
+    });
+}
+
+function cerrarTeamModal() {
+    const modal = document.getElementById('team-modal');
+
+    if (!modal) {
+        return;
+    }
+
+    modal.classList.remove('is-visible');
+    document.body.classList.remove('team-modal-open');
+}
+
+function manejarEscapeTeamModal(event) {
+    if (event.key === 'Escape') {
+        cerrarTeamModal();
+    }
 }

@@ -310,6 +310,29 @@ main, .error-container, .content-wrapper {
     width: 100%;
 }
 
+.news-page-section {
+    min-height: calc(100vh - 80px);
+    min-height: calc(100dvh - 80px);
+    padding: 28px 5% 36px;
+    display: flex;
+    align-items: center;
+}
+
+.news-page-section .editorial-container {
+    max-width: 1400px;
+    width: 100%;
+}
+
+.news-page-section .editorial-header {
+    margin-bottom: 28px;
+    padding-bottom: 16px;
+}
+
+.news-grid-page {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 24px;
+}
+
 .editorial-container {
     max-width: 1200px;
     margin: 0 auto;
@@ -587,7 +610,7 @@ main, .error-container, .content-wrapper {
 
 .footer-container {
     display: grid;
-    grid-template-columns: 1.2fr 0.9fr 0.8fr 1.05fr 1.35fr;
+    grid-template-columns: 1.2fr 0.9fr 0.8fr 1.50fr;
     gap: 20px;
     max-width: 1540px;
     margin: 0 auto;
@@ -710,22 +733,27 @@ main, .error-container, .content-wrapper {
    ========================================= */
 
 .about-hero-modern {
-    padding: 100px 5% 120px;
+    min-height: calc(100vh - 80px);
+    min-height: calc(100dvh - 80px);
+    padding: 36px 5% 48px;
     background-color: #ffffff;
+    display: flex;
+    align-items: center;
 }
 
 .hero-container {
     max-width: 1250px;
     margin: 0 auto;
+    width: 100%;
 }
 
 /* Título superior con mucho aire */
 .hero-header-text {
-    margin-bottom: 90px;
+    margin-bottom: 36px;
 }
 
 .main-display-title {
-    font-size: clamp(3rem, 6vw, 4.8rem);
+    font-size: clamp(2.8rem, 5vw, 4.2rem);
     font-weight: 850;
     color: #0f172a;
     line-height: 1;
@@ -741,7 +769,7 @@ main, .error-container, .content-wrapper {
 .hero-main-layout {
     display: grid;
     grid-template-columns: 1.1fr 0.9fr;
-    gap: 100px;
+    gap: 56px;
     align-items: center;
 }
 
@@ -766,10 +794,10 @@ main, .error-container, .content-wrapper {
 
 .floating-accent-box {
     position: absolute;
-    top: -20px;
-    left: -20px;
-    width: 120px;
-    height: 120px;
+    top: -16px;
+    left: -16px;
+    width: 88px;
+    height: 88px;
     border-top: 3px solid #65789A;
     border-left: 3px solid #65789A;
     z-index: 1;
@@ -780,7 +808,7 @@ main, .error-container, .content-wrapper {
     display: flex;
     align-items: center;
     gap: 12px;
-    margin-bottom: 25px;
+    margin-bottom: 18px;
 }
 
 .tag-line {
@@ -797,10 +825,10 @@ main, .error-container, .content-wrapper {
 }
 
 .content-headline {
-    font-size: 1.9rem;
-    line-height: 1.35;
+    font-size: 1.7rem;
+    line-height: 1.28;
     color: #1e293b;
-    margin-bottom: 35px;
+    margin-bottom: 22px;
     font-weight: 400;
 }
 
@@ -810,10 +838,10 @@ main, .error-container, .content-wrapper {
 }
 
 .content-description p {
-    font-size: 1.05rem;
-    line-height: 1.8;
+    font-size: 1rem;
+    line-height: 1.7;
     color: #64748b;
-    margin-bottom: 20px;
+    margin-bottom: 14px;
 }
 
 .inline-bold {
@@ -823,17 +851,23 @@ main, .error-container, .content-wrapper {
 }
 
 .secondary-info {
-    font-size: 0.95rem !important;
+    font-size: 0.92rem !important;
     opacity: 0.8;
 }
 
 /* Responsividad */
 @media (max-width: 992px) {
+    .about-hero-modern {
+        min-height: calc(100vh - 80px);
+        min-height: calc(100dvh - 80px);
+        padding: 28px 5% 36px;
+    }
+
     .hero-main-layout {
         grid-template-columns: 1fr;
-        gap: 60px;
+        gap: 28px;
     }
-    .hero-header-text { margin-bottom: 50px; }
+    .hero-header-text { margin-bottom: 24px; }
     .main-display-title { font-size: 3rem; }
 }
 
@@ -1129,6 +1163,28 @@ main, .error-container, .content-wrapper {
         height: calc(100vh - 70px);
         min-height: calc(100dvh - 70px);
         height: calc(100dvh - 70px);
+    }
+
+    .about-hero-modern {
+        min-height: calc(100vh - 70px);
+        min-height: calc(100dvh - 70px);
+        padding: 24px 20px 30px;
+    }
+
+    .news-page-section {
+        min-height: calc(100vh - 70px);
+        min-height: calc(100dvh - 70px);
+        padding: 24px 20px 30px;
+        align-items: flex-start;
+    }
+
+    .news-page-section .editorial-header {
+        margin-bottom: 22px;
+    }
+
+    .news-grid-page {
+        grid-template-columns: 1fr;
+        gap: 20px;
     }
 
     main, .error-container, .content-wrapper {
