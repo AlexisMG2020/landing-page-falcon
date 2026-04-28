@@ -31,6 +31,24 @@ function obtenerRutaActual() {
     return ruta || '/';
 }
 
+function actualizarNavActivo() {
+    const rutaActual = obtenerRutaActual();
+    const enlaces = document.querySelectorAll('.navbar-menu a[data-route]');
+
+    enlaces.forEach((enlace) => {
+        const url = new URL(enlace.href, window.location.origin);
+        const rutaEnlace = url.hash ? url.hash.slice(1) || '/' : url.pathname || '/';
+        const esActivo = rutaEnlace === rutaActual;
+
+        enlace.classList.toggle('is-active', esActivo);
+        if (esActivo) {
+            enlace.setAttribute('aria-current', 'page');
+        } else {
+            enlace.removeAttribute('aria-current');
+        }
+    });
+}
+
 /* =========================================
    2. EL MOTOR DE ENRUTAMIENTO (ROUTER)
    ========================================= */
@@ -66,6 +84,7 @@ async function enrutador() {
 
     // Una vez inyectada la página (ej. home.html), cargamos sus componentes internos
     await cargarComponentes();
+    actualizarNavActivo();
 
     window.scrollTo({
         top: 0,
@@ -163,6 +182,7 @@ async function cargarComponentes() {
         traducirPagina();
     }
 
+    actualizarNavActivo();
     inicializarTeamModal();
 }
 
