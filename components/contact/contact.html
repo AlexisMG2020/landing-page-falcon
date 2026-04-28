@@ -1,0 +1,119 @@
+<section class="about-section contact-page">
+    
+    <header class="about-top-wrapper reveal fade-bottom">
+        <div class="about-header">
+            <span class="section-kicker" data-i18n="contact-kicker">Contacto</span>
+            <h1 class="section-title" data-i18n="contact-title">Hablemos de futuro</h1>
+        </div>
+        <div class="about-description">
+            <p class="description-text" data-i18n="contact-description">
+                Para cualquier información, por favor llámenos o envíenos un correo electrónico. Alternativamente, puede completar el siguiente formulario de contacto y nuestro equipo de gestión se comunicará con usted a la brevedad.
+            </p>
+        </div>
+    </header>
+
+    <div class="contact-main-grid">
+        
+        <div class="contact-info-column reveal fade-right delay-1">
+            <div class="contact-info-shell">
+                <div class="editorial-header">
+                    <span class="editorial-label" data-i18n="contact-office-label">Nuestra Sede</span>
+                </div>
+                
+                <ul class="contact-details-list">
+                    <li>
+                        <i class="bi bi-geo-alt"></i>
+                        <div>
+                            <strong data-i18n="contact-address-label">Dirección</strong>
+                            <p data-i18n-html="contact-address-value">Sierra Mojada #446<br>Lomas de Chapultepec, CDMX</p>
+                        </div>
+                    </li>
+                    <li>
+                        <i class="bi bi-telephone"></i>
+                        <div>
+                            <strong data-i18n="contact-phone-label">Teléfono</strong>
+                            <p data-i18n="contact-phone-value">+52 56 2554 5521</p>
+                        </div>
+                    </li>
+                    <li>
+                        <i class="bi bi-envelope"></i>
+                        <div>
+                            <strong data-i18n="contact-email-label">Email</strong>
+                            <p data-i18n="contact-email-value">info@falconventures.net</p>
+                        </div>
+                    </li>
+                </ul>
+
+                <div class="contact-map-wrapper">
+                    <span class="portfolio-image-corner portfolio-image-corner-tl" aria-hidden="true"></span>
+                    <span class="portfolio-image-corner portfolio-image-corner-tr" aria-hidden="true"></span>
+                    <span class="portfolio-image-corner portfolio-image-corner-bl" aria-hidden="true"></span>
+                    <span class="portfolio-image-corner portfolio-image-corner-br" aria-hidden="true"></span>
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3762.62589098906!2d-99.2132386!3d19.4285874!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d201f464010505%3A0x6b63d916d120a1eb!2sSierra%20Mojada%20446%2C%20Lomas%20de%20Chapultepec%2C%20Miguel%20Hidalgo%2C%2011000%20Ciudad%20de%20M%C3%A9xico%2C%20CDMX!5e0!3m2!1ses!2smx!4v1700000000000!5m2!1ses!2smx" 
+                        width="100%" 
+                        height="100%" 
+                        style="border:0;" 
+                        allowfullscreen="" 
+                        loading="lazy" 
+                        referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+                </div>
+            </div>
+        </div>
+
+        <div class="contact-form-column reveal fade-left delay-2">
+            <div class="contact-form-shell">
+                <div class="editorial-header">
+                    <span class="editorial-label" data-i18n="contact-form-label">Envíenos un mensaje</span>
+                </div>
+                
+                <form class="premium-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="firstName" data-i18n="contact-first-name-label">Nombre</label>
+                            <input type="text" id="firstName" placeholder="Ej. Carlos" data-i18n-placeholder="contact-first-name-placeholder" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastName" data-i18n="contact-last-name-label">Apellido</label>
+                            <input type="text" id="lastName" placeholder="Ej. Mendoza" data-i18n-placeholder="contact-last-name-placeholder" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="email" data-i18n="contact-email-field-label">Correo Electrónico</label>
+                            <input type="email" id="email" placeholder="correo@empresa.com" data-i18n-placeholder="contact-email-field-placeholder" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone" data-i18n="contact-phone-field-label">Teléfono (Opcional)</label>
+                            <input type="tel" id="phone" placeholder="+52 55 0000 0000" data-i18n-placeholder="contact-phone-field-placeholder">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="subject" data-i18n="contact-subject-label">Asunto</label>
+                        <select id="subject" required>
+                            <option value="" disabled selected data-i18n="contact-subject-placeholder">Seleccione una opción...</option>
+                            <option value="investment" data-i18n="contact-subject-investment">Oportunidad de Inversión</option>
+                            <option value="consulting" data-i18n="contact-subject-consulting">Consultoría Estratégica</option>
+                            <option value="press" data-i18n="contact-subject-press">Prensa y Medios</option>
+                            <option value="other" data-i18n="contact-subject-other">Otro</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="message" data-i18n="contact-message-label">Mensaje</label>
+                        <textarea id="message" rows="5" placeholder="¿En qué podemos ayudarle?" data-i18n-placeholder="contact-message-placeholder" required></textarea>
+                    </div>
+
+                    <button type="submit" class="btn-submit-premium">
+                        <span data-i18n="contact-submit">Enviar Mensaje</span>
+                        <i class="bi bi-arrow-right"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</section>

@@ -238,9 +238,9 @@ main, .error-container, .content-wrapper {
     grid-template-columns: 1.1fr 1fr; 
     gap: 60px; 
     align-items: center; 
-    margin: 0 auto 80px; 
+    margin: 0 auto 52px; 
     max-width: 1050px; 
-    padding-bottom: 60px;
+    padding-bottom: 42px;
     border-bottom: 1px solid rgba(101, 120, 154, 0.15); 
 }
 
@@ -305,8 +305,8 @@ main, .error-container, .content-wrapper {
    ========================================= */
 
 .editorial-news-section {
-    padding: 10px 5% 30px;
-    background-color: #ffffff; /* Fondo totalmente blanco y limpio */
+    padding: 0 5% 22px;
+    /* background-color: #ffffff; Fondo totalmente blanco y limpio */
     width: 100%;
 }
 
@@ -1091,8 +1091,8 @@ main, .error-container, .content-wrapper {
     .about-top-wrapper {
         grid-template-columns: 1fr;
         gap: 30px;
-        padding-bottom: 40px;
-        margin-bottom: 50px;
+        padding-bottom: 30px;
+        margin-bottom: 34px;
     }
     .about-description {
         padding-left: 20px;
@@ -1237,7 +1237,7 @@ main, .error-container, .content-wrapper {
     
     .about-top-wrapper {
         gap: 24px;
-        padding-bottom: 30px;
+        padding-bottom: 24px;
     }
     .section-kicker {
         font-size: 0.72rem;
