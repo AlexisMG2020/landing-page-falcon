@@ -641,8 +641,6 @@ main, .error-container, .content-wrapper {
     right: -10px;
     width: 3px;
     height: 100%;
-    /* background: rgba(255, 0, 0, 0.95); */
-    box-shadow: 0 0 10px rgba(255, 0, 0, 0.45);
     border-radius: 999px;
 }
 
