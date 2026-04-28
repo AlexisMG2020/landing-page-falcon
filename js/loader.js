@@ -350,3 +350,61 @@ function manejarEscapeTeamModal(event) {
         cerrarTeamModal();
     }
 }
+
+/* =========================================
+   6. CONTROL DEL MODAL DE LOGIN
+   ========================================= */
+let loginModalScrollY = 0; // Variable para guardar la posición del scroll
+
+window.openLogin = function() {
+    const modal = document.getElementById('loginModal');
+    if (modal) {
+        // 1. Cerrar el menú móvil automáticamente si está abierto (deja esto si usas el mismo menú hamburguesa)
+        const menu = document.getElementById('nav-menu');
+        const hamburger = document.querySelector('.hamburger');
+        if(menu && menu.classList.contains('active')) {
+            menu.classList.remove('active');
+            hamburger.classList.remove('active');
+        }
+
+        // 2. Bloqueo estricto de scroll (evita scroll de fondo, crucial para móviles)
+        loginModalScrollY = window.scrollY || window.pageYOffset || 0;
+        document.body.classList.add('login-modal-open');
+        document.body.style.top = `-${loginModalScrollY}px`;
+        
+        // Mostrar el modal
+        modal.classList.add('is-visible');
+    }
+};
+
+window.closeLogin = function() {
+    const modal = document.getElementById('loginModal');
+    if (modal) {
+        // Ocultar el modal
+        modal.classList.remove('is-visible');
+        
+        // Restaurar el scroll y devolver al usuario a donde estaba
+        document.body.classList.remove('login-modal-open');
+        document.body.style.top = '';
+        window.scrollTo(0, loginModalScrollY);
+    }
+};
+
+// Cerrar el modal al presionar la tecla Escape
+document.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape') {
+        const loginModal = document.getElementById('loginModal');
+        if (loginModal && loginModal.classList.contains('is-visible')) {
+            closeLogin();
+        }
+    }
+});
+
+// Manejar el envío del formulario (para tu lógica de backend posterior)
+window.handleLogin = function(event) {
+    event.preventDefault(); // Evita recarga de página
+    const email = document.getElementById('loginEmail').value;
+    const password = document.getElementById('loginPassword').value;
+    console.log("Credenciales para validar:", { email, password });
+    // Aquí es donde harás tu fetch() POST
+};

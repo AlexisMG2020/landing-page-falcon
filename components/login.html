@@ -1,0 +1,44 @@
+<div id="loginModal" class="login-modal">
+    <div class="login-modal__backdrop" onclick="closeLogin()"></div>
+    
+    <div class="login-modal__dialog">
+        <button class="login-modal__close-float" onclick="closeLogin()">
+            <i class="bi bi-x"></i>
+        </button>
+
+        <div class="login-modal__branding-side">
+            <div class="login-modal__logo-container">
+                <img src="https://static.wixstatic.com/media/423b16_75aaf836c99a47dbbac5fedc906ace3e~mv2.png/v1/crop/x_0,y_170,w_3000,h_733/fill/w_532,h_130,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/Color%20logo%20-%20no%20background_edited.png" 
+                     alt="Falcon Ventures Logo" class="login-logo-img" data-i18n-alt="login-logo-alt">
+            </div>
+            
+            <div class="branding-decoration"></div>
+        </div>
+        
+        <div class="login-modal__form-side">
+            <div class="login-header">
+                <h2 class="login-title" data-i18n="login-title">Iniciar Sesión</h2>
+                <p class="login-subtitle" data-i18n="login-subtitle">Introduce tus credenciales para continuar.</p>
+            </div>
+            
+            <form id="loginForm" class="premium-form" onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label for="loginEmail" data-i18n="login-email-label">Correo Electrónico</label>
+                    <input type="email" id="loginEmail" name="email" placeholder="usuario@falconventures.net" data-i18n-placeholder="login-email-placeholder" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="loginPassword" data-i18n="login-password-label">Contraseña</label>
+                    <input type="password" id="loginPassword" name="password" placeholder="••••••••" data-i18n-placeholder="login-password-placeholder" required>
+                </div>
+                
+                <div class="login-actions">
+                    <a href="#" class="forgot-password" data-i18n="login-forgot-password">¿Problemas de acceso?</a>
+                    <button type="submit" class="btn-login-submit">
+                        <span data-i18n="login-submit">Acceder</span> <i class="bi bi-shield-lock"></i>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

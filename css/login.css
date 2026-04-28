@@ -1,0 +1,372 @@
+/* =========================================
+   1. UTILIDADES Y BLOQUEO DE SCROLL
+   ========================================= */
+body.login-modal-open {
+    overflow: hidden !important;
+    position: fixed;
+    width: 100%;
+    left: 0;
+    right: 0;
+    overscroll-behavior: none;
+}
+
+/* Animaciones Premium */
+@keyframes pearlFlow {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+@keyframes cascadeUp {
+    from { 
+        opacity: 0; 
+        transform: translateY(20px); 
+    }
+    to { 
+        opacity: 1; 
+        transform: translateY(0); 
+    }
+}
+
+/* =========================================
+   2. ESTRUCTURA BASE DEL MODAL
+   ========================================= */
+.login-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 12000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.login-modal.is-visible {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.login-modal__backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.7);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+}
+
+.login-modal__dialog {
+    position: relative;
+    width: min(940px, 100%);
+    min-height: 520px;
+    background: #ffffff;
+    border-radius: 28px;
+    overflow: hidden;
+    display: flex;
+    box-shadow: 0 40px 100px rgba(15, 23, 42, 0.35);
+    border: 1px solid rgba(101, 120, 154, 0.12);
+    transform: translateY(40px) scale(0.95);
+    transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+    z-index: 1;
+}
+
+.login-modal.is-visible .login-modal__dialog {
+    transform: translateY(0) scale(1);
+}
+
+/* =========================================
+   3. LADO IZQUIERDO: BRANDING (PERLADO ANIMADO)
+   ========================================= */
+.login-modal__branding-side {
+    width: 42%;
+    /* Gradiente perlado dinámico */
+    background: linear-gradient(135deg, #ffffff 0%, #f1f5f9 50%, #ffffff 100%);
+    background-size: 200% 200%;
+    animation: pearlFlow 12s ease infinite;
+    padding: 50px 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    border-right: 1px solid rgba(101, 120, 154, 0.08);
+}
+
+.login-logo-img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+.login-kicker {
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #65789A;
+    margin-bottom: 12px;
+    display: block;
+}
+
+.login-modal__branding-content h3 {
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: #0f172a;
+    line-height: 1.2;
+    margin-bottom: 15px;
+    letter-spacing: -0.5px;
+}
+
+.login-modal__branding-content p {
+    font-size: 0.95rem;
+    color: #64748b;
+    line-height: 1.6;
+}
+
+/* =========================================
+   4. LADO DERECHO: FORMULARIO (CASCADA CORREGIDA)
+   ========================================= */
+.login-modal__form-side {
+    width: 58%;
+    padding: 60px 50px;
+    background: #ffffff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* CORRECCIÓN CRÍTICA: Solo ocultamos los elementos DENTRO del login */
+.login-modal .login-header, 
+.login-modal .form-group, 
+.login-modal .login-actions {
+    opacity: 0;
+}
+
+/* Disparador de animaciones solo cuando el modal es visible */
+.login-modal.is-visible .login-header {
+    animation: cascadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.2s;
+}
+.login-modal.is-visible .form-group:nth-child(1) {
+    animation: cascadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.3s;
+}
+.login-modal.is-visible .form-group:nth-child(2) {
+    animation: cascadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.4s;
+}
+.login-modal.is-visible .login-actions {
+    animation: cascadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.5s;
+}
+
+.login-header {
+    margin-bottom: 30px;
+}
+
+.login-title {
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: #0f172a;
+    letter-spacing: -1.5px;
+    margin-bottom: 8px;
+}
+
+.login-subtitle {
+    font-size: 1rem;
+    color: #64748b;
+}
+
+.login-modal .premium-form {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+}
+
+.login-modal .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.login-modal .form-group label {
+    font-size: 0.8rem;
+    font-weight: 800;
+    color: #0f172a;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+}
+
+.login-modal .form-group input {
+    width: 100%;
+    padding: 15px 18px;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    font-size: 1rem;
+    color: #0f172a;
+    background: #f8fafc;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    outline: none;
+}
+
+.login-modal .form-group input:focus {
+    background: #ffffff;
+    border-color: #65789A;
+    box-shadow: 0 0 0 4px rgba(101, 120, 154, 0.1);
+    transform: translateY(-2px);
+}
+
+.login-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    margin-top: 10px;
+}
+
+.forgot-password {
+    font-size: 0.85rem;
+    color: #65789A;
+    font-weight: 700;
+    text-decoration: none;
+    text-align: right;
+    transition: all 0.3s ease;
+}
+
+.forgot-password:hover {
+    color: #0f172a;
+    transform: translateX(-3px);
+}
+
+/* Botón con Destello (Shine) */
+.btn-login-submit {
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    background: #0f172a;
+    color: #ffffff;
+    border: none;
+    padding: 16px;
+    border-radius: 14px;
+    font-size: 1rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-login-submit::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.25), transparent);
+    transform: skewX(-20deg);
+    transition: left 0.6s ease;
+}
+
+.btn-login-submit:hover {
+    background: #1e293b;
+    transform: translateY(-3px);
+    box-shadow: 0 15px 30px rgba(15, 23, 42, 0.2);
+}
+
+.btn-login-submit:hover::before {
+    left: 150%;
+}
+
+.login-modal__close-float {
+    position: absolute;
+    top: 25px;
+    right: 25px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid #e2e8f0;
+    background: #ffffff;
+    cursor: pointer;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.login-modal__close-float:hover {
+    background: #f8fafc;
+    transform: rotate(90deg) scale(1.1);
+}
+
+/* =========================================
+   5. RESPONSIVE (OPTIMIZACIÓN MÓVIL)
+   ========================================= */
+@media (max-width: 860px) {
+    .login-modal {
+        padding: 12px;
+    }
+
+    .login-modal__dialog {
+        flex-direction: column;
+        max-height: 94vh;
+        overflow-y: auto;
+    }
+    
+    .login-modal__branding-side {
+        width: 100%;
+        padding: 35px 25px 20px;
+        align-items: center;
+        text-align: center;
+        border-right: none;
+        border-bottom: 1px solid rgba(101, 120, 154, 0.08);
+    }
+    
+    .login-logo-img { 
+        max-width: 190px;
+    }
+    
+    .login-modal__branding-content p {
+        display: none; 
+    }
+
+    .login-modal__branding-content h3 {
+        font-size: 1.5rem;
+        margin-bottom: 0;
+    }
+
+    .login-modal__form-side {
+        width: 100%;
+        padding: 30px 20px 40px;
+    }
+
+    /* Arreglo de acciones para pulgar en móvil */
+    .login-actions {
+        flex-direction: column-reverse;
+        gap: 16px;
+        margin-top: 15px;
+    }
+
+    .forgot-password {
+        text-align: center;
+        font-size: 0.9rem;
+        padding: 8px 0;
+    }
+
+    .login-header {
+        margin-bottom: 25px;
+        text-align: center;
+    }
+
+    .login-title {
+        font-size: 1.8rem;
+    }
+
+    .login-modal__close-float {
+        top: 15px;
+        right: 15px;
+        width: 36px;
+        height: 36px;
+    }
+}
