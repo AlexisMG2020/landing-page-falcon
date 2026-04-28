@@ -523,14 +523,59 @@ function inicializarValidacionFormularios() {
     prepararFormulario(loginForm);
 
     if (footerForm && footerForm.dataset.submitBound !== 'true') {
-        footerForm.addEventListener('submit', (event) => {
+        footerForm.addEventListener('submit', async (event) => {
             event.preventDefault();
 
             if (!validarFormulario(footerForm)) {
                 return;
             }
 
-            console.log('Formulario footer listo para enviar');
+            const status = document.getElementById('footerFormStatus');
+            const submitButton = footerForm.querySelector('.btn-submit');
+            const traducciones = typeof diccionario !== 'undefined'
+                ? (diccionario[localStorage.getItem('idioma') || 'en'] || diccionario.en)
+                : {};
+
+            if (status) {
+                status.textContent = traducciones['footer-form-sending'] || 'Sending message...';
+                status.className = 'form-status is-visible';
+            }
+
+            if (submitButton) {
+                submitButton.disabled = true;
+            }
+
+            try {
+                const formData = new FormData(footerForm);
+                const response = await fetch('/php/mensaje_footer.php', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const data = await response.json();
+
+                if (!response.ok || !data.ok) {
+                    throw new Error(data.message || 'Footer form request failed');
+                }
+
+                if (status) {
+                    status.textContent = traducciones['footer-form-success'] || 'Your message was sent successfully.';
+                    status.className = 'form-status is-visible is-success';
+                }
+
+                footerForm.reset();
+            } catch (error) {
+                console.error('Error enviando formulario footer:', error);
+
+                if (status) {
+                    status.textContent = traducciones['footer-form-error'] || 'We could not send your message right now.';
+                    status.className = 'form-status is-visible is-error';
+                }
+            } finally {
+                if (submitButton) {
+                    submitButton.disabled = false;
+                }
+            }
         });
 
         footerForm.dataset.submitBound = 'true';
