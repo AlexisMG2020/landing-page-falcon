@@ -546,7 +546,7 @@ function inicializarValidacionFormularios() {
 
             try {
                 const formData = new FormData(footerForm);
-                const response = await fetch('/php/mensaje_footer.php', {
+                const response = await fetch('/api/mensaje_footer.php', {
                     method: 'POST',
                     body: formData
                 });
@@ -612,7 +612,7 @@ function inicializarValidacionFormularios() {
 
             try {
                 const formData = new FormData(contactForm);
-                const response = await fetch('/php/mensaje_contact.php', {
+                const response = await fetch('/api/mensaje_contact.php', {
                     method: 'POST',
                     body: formData
                 });
