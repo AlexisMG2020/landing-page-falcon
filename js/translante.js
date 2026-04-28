@@ -38,7 +38,7 @@ const diccionario = {
         "login-password-label": "Password",
         "login-password-placeholder": "••••••••",
         "login-forgot-password": "Access issues?",
-        "login-submit": "Access",
+        "login-submit": "Sign in",
         "footer-copy": "© 2026 by Falcon Ventures Private Business Group. Powered and secured by intel",
         "industry-01": "INDUSTRY 01",
         "industry-02": "INDUSTRY 02",
