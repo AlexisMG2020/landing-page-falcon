@@ -52,9 +52,15 @@ const diccionario = {
         "validation-login-password": "Enter your password",
         "validation-email-invalid": "Enter a valid email",
         "validation-phone-invalid": "Enter a 10-digit phone number",
+        "login-validating-access": "Validating access...",
+        "login-validation-error": "We could not validate your access.",
         "login-success-kicker": "Welcome",
+        "login-success-brand-aria": "Falcon Ventures",
+        "login-success-company": "Falcon Ventures",
         "login-success-title": "Your access is ready",
         "login-success-text": "Scan this code to enter.",
+        "login-success-qr-badge": "Secure QR",
+        "login-success-qr-alt": "Access QR code",
         "login-success-qr-caption": "Use your phone camera to open your access instantly.",
         "login-logo-alt": "Falcon Ventures Logo",
         "login-title": "Log In",
@@ -236,9 +242,15 @@ const diccionario = {
         "validation-login-password": "Ingresa tu contraseña",
         "validation-email-invalid": "Ingresa un correo valido",
         "validation-phone-invalid": "Ingresa un telefono de 10 digitos",
+        "login-validating-access": "Validando acceso...",
+        "login-validation-error": "No fue posible validar tu acceso.",
         "login-success-kicker": "Bienvenido",
+        "login-success-brand-aria": "Falcon Ventures",
+        "login-success-company": "Falcon Ventures",
         "login-success-title": "Tu acceso ya esta listo",
         "login-success-text": "Escanea este codigo para entrar.",
+        "login-success-qr-badge": "QR seguro",
+        "login-success-qr-alt": "Codigo QR de acceso",
         "login-success-qr-caption": "Usa la camara de tu telefono para abrir tu acceso al instante.",
         "login-logo-alt": "Logotipo de Falcon Ventures",
         "login-title": "Iniciar Sesión",
@@ -425,6 +437,16 @@ function traducirPagina() {
 
         if (traducciones[clave]) {
             el.alt = traducciones[clave];
+        }
+    });
+
+    const ariaLabels = document.querySelectorAll('[data-i18n-aria-label]');
+
+    ariaLabels.forEach(el => {
+        const clave = el.getAttribute('data-i18n-aria-label');
+
+        if (traducciones[clave]) {
+            el.setAttribute('aria-label', traducciones[clave]);
         }
     });
 

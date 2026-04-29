@@ -42,19 +42,27 @@
 
             <div class="login-success" id="loginSuccess" aria-live="polite">
                 <div class="login-success__card">
-                    <div class="login-success__brand" id="loginSuccessBrand" aria-label="Falcon Ventures">
+                    <div class="login-success__brand" id="loginSuccessBrand" aria-label="Falcon Ventures" data-i18n-aria-label="login-success-brand-aria">
                         <img src="https://static.wixstatic.com/media/423b16_75aaf836c99a47dbbac5fedc906ace3e~mv2.png/v1/crop/x_0,y_170,w_3000,h_733/fill/w_532,h_130,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/Color%20logo%20-%20no%20background_edited.png"
-                             alt="Falcon Ventures Logo" class="login-success__brand-logo" id="loginSuccessCompanyLogo">
+                             alt="Falcon Ventures Logo" class="login-success__brand-logo" id="loginSuccessCompanyLogo" data-i18n-alt="login-logo-alt">
                     </div>
-                    <p class="login-success__company" id="loginSuccessCompanyName">Falcon Ventures</p>
+                    <p class="login-success__company" id="loginSuccessCompanyName" data-i18n="login-success-company">Falcon Ventures</p>
                     <span class="login-success__eyebrow" data-i18n="login-success-kicker">Bienvenido</span>
                     <h3 class="login-success__title" data-i18n="login-success-title">Tu acceso ya esta listo</h3>
                     <p class="login-success__text" data-i18n="login-success-text">Escanea este codigo para entrar.</p>
 
                     <div class="login-success__qr-panel">
+                        <div class="login-success__qr-badge" data-i18n="login-success-qr-badge">QR seguro</div>
                         <div class="login-success__qr-wrap">
+                            <span class="login-success__spark login-success__spark--a" aria-hidden="true"></span>
+                            <span class="login-success__spark login-success__spark--b" aria-hidden="true"></span>
+                            <span class="login-success__spark login-success__spark--c" aria-hidden="true"></span>
+                            <span class="login-success__qr-orbit login-success__qr-orbit--outer" aria-hidden="true"></span>
+                            <span class="login-success__qr-orbit login-success__qr-orbit--inner" aria-hidden="true"></span>
+                            <span class="login-success__qr-glow" aria-hidden="true"></span>
                             <img src="https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=https%3A%2F%2Fconsultoria.falconventures.net%2F"
                                  alt="Codigo QR de acceso"
+                                 data-i18n-alt="login-success-qr-alt"
                                  class="login-success__qr"
                                  id="loginSuccessQr">
                         </div>

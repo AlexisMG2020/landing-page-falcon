@@ -800,8 +800,12 @@ window.handleLogin = async function(event) {
         return;
     }
 
+    const traducciones = typeof diccionario !== 'undefined'
+        ? (diccionario[localStorage.getItem('idioma') || 'en'] || diccionario.en)
+        : {};
+
     if (status) {
-        status.textContent = 'Validando acceso...';
+        status.textContent = traducciones['login-validating-access'] || 'Validating access...';
         status.className = 'login-form-status is-visible';
     }
 
@@ -832,16 +836,16 @@ window.handleLogin = async function(event) {
         }
 
         if (successBrand) {
-            successBrand.setAttribute('aria-label', 'Falcon Ventures');
+            successBrand.setAttribute('aria-label', traducciones['login-success-brand-aria'] || 'Falcon Ventures');
         }
 
         if (successCompanyName) {
-            successCompanyName.textContent = 'Falcon Ventures';
+            successCompanyName.textContent = traducciones['login-success-company'] || 'Falcon Ventures';
         }
 
         if (successCompanyLogo) {
             successCompanyLogo.src = 'https://static.wixstatic.com/media/423b16_75aaf836c99a47dbbac5fedc906ace3e~mv2.png/v1/crop/x_0,y_170,w_3000,h_733/fill/w_532,h_130,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/Color%20logo%20-%20no%20background_edited.png';
-            successCompanyLogo.alt = 'Falcon Ventures Logo';
+            successCompanyLogo.alt = traducciones['login-logo-alt'] || 'Falcon Ventures Logo';
         }
 
         if (successQr && data.link) {
@@ -860,7 +864,7 @@ window.handleLogin = async function(event) {
         console.error('Error validando login:', error);
 
         if (status) {
-            status.textContent = error.message || 'No fue posible validar tu acceso.';
+            status.textContent = error.message || traducciones['login-validation-error'] || 'We could not validate your access.';
             status.className = 'login-form-status is-visible is-error';
         }
     } finally {
