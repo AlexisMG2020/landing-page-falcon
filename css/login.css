@@ -419,17 +419,12 @@ body.login-modal-open {
 
 .login-success__qr-panel {
     position: relative;
-    display: grid;
-    grid-template-columns: 170px minmax(0, 1fr);
-    grid-template-areas:
-        "badge badge"
-        "qr caption"
-        "qr button";
+    display: flex;
+    flex-direction: column;
     align-items: center;
-    column-gap: 14px;
-    row-gap: 10px;
+    gap: 12px;
     width: 100%;
-    padding: 14px 14px 16px;
+    padding: 14px 16px 16px;
     border-radius: 26px;
     background:
         linear-gradient(180deg, rgba(255, 255, 255, 1) 0%, rgba(249, 251, 254, 1) 100%);
@@ -452,7 +447,6 @@ body.login-modal-open {
 }
 
 .login-success__qr-badge {
-    grid-area: badge;
     align-self: center;
     padding: 8px 16px;
     border-radius: 999px;
@@ -466,17 +460,17 @@ body.login-modal-open {
 }
 
 .login-success__qr-wrap {
-    grid-area: qr;
     position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
     width: 100%;
-    min-height: 164px;
+    min-height: 172px;
     padding: 0;
 }
 
 .login-success__spark {
+    display: none;
     position: absolute;
     width: 10px;
     height: 10px;
@@ -531,15 +525,16 @@ body.login-modal-open {
 
 .login-success__qr-glow {
     position: absolute;
-    width: 158px;
-    height: 158px;
+    width: 132px;
+    height: 132px;
     border-radius: 50%;
-    background: radial-gradient(circle, rgba(123, 146, 184, 0.22) 0%, rgba(123, 146, 184, 0) 72%);
-    filter: blur(10px);
+    background: radial-gradient(circle, rgba(123, 146, 184, 0.16) 0%, rgba(123, 146, 184, 0) 72%);
+    filter: blur(12px);
     animation: qrPulse 4.4s ease-in-out infinite;
 }
 
 .login-success__qr-orbit {
+    display: none;
     position: absolute;
     left: 50%;
     top: 50%;
@@ -595,13 +590,13 @@ body.login-modal-open {
 
 .login-success__qr {
     position: relative;
-    width: 152px;
-    height: 152px;
-    padding: 9px;
+    width: 144px;
+    height: 144px;
+    padding: 8px;
     border: 1px solid rgba(226, 232, 240, 0.95);
-    border-radius: 24px;
+    border-radius: 22px;
     background: #ffffff;
-    box-shadow: 0 18px 36px rgba(15, 23, 42, 0.1);
+    box-shadow: 0 12px 28px rgba(15, 23, 42, 0.08);
     object-fit: contain;
     z-index: 2;
     animation: qrFloat 4.8s ease-in-out infinite;
@@ -610,25 +605,30 @@ body.login-modal-open {
 .login-modal.login-modal--success .login-success__spark,
 .login-modal.login-modal--success .login-success__qr-glow,
 .login-modal.login-modal--success .login-success__qr-orbit {
+    display: none;
+}
+
+.login-modal.login-modal--success .login-success__qr-glow {
     display: block;
 }
 
 .login-success__qr-caption {
-    grid-area: caption;
     margin: 0;
-    text-align: left;
-    max-width: 18ch;
-    font-size: 0.88rem;
-    line-height: 1.5;
+    text-align: center;
+    max-width: 28ch;
+    font-size: 0.84rem;
+    line-height: 1.55;
     color: #64748b;
+    align-self: center;
+    text-wrap: balance;
 }
 
 .login-success__manual-link {
-    grid-area: button;
     display: flex;
-    justify-content: flex-start;
+    justify-content: center;
+    align-items: center;
     width: 100%;
-    padding-top: 2px;
+    padding-top: 0;
 }
 
 .login-success__manual-button {
@@ -636,15 +636,17 @@ body.login-modal-open {
     align-items: center;
     justify-content: center;
     min-width: 0;
-    width: min(100%, 220px);
-    padding: 12px 16px;
+    width: min(100%, 236px);
+    min-height: 74px;
+    padding: 10px 18px;
     border-radius: 999px;
     background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
     color: #ffffff;
     text-decoration: none;
-    font-size: 0.88rem;
+    font-size: 0.86rem;
     font-weight: 800;
     letter-spacing: 0.01em;
+    text-align: center;
     box-shadow: 0 16px 34px rgba(15, 23, 42, 0.18);
     transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
 }
@@ -886,9 +888,7 @@ body.login-modal-open {
     }
 
     .login-success__qr-panel {
-        grid-template-columns: 154px minmax(0, 1fr);
-        column-gap: 12px;
-        row-gap: 9px;
+        gap: 10px;
         padding: 12px 12px 14px;
         border-radius: 24px;
     }
@@ -905,14 +905,14 @@ body.login-modal-open {
     }
 
     .login-success__qr-wrap {
-        min-height: 152px;
+        min-height: 150px;
         padding-top: 2px;
     }
 
     .login-success__qr {
-        width: 138px;
-        height: 138px;
-        padding: 9px;
+        width: 132px;
+        height: 132px;
+        padding: 8px;
         border-radius: 22px;
     }
 
@@ -949,16 +949,18 @@ body.login-modal-open {
     .login-success__qr-caption {
         font-size: 0.84rem;
         line-height: 1.42;
-        max-width: 16ch;
-        text-align: left;
+        max-width: 26ch;
+        text-align: center;
+        text-wrap: balance;
     }
 
     .login-success__manual-link {
-        justify-content: flex-start;
+        justify-content: center;
     }
 
     .login-success__manual-button {
-        width: min(100%, 190px);
+        width: min(100%, 220px);
+        min-height: 68px;
     }
 }
 
@@ -1206,6 +1208,12 @@ body.login-modal-open {
     }
 
     .login-success__qr-panel {
+        grid-template-columns: 1fr;
+        grid-template-areas:
+            "badge"
+            "qr"
+            "caption"
+            "button";
         gap: 10px;
         padding: 14px 10px 14px;
         border-radius: 22px;
