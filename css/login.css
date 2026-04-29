@@ -1044,11 +1044,14 @@ body.login-modal-open {
     }
 
     .login-modal.login-modal--success .login-modal__form-side {
+        width: 100%;
         justify-content: center;
         min-height: auto;
+        padding: 22px 16px 26px;
     }
 
     .login-modal.login-modal--success .login-success {
+        width: 100%;
         align-items: center;
         text-align: center;
         gap: 0;
@@ -1195,6 +1198,15 @@ body.login-modal-open {
 
     .login-modal__form-side {
         padding: 20px 14px 26px;
+    }
+
+    .login-modal.login-modal--success .login-modal__form-side {
+        width: 100%;
+        padding: 18px 12px 22px;
+    }
+
+    .login-modal.login-modal--success .login-success {
+        width: 100%;
     }
 
     .login-success__card {
