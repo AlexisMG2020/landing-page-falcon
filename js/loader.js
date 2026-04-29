@@ -795,6 +795,7 @@ window.handleLogin = async function(event) {
     const successCompanyName = document.getElementById('loginSuccessCompanyName');
     const successCompanyLogo = document.getElementById('loginSuccessCompanyLogo');
     const successQr = document.getElementById('loginSuccessQr');
+    const successManualButton = document.getElementById('loginSuccessManualButton');
 
     if (!form || !validarFormulario(form)) {
         return;
@@ -814,6 +815,20 @@ window.handleLogin = async function(event) {
     }
 
     const modal = document.getElementById('loginModal');
+
+    const fallbackLink = 'https://consultoria.falconventures.net/';
+    const resolveAccessLink = (value) => {
+        if (typeof value !== 'string' || value.trim() === '') {
+            return fallbackLink;
+        }
+
+        try {
+            const parsedUrl = new URL(value.trim());
+            return /^https?:$/i.test(parsedUrl.protocol) ? parsedUrl.toString() : fallbackLink;
+        } catch (error) {
+            return fallbackLink;
+        }
+    };
 
     try {
         const formData = new FormData(form);
@@ -848,8 +863,14 @@ window.handleLogin = async function(event) {
             successCompanyLogo.alt = traducciones['login-logo-alt'] || 'Falcon Ventures Logo';
         }
 
-        if (successQr && data.link) {
-            successQr.src = `https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=${encodeURIComponent(data.link)}`;
+        const accessLink = resolveAccessLink(data.link);
+
+        if (successQr) {
+            successQr.src = `https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=${encodeURIComponent(accessLink)}`;
+        }
+
+        if (successManualButton) {
+            successManualButton.href = accessLink;
         }
 
         if (status) {

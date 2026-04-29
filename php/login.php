@@ -110,7 +110,17 @@ try {
         'company_logo_url' => $companyLogoUrl,
     ], JSON_UNESCAPED_UNICODE);
 } catch (PDOException $exception) {
-    loginJsonError('No fue posible conectar con la base de datos.', 500);
+    $sqlState = (string) ($exception->errorInfo[0] ?? '');
+
+    if ($sqlState === '42P01') {
+        loginJsonError('La tabla configurada para el login no existe en esta base de datos.', 500);
+    }
+
+    if ($sqlState === '42S22' || $sqlState === '42703') {
+        loginJsonError('Faltan columnas requeridas para el login en la base de datos.', 500);
+    }
+
+    loginJsonError('No fue posible consultar la base de datos.', 500);
 } catch (Throwable $exception) {
     loginJsonError($exception->getMessage(), 500);
 }

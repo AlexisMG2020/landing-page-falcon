@@ -11,18 +11,29 @@ function obtenerConexionPostgres(array $config): PDO
     $user = (string) ($postgres['user'] ?? '');
     $password = (string) ($postgres['password'] ?? '');
     $sslmode = (string) ($postgres['sslmode'] ?? 'prefer');
+    $options = trim((string) ($postgres['options'] ?? ''));
 
     if ($dbname === '' || $user === '') {
         throw new RuntimeException('La configuracion de PostgreSQL esta incompleta.');
     }
 
-    $dsn = sprintf(
-        'pgsql:host=%s;port=%d;dbname=%s;sslmode=%s',
-        $host,
-        $port,
-        $dbname,
-        $sslmode
-    );
+    // Neon puede requerir el endpoint explicito cuando la libreria libpq no soporta SNI.
+    if ($options === '' && preg_match('/^(ep-[^.]+)\./i', $host, $matches) === 1) {
+        $options = 'endpoint=' . $matches[1];
+    }
+
+    $dsnParts = [
+        sprintf('host=%s', $host),
+        sprintf('port=%d', $port),
+        sprintf('dbname=%s', $dbname),
+        sprintf('sslmode=%s', $sslmode),
+    ];
+
+    if ($options !== '') {
+        $dsnParts[] = sprintf('options=%s', $options);
+    }
+
+    $dsn = 'pgsql:' . implode(';', $dsnParts);
 
     return new PDO($dsn, $user, $password, [
         PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
