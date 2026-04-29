@@ -817,6 +817,8 @@ window.handleLogin = async function(event) {
     const modal = document.getElementById('loginModal');
 
     const fallbackLink = 'https://consultoria.falconventures.net/';
+    const fallbackCompanyName = 'Falcon Ventures';
+    const fallbackCompanyLogo = 'https://static.wixstatic.com/media/423b16_75aaf836c99a47dbbac5fedc906ace3e~mv2.png/v1/crop/x_0,y_170,w_3000,h_733/fill/w_532,h_130,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/Color%20logo%20-%20no%20background_edited.png';
     const resolveAccessLink = (value) => {
         if (typeof value !== 'string' || value.trim() === '') {
             return fallbackLink;
@@ -827,6 +829,19 @@ window.handleLogin = async function(event) {
             return /^https?:$/i.test(parsedUrl.protocol) ? parsedUrl.toString() : fallbackLink;
         } catch (error) {
             return fallbackLink;
+        }
+    };
+
+    const resolveCompanyLogo = (value) => {
+        if (typeof value !== 'string' || value.trim() === '') {
+            return fallbackCompanyLogo;
+        }
+
+        try {
+            const parsedUrl = new URL(value.trim(), window.location.origin);
+            return /^https?:$/i.test(parsedUrl.protocol) ? parsedUrl.toString() : fallbackCompanyLogo;
+        } catch (error) {
+            return fallbackCompanyLogo;
         }
     };
 
@@ -850,20 +865,24 @@ window.handleLogin = async function(event) {
             throw new Error(data?.message || `Login request failed (${response.status})`);
         }
 
+        const accessLink = resolveAccessLink(data.link);
+        const companyName = typeof data.company_name === 'string' && data.company_name.trim() !== ''
+            ? data.company_name.trim()
+            : fallbackCompanyName;
+        const companyLogo = resolveCompanyLogo(data.company_logo_url);
+
         if (successBrand) {
-            successBrand.setAttribute('aria-label', traducciones['login-success-brand-aria'] || 'Falcon Ventures');
+            successBrand.setAttribute('aria-label', companyName);
         }
 
         if (successCompanyName) {
-            successCompanyName.textContent = traducciones['login-success-company'] || 'Falcon Ventures';
+            successCompanyName.textContent = companyName;
         }
 
         if (successCompanyLogo) {
-            successCompanyLogo.src = 'https://static.wixstatic.com/media/423b16_75aaf836c99a47dbbac5fedc906ace3e~mv2.png/v1/crop/x_0,y_170,w_3000,h_733/fill/w_532,h_130,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/Color%20logo%20-%20no%20background_edited.png';
-            successCompanyLogo.alt = traducciones['login-logo-alt'] || 'Falcon Ventures Logo';
+            successCompanyLogo.src = companyLogo;
+            successCompanyLogo.alt = `${companyName} Logo`;
         }
-
-        const accessLink = resolveAccessLink(data.link);
 
         if (successQr) {
             successQr.src = `https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=${encodeURIComponent(accessLink)}`;
