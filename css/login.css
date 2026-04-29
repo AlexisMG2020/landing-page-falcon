@@ -194,13 +194,22 @@ body.login-modal-open {
 .login-modal.login-modal--success .login-success {
     display: flex;
     flex-direction: column;
-    gap: 16px;
-    padding: 28px;
-    border: 1px solid rgba(15, 23, 42, 0.08);
-    border-radius: 28px;
-    background: linear-gradient(180deg, rgba(248, 250, 252, 0.98) 0%, rgba(241, 245, 249, 0.9) 100%);
-    box-shadow: 0 24px 60px rgba(15, 23, 42, 0.1);
+    gap: 0;
     animation: cascadeUp 0.55s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.login-success__card {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: min(100%, 420px);
+    padding: 30px 30px 28px;
+    border: 1px solid rgba(15, 23, 42, 0.07);
+    border-radius: 30px;
+    background:
+        radial-gradient(circle at top right, rgba(101, 120, 154, 0.1), transparent 34%),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.98) 0%, rgba(243, 246, 250, 0.96) 100%);
+    box-shadow: 0 28px 70px rgba(15, 23, 42, 0.12);
 }
 
 .login-success__eyebrow {
@@ -234,49 +243,68 @@ body.login-modal-open {
     color: #64748b;
 }
 
+.login-success__company {
+    margin: -6px 0 2px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #9aa6b2;
+}
+
 .login-success__brand {
     display: inline-flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     width: fit-content;
-    padding-top: 10px;
+    padding-top: 0;
     opacity: 0.92;
-    transition: transform 0.3s ease, opacity 0.3s ease;
-}
-
-.login-success__brand:hover {
-    opacity: 1;
-    transform: translateY(-2px);
 }
 
 .login-success__brand-logo {
     display: block;
-    width: clamp(160px, 55%, 240px);
+    width: clamp(150px, 52%, 230px);
     height: auto;
 }
 
-.login-success__link {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: fit-content;
-    min-width: 210px;
-    padding: 15px 20px;
-    border-radius: 14px;
-    background: #0f172a;
-    color: #ffffff;
-    text-decoration: none;
-    font-size: 0.95rem;
-    font-weight: 800;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    transition: all 0.3s ease;
+.login-success__qr-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    padding: 18px 16px 16px;
+    border-radius: 26px;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.96) 0%, rgba(247, 249, 252, 0.94) 100%);
+    border: 1px solid rgba(148, 163, 184, 0.2);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7);
 }
 
-.login-success__link:hover {
-    background: #1e293b;
-    transform: translateY(-2px);
-    box-shadow: 0 14px 28px rgba(15, 23, 42, 0.18);
+.login-success__qr-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 6px 0 0;
+}
+
+.login-success__qr {
+    width: 188px;
+    height: 188px;
+    padding: 14px;
+    border: 1px solid rgba(148, 163, 184, 0.24);
+    border-radius: 28px;
+    background: #ffffff;
+    box-shadow:
+        0 20px 46px rgba(15, 23, 42, 0.1),
+        0 0 0 8px rgba(255, 255, 255, 0.7);
+    object-fit: contain;
+}
+
+.login-success__qr-caption {
+    margin: 0;
+    text-align: center;
+    font-size: 0.87rem;
+    line-height: 1.55;
+    color: #64748b;
 }
 
 .login-modal .form-group {
@@ -337,6 +365,26 @@ body.login-modal-open {
     flex-direction: column;
     gap: 18px;
     margin-top: 10px;
+}
+
+.login-form-status {
+    display: none;
+    margin-top: 14px;
+    font-size: 0.92rem;
+    line-height: 1.5;
+    font-weight: 700;
+}
+
+.login-form-status.is-visible {
+    display: block;
+}
+
+.login-form-status.is-success {
+    color: #15803d;
+}
+
+.login-form-status.is-error {
+    color: #b91c1c;
 }
 
 .forgot-password {
@@ -494,7 +542,12 @@ body.login-modal-open {
     .login-modal.login-modal--success .login-success {
         align-items: center;
         text-align: center;
-        gap: 14px;
+        gap: 0;
+    }
+
+    .login-success__card {
+        align-items: center;
+        width: 100%;
         padding: 24px 20px;
         border-radius: 24px;
     }
@@ -516,21 +569,26 @@ body.login-modal-open {
         max-width: 28ch;
     }
 
-    .login-success__link {
-        width: 100%;
-        min-width: 0;
-        padding: 14px 16px;
-        font-size: 0.86rem;
-        letter-spacing: 0.8px;
-    }
-
     .login-success__brand {
         width: 100%;
-        padding-top: 6px;
+        justify-content: center;
+        padding-top: 0;
     }
 
     .login-success__brand-logo {
         width: min(220px, 100%);
+    }
+
+    .login-success__company {
+        margin-top: -4px;
+        font-size: 0.88rem;
+        text-align: center;
+    }
+
+    .login-success__qr {
+        width: 172px;
+        height: 172px;
+        padding: 12px;
     }
 
     .login-modal__close-float {

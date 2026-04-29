@@ -704,6 +704,7 @@ function inicializarValidacionFormularios() {
 function resetLoginState() {
     const modal = document.getElementById('loginModal');
     const form = document.getElementById('loginForm');
+    const status = document.getElementById('loginFormStatus');
 
     if (!modal || !form) {
         return;
@@ -727,6 +728,11 @@ function resetLoginState() {
     form.querySelectorAll('.field-error.is-visible').forEach((error) => {
         error.classList.remove('is-visible');
     });
+
+    if (status) {
+        status.textContent = '';
+        status.className = 'login-form-status';
+    }
 }
 
 /* =========================================
@@ -780,21 +786,86 @@ document.addEventListener('keydown', function(event) {
 });
 
 // Manejar el envío del formulario (para tu lógica de backend posterior)
-window.handleLogin = function(event) {
-    event.preventDefault(); // Evita recarga de página
+window.handleLogin = async function(event) {
+    event.preventDefault(); // Evita recarga de pagina
     const form = document.getElementById('loginForm');
+    const status = document.getElementById('loginFormStatus');
+    const submitButton = form?.querySelector('.btn-login-submit');
+    const successBrand = document.getElementById('loginSuccessBrand');
+    const successCompanyName = document.getElementById('loginSuccessCompanyName');
+    const successCompanyLogo = document.getElementById('loginSuccessCompanyLogo');
+    const successQr = document.getElementById('loginSuccessQr');
 
     if (!form || !validarFormulario(form)) {
         return;
     }
 
-    const email = document.getElementById('loginEmail').value;
-    const password = document.getElementById('loginPassword').value;
-    console.log("Credenciales para validar:", { email, password });
+    if (status) {
+        status.textContent = 'Validando acceso...';
+        status.className = 'login-form-status is-visible';
+    }
+
+    if (submitButton) {
+        submitButton.disabled = true;
+    }
 
     const modal = document.getElementById('loginModal');
 
-    if (modal) {
-        modal.classList.add('login-modal--success');
+    try {
+        const formData = new FormData(form);
+        const response = await fetch('/api/login.php', {
+            method: 'POST',
+            body: formData
+        });
+
+        const responseText = await response.text();
+        let data = null;
+
+        try {
+            data = responseText ? JSON.parse(responseText) : null;
+        } catch (parseError) {
+            throw new Error(`Respuesta no valida del servidor (${response.status})`);
+        }
+
+        if (!response.ok || !data || !data.ok) {
+            throw new Error(data?.message || `Login request failed (${response.status})`);
+        }
+
+        if (successBrand) {
+            successBrand.setAttribute('aria-label', 'Falcon Ventures');
+        }
+
+        if (successCompanyName) {
+            successCompanyName.textContent = 'Falcon Ventures';
+        }
+
+        if (successCompanyLogo) {
+            successCompanyLogo.src = 'https://static.wixstatic.com/media/423b16_75aaf836c99a47dbbac5fedc906ace3e~mv2.png/v1/crop/x_0,y_170,w_3000,h_733/fill/w_532,h_130,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/Color%20logo%20-%20no%20background_edited.png';
+            successCompanyLogo.alt = 'Falcon Ventures Logo';
+        }
+
+        if (successQr && data.link) {
+            successQr.src = `https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=${encodeURIComponent(data.link)}`;
+        }
+
+        if (status) {
+            status.textContent = '';
+            status.className = 'login-form-status';
+        }
+
+        if (modal) {
+            modal.classList.add('login-modal--success');
+        }
+    } catch (error) {
+        console.error('Error validando login:', error);
+
+        if (status) {
+            status.textContent = error.message || 'No fue posible validar tu acceso.';
+            status.className = 'login-form-status is-visible is-error';
+        }
+    } finally {
+        if (submitButton) {
+            submitButton.disabled = false;
+        }
     }
 };

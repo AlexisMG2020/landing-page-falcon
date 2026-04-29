@@ -13,4 +13,21 @@ return [
     'to_emails' => [
         'alexis.morales@zascita.com'
     ],
+    'postgres' => [
+        'host' => '127.0.0.1',
+        'port' => 5432,
+        'dbname' => 'falcon',
+        'user' => 'postgres',
+        'password' => 'Alexis200500#',
+        'sslmode' => 'prefer',
+    ],
+    'login' => [
+        'table' => 'users',
+        'email_column' => 'email',
+        'password_column' => 'password_hash',
+        'access_link_column' => 'access_link',
+        'company_name_column' => 'company_name',
+        'company_logo_column' => 'company_logo_url',
+        'active_column' => 'is_active',
+    ],
 ];
