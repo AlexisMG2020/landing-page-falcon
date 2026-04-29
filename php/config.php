@@ -14,12 +14,12 @@ return [
         'alexis.morales@zascita.com'
     ],
     'postgres' => [
-        'host' => '127.0.0.1',
+        'host' => 'ep-still-glade-an1bse9o.c-6.us-east-1.aws.neon.tech',
         'port' => 5432,
-        'dbname' => 'falcon',
-        'user' => 'postgres',
-        'password' => 'Alexis200500#',
-        'sslmode' => 'prefer',
+        'dbname' => 'neondb',
+        'user' => 'neondb_owner',
+        'password' => 'npg_jFUxmH0ywq1p',
+        'sslmode' => 'require', // Neon requiere 'require' para funcionar
     ],
     'login' => [
         'table' => 'users',
