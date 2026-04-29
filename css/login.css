@@ -1057,9 +1057,10 @@ body.login-modal-open {
     .login-success__card {
         align-items: center;
         width: 100%;
-        max-width: 420px;
-        padding: 24px 20px;
-        border-radius: 28px;
+        max-width: 400px;
+        gap: 12px;
+        padding: 20px 18px 18px;
+        border-radius: 26px;
     }
 
     .login-success__eyebrow {
@@ -1086,15 +1087,15 @@ body.login-modal-open {
     }
 
     .login-success__brand-frame {
-        width: min(100%, 224px);
-        min-height: 100px;
+        width: min(100%, 218px);
+        min-height: 96px;
         margin-inline: auto;
-        padding: 8px 10px 14px;
+        padding: 8px 10px 12px;
     }
 
     .login-success__brand-logo {
-        max-width: 164px;
-        max-height: 70px;
+        max-width: 170px;
+        max-height: 74px;
     }
 
     .login-success__company {
@@ -1104,13 +1105,36 @@ body.login-modal-open {
     }
 
     .login-success__qr {
-        width: 154px;
-        height: 154px;
+        width: 148px;
+        height: 148px;
         padding: 10px;
     }
 
     .login-success__qr-wrap {
-        min-height: 176px;
+        min-height: 166px;
+    }
+
+    .login-success__qr-panel {
+        gap: 11px;
+        padding: 14px 14px 16px;
+        border-radius: 24px;
+    }
+
+    .login-success__qr-caption {
+        max-width: 26ch;
+        margin-inline: auto;
+        text-wrap: balance;
+    }
+
+    .login-success__manual-link {
+        justify-content: center;
+    }
+
+    .login-success__manual-button {
+        width: min(100%, 228px);
+        min-height: 62px;
+        padding: 11px 18px;
+        font-size: 0.85rem;
     }
 
     .login-success__qr-glow {
@@ -1175,14 +1199,14 @@ body.login-modal-open {
 
     .login-success__card {
         gap: 12px;
-        padding: 18px 14px 16px;
+        padding: 16px 12px 14px;
         border-radius: 24px;
     }
 
     .login-success__brand-frame {
-        width: min(100%, 204px);
-        min-height: 92px;
-        padding: 6px 8px 12px;
+        width: min(100%, 196px);
+        min-height: 86px;
+        padding: 4px 8px 10px;
     }
 
     .login-success__company {
@@ -1199,23 +1223,17 @@ body.login-modal-open {
     }
 
     .login-success__title {
-        font-size: 1.28rem;
-        line-height: 1.12;
+        font-size: 1.2rem;
+        line-height: 1.14;
     }
 
     .login-success__text {
-        font-size: 0.88rem;
+        font-size: 0.84rem;
     }
 
     .login-success__qr-panel {
-        grid-template-columns: 1fr;
-        grid-template-areas:
-            "badge"
-            "qr"
-            "caption"
-            "button";
         gap: 10px;
-        padding: 14px 10px 14px;
+        padding: 12px 10px 14px;
         border-radius: 22px;
     }
 
@@ -1231,14 +1249,14 @@ body.login-modal-open {
     }
 
     .login-success__qr-wrap {
-        min-height: 162px;
-        padding-top: 4px;
+        min-height: 154px;
+        padding-top: 2px;
     }
 
     .login-success__qr {
-        width: 142px;
-        height: 142px;
-        padding: 9px;
+        width: 136px;
+        height: 136px;
+        padding: 8px;
         border-radius: 20px;
     }
 
@@ -1274,14 +1292,22 @@ body.login-modal-open {
 
     .login-success__qr-caption {
         font-size: 0.78rem;
-        line-height: 1.45;
+        line-height: 1.42;
         text-align: center;
         margin-inline: auto;
-        max-width: 24ch;
+        max-width: 25ch;
+        text-wrap: balance;
     }
 
     .login-success__manual-link {
         justify-content: center;
+    }
+
+    .login-success__manual-button {
+        width: min(100%, 210px);
+        min-height: 58px;
+        padding: 10px 16px;
+        font-size: 0.82rem;
     }
 }
 
