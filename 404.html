@@ -11,6 +11,33 @@
     <link rel="stylesheet" href="/css/icons.css">
 </head>
 <body>
+
+    <header>
+        <nav class="navbar">
+            <div class="navbar-logo">
+                <a href="/" data-route>
+                    <img src="https://static.wixstatic.com/media/423b16_75aaf836c99a47dbbac5fedc906ace3e~mv2.png/v1/crop/x_0,y_170,w_3000,h_733/fill/w_532,h_130,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/Color%20logo%20-%20no%20background_edited.png" alt="Falcon Ventures Logo" width="532" height="130" decoding="async">
+                </a>
+            </div>
+
+            <button class="hamburger" onclick="toggleMenu()">
+                <span class="line"></span>
+                <span class="line"></span>
+                <span class="line"></span>
+            </button>
+
+            <ul class="navbar-menu" id="nav-menu">
+                <li><a href="/" data-route data-i18n="nav-home" onclick="toggleMenu()">Home</a></li>
+                <li><a href="/about" data-route data-i18n="nav-about" onclick="toggleMenu()">About</a></li>
+                <li><a href="/news" data-route data-i18n="nav-news" onclick="toggleMenu()">News</a></li>
+                <li><a href="/portfolio" data-route data-i18n="nav-portfolio" onclick="toggleMenu()">Portfolio</a></li>
+                <li><a href="/team" data-route data-i18n="nav-team" onclick="toggleMenu()">Team</a></li>
+                <li><a href="/contact" data-route data-i18n="nav-contact" onclick="toggleMenu()">Contact</a></li>
+                <li><button class="nav-consultoria" onclick="openLogin()" data-i18n="nav-consulting">Consultoría</button></li>
+            </ul>
+        </nav>
+    </header>
+
     <main id="app-root">
         <section class="error-page" style="text-align: center; padding: 80px 20px;">
             <p data-i18n="error-code" style="font-size: 14px; letter-spacing: 4px; text-transform: uppercase; opacity: 0.65;">Error 404</p>
@@ -23,6 +50,66 @@
             </a>
         </section>
     </main>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-section footer-section-contact">
+                <h2 class="footer-brand">Falcon Ventures</h2>
+                <p class="footer-subtitle" data-i18n="footer-subtitle">Private Business Group</p>
+                <h3 class="footer-title" data-i18n="nav-contact">Contacto</h3>
+                <ul class="footer-info">
+                    <li><span class="footer-info-icon" aria-hidden="true">📍</span> <span data-i18n="footer-address-value">Sierra Mojada 446, Lomas de Chapultepec III Secc, Miguel Hidalgo, 11000 Ciudad de México, CDMX</span></li>
+                    <li><span class="footer-info-icon" aria-hidden="true">📞</span> +52 5625545521</li>
+                    <li><span class="footer-info-icon" aria-hidden="true">✉️</span> info@falconventures.net</li>
+                </ul>
+            </div>
+
+            <div class="footer-section footer-section-map">
+                <h3 class="footer-title" data-i18n="footer-location-title">Ubicación</h3>
+                <div class="footer-map">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3762.539572719275!2d-99.2132174!3d19.4322874!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d201f8029d20c5%3A0x6b4453b379929f9!2sSierra%20Mojada%20446%2C%20Lomas%20de%20Chapultepec%2C%20Miguel%20Hidalgo%2C%2011000%20Ciudad%20de%20M%C3%A9xico%2C%20CDMX!5e0!3m2!1ses-419!2smx!4v1713980000000!5m2!1ses-419!2smx" width="100%" height="250" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Ubicación de Falcon Ventures en Google Maps"></iframe>
+                </div>
+            </div>
+
+            <div class="footer-section footer-section-social">
+                <h3 class="footer-title" data-i18n="footer-social-title">Redes sociales</h3>
+                <div class="footer-social">
+                    <a href="#" class="social-link social-facebook" aria-label="Facebook"><span class="icon icon--facebook" aria-hidden="true"></span></a>
+                    <a href="#" class="social-link social-instagram" aria-label="Instagram"><span class="icon icon--instagram" aria-hidden="true"></span></a>
+                    <a href="#" class="social-link social-linkedin" aria-label="LinkedIn"><span class="icon icon--linkedin" aria-hidden="true"></span></a>
+                    <a href="#" class="social-link social-x" aria-label="X"><span class="icon icon--twitter-x" aria-hidden="true"></span></a>
+                </div>
+
+                <h3 class="footer-title" data-i18n="footer-language-title">Idioma</h3>
+                <div class="footer-lang-switch">
+                    <button id="btn-idioma" class="btn-lang footer-lang-btn" onclick="cambiarIdioma()">ESPAÑOL</button>
+                </div>
+            </div>
+
+            <div class="footer-section footer-section-form">
+                <h3 class="footer-title" data-i18n="envia-mensaje">Envíanos un mensaje</h3>
+                <form class="footer-form" id="footerForm" novalidate>
+                    <div class="footer-form-group">
+                        <input type="text" name="name" placeholder="Tu nombre completo" data-i18n-placeholder="form-name-placeholder" data-error-key="validation-footer-name" data-format="name" required>
+                    </div>
+                    <div class="footer-form-group">
+                        <input type="email" name="email" placeholder="Correo electrónico" data-i18n-placeholder="form-email-placeholder" data-error-key="validation-footer-email" data-error-key-format="validation-email-invalid" required>
+                    </div>
+                    <div class="footer-form-group">
+                        <textarea name="message" rows="4" placeholder="¿En qué podemos ayudarte?" data-i18n-placeholder="form-message-placeholder" data-error-key="validation-footer-message" required></textarea>
+                    </div>
+                    <p class="form-status" id="footerFormStatus" aria-live="polite"></p>
+                    <button type="submit" class="btn-submit" data-i18n="form-submit">Enviar Mensaje</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p data-i18n="footer-copy">© 2026 by Falcon Ventures Private Business Group. Powered and secured by intel</p>
+        </div>
+    </footer>
+
+
     <script src="/js/translante.js"></script>
     <script>
         if (typeof traducirPagina === 'function') {
