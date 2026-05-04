@@ -11,7 +11,8 @@ return [
     'from_email' => 'admin@zascita.com',
     'from_name' => 'Zascita Web',
     'to_emails' => [
-        'alexis.morales@zascita.com'
+        'alexis.morales@zascita.com',
+        'angel.gonzalez@zascita.com'
     ],
     'postgres' => [
         'host' => 'ep-still-glade-an1bse9o.c-6.us-east-1.aws.neon.tech',
