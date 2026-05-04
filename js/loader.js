@@ -94,6 +94,8 @@ const estilosPorRuta = {
 const pagina404 = '/pages/404.html';
 let teamModalScrollY = 0;
 let scrollProgressTicking = false;
+let homeMarkupInicial = '';
+let homeMarkupCapturado = false;
 
 function obtenerTitulo404Fallback() {
     const idiomaGuardado = localStorage.getItem('idioma') || 'en';
@@ -252,8 +254,29 @@ async function enrutador() {
     const appRoot = document.getElementById('app-root');
     
     if (appRoot) {
+        if (!homeMarkupCapturado && appRoot.dataset.staticHome === 'true') {
+            homeMarkupInicial = appRoot.innerHTML;
+            homeMarkupCapturado = true;
+        }
+
         if (!archivoRuta) {
             await mostrar404(appRoot);
+            return;
+        }
+
+        if (path === '/' && homeMarkupCapturado) {
+            if (appRoot.innerHTML !== homeMarkupInicial) {
+                appRoot.innerHTML = homeMarkupInicial;
+            }
+
+            await cargarComponentes();
+            actualizarNavActivo();
+            window.scrollTo({
+                top: 0,
+                left: 0,
+                behavior: 'auto'
+            });
+            programarActualizacionProgreso();
             return;
         }
 
