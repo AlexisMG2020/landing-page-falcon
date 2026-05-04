@@ -10,6 +10,81 @@ const rutas = {
     '/contact': '/pages/contact.html'
 };
 
+const siteUrl = 'https://landing-page-falcon.vercel.app';
+
+const routeSeo = {
+    '/': {
+        title: {
+            en: 'Falcon Ventures: Private Equity',
+            es: 'Falcon Ventures: Capital Privado'
+        },
+        description: {
+            en: 'Private Business Group investing in early or growth-stage security companies.',
+            es: 'Grupo privado de negocios que invierte en empresas de seguridad en etapa temprana o de crecimiento.'
+        }
+    },
+    '/about': {
+        title: {
+            en: 'About Falcon Ventures | Private Equity in Security',
+            es: 'Acerca de Falcon Ventures | Capital Privado en Seguridad'
+        },
+        description: {
+            en: 'Learn how Falcon Ventures invests in cybersecurity, physical security, and mission-critical communications companies.',
+            es: 'Conoce cómo Falcon Ventures invierte en empresas de ciberseguridad, seguridad física y comunicaciones de misión crítica.'
+        }
+    },
+    '/news': {
+        title: {
+            en: 'Falcon Ventures News | Industry and Portfolio Updates',
+            es: 'Noticias de Falcon Ventures | Industria y Portafolio'
+        },
+        description: {
+            en: 'Explore recent Falcon Ventures news, recognitions, and portfolio milestones across the security sector.',
+            es: 'Explora noticias recientes, reconocimientos e hitos del portafolio de Falcon Ventures en el sector de seguridad.'
+        }
+    },
+    '/portfolio': {
+        title: {
+            en: 'Falcon Ventures Portfolio | Security-Focused Investments',
+            es: 'Portafolio de Falcon Ventures | Inversiones en Seguridad'
+        },
+        description: {
+            en: 'Discover Falcon Ventures portfolio companies and our investment focus across security, communications, and automation.',
+            es: 'Descubre las empresas del portafolio de Falcon Ventures y nuestro enfoque de inversión en seguridad, comunicaciones y automatización.'
+        }
+    },
+    '/team': {
+        title: {
+            en: 'Falcon Ventures Team | Leadership and Governance',
+            es: 'Equipo de Falcon Ventures | Liderazgo y Gobierno'
+        },
+        description: {
+            en: 'Meet the Falcon Ventures leadership team, governance structure, and specialists driving investment execution.',
+            es: 'Conoce al equipo de liderazgo, la estructura de gobierno y los especialistas que impulsan la ejecución de inversiones en Falcon Ventures.'
+        }
+    },
+    '/contact': {
+        title: {
+            en: 'Contact Falcon Ventures | Mexico City Headquarters',
+            es: 'Contacto Falcon Ventures | Oficina en Ciudad de Mexico'
+        },
+        description: {
+            en: 'Contact Falcon Ventures for investment opportunities, strategic consulting, press inquiries, or general information.',
+            es: 'Contacta a Falcon Ventures para oportunidades de inversión, consultoría estratégica, prensa o información general.'
+        }
+    },
+    '404': {
+        title: {
+            en: 'Falcon Ventures | Page Not Found',
+            es: 'Falcon Ventures | Página no encontrada'
+        },
+        description: {
+            en: 'The page you requested could not be found.',
+            es: 'La página solicitada no pudo ser encontrada.'
+        }
+    }
+};
+
 const estilosPorRuta = {
     '/portfolio': ['/css/portfolio.css'],
     '/team': ['/css/team.css'],
@@ -30,7 +105,8 @@ function obtenerTitulo404Fallback() {
 
 function obtenerRutaActual() {
     if (!window.location.hash) {
-        return window.location.pathname === '/' ? '/' : window.location.pathname;
+        const path = window.location.pathname === '/' ? '/' : window.location.pathname.replace(/\/+$/, '');
+        return path || '/';
     }
 
     const ruta = window.location.hash.slice(1);
@@ -112,6 +188,54 @@ function asegurarEstilosRuta(path) {
     });
 }
 
+function actualizarSeoRuta(path, es404 = false) {
+    const idioma = localStorage.getItem('idioma') || 'en';
+    const seo = es404 ? routeSeo['404'] : (routeSeo[path] || routeSeo['/']);
+    const title = seo.title[idioma] || seo.title.en;
+    const description = seo.description[idioma] || seo.description.en;
+    const canonicalPath = es404 ? window.location.pathname : (path === '/' ? '/' : path);
+    const canonicalUrl = `${siteUrl}${canonicalPath}`;
+
+    document.title = title;
+
+    const descriptionMeta = document.querySelector('meta[name="description"]');
+    if (descriptionMeta) {
+        descriptionMeta.setAttribute('content', description);
+    }
+
+    const robotsMeta = document.querySelector('meta[name="robots"]');
+    if (robotsMeta) {
+        robotsMeta.setAttribute('content', es404 ? 'noindex,follow' : 'index,follow');
+    }
+
+    const googlebotMeta = document.querySelector('meta[name="googlebot"]');
+    if (googlebotMeta) {
+        googlebotMeta.setAttribute(
+            'content',
+            es404
+                ? 'noindex,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1'
+                : 'index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1'
+        );
+    }
+
+    const canonicalLink = document.querySelector('link[rel="canonical"]');
+    if (canonicalLink) {
+        canonicalLink.setAttribute('href', canonicalUrl);
+    }
+
+    const ogTitle = document.querySelector('meta[property="og:title"]');
+    const ogDescription = document.querySelector('meta[property="og:description"]');
+    const ogUrl = document.querySelector('meta[property="og:url"]');
+    const twitterTitle = document.querySelector('meta[name="twitter:title"]');
+    const twitterDescription = document.querySelector('meta[name="twitter:description"]');
+
+    if (ogTitle) ogTitle.setAttribute('content', title);
+    if (ogDescription) ogDescription.setAttribute('content', description);
+    if (ogUrl) ogUrl.setAttribute('content', canonicalUrl);
+    if (twitterTitle) twitterTitle.setAttribute('content', title);
+    if (twitterDescription) twitterDescription.setAttribute('content', description);
+}
+
 /* =========================================
    2. EL MOTOR DE ENRUTAMIENTO (ROUTER)
    ========================================= */
@@ -119,6 +243,7 @@ async function enrutador() {
     // Obtenemos la ruta desde el hash (ej. "#/about" -> "/about")
     const path = obtenerRutaActual();
     asegurarEstilosRuta(path);
+    actualizarSeoRuta(path);
     
     // Si la ruta no existe, mostramos el 404 dentro de la app
     const archivoRuta = rutas[path];
@@ -137,6 +262,7 @@ async function enrutador() {
             const respuesta = await fetch(archivoRuta);
             if (respuesta.ok) {
                 appRoot.innerHTML = await respuesta.text();
+                actualizarSeoRuta(path);
             } else {
                 await mostrar404(appRoot);
             }
@@ -169,22 +295,15 @@ document.addEventListener("click", e => {
     if (enlace) {
         e.preventDefault(); // Detiene la recarga molesta
         const url = new URL(enlace.href);
-        const esHome = url.pathname === '/' && !url.hash;
+        const rutaDestino = url.hash ? url.hash.slice(1) || '/' : (url.pathname.replace(/\/+$/, '') || '/');
 
-        if (esHome) {
-            window.history.pushState(null, null, url.pathname);
+        if (rutaDestino === obtenerRutaActual()) {
             enrutador();
             return;
         }
 
-        const nuevaRuta = url.hash || `#${url.pathname}`;
-
-        if (window.location.hash === nuevaRuta) {
-            enrutador();
-            return;
-        }
-
-        window.location.hash = nuevaRuta; // Cambia la URL arriba
+        window.history.pushState(null, null, rutaDestino);
+        enrutador();
     }
 });
 
@@ -257,6 +376,8 @@ async function cargarComponentes() {
 }
 
 async function mostrar404(appRoot) {
+    actualizarSeoRuta(window.location.pathname || '/', true);
+
     try {
         const respuesta = await fetch(pagina404);
 

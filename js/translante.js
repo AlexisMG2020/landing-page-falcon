@@ -466,6 +466,12 @@ function traducirPagina() {
     if(btnIdioma) {
         btnIdioma.textContent = idiomaActual === 'en' ? 'ESPAÑOL' : 'ENGLISH';
     }
+
+    if (typeof actualizarSeoRuta === 'function' && typeof obtenerRutaActual === 'function') {
+        const rutaActual = obtenerRutaActual();
+        const es404 = typeof rutas !== 'undefined' && !rutas[rutaActual];
+        actualizarSeoRuta(rutaActual, es404);
+    }
 }
 
 // 4. Función para cambiar el idioma cuando hacen clic en el botón

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://landing-page-falcon.vercel.app/sitemap.xml
