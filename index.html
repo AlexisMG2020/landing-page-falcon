@@ -23,23 +23,62 @@
     <link rel="stylesheet" href="/css/icons.css">
     <link rel="stylesheet" href="/css/login.css">
     <script type="application/ld+json">
+    [
         {
             "@context": "https://schema.org",
             "@type": "Organization",
             "name": "Falcon Ventures",
             "url": "https://falconventures.zascita.com/",
             "logo": "https://falconventures.zascita.com/assets/logo.svg",
-            "email": "info@falconventures.net",
-            "telephone": "+52 5625545521",
-            "address": {
-                "@type": "PostalAddress",
-                "streetAddress": "Sierra Mojada 446, Lomas de Chapultepec III Secc",
-                "addressLocality": "Ciudad de Mexico",
-                "addressRegion": "CDMX",
-                "postalCode": "11000",
-                "addressCountry": "MX"
+            "contactPoint": {
+                "@type": "ContactPoint",
+                "telephone": "+52-5625545521",
+                "contactType": "customer service"
             }
+        },
+        {
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            "name": "Falcon Ventures",
+            "url": "https://falconventures.zascita.com/",
+            "potentialAction": {
+                "@type": "SearchAction",
+                "target": "https://falconventures.zascita.com/search?q={search_term_string}",
+                "query-input": "required name=search_term_string"
+            }
+        },
+        {
+            "@context": "https://schema.org",
+            "@type": "ItemList",
+            "name": "Navegación Principal",
+            "itemListElement": [
+                {
+                    "@type": "SiteNavigationElement",
+                    "position": 1,
+                    "name": "Sobre Nosotros",
+                    "url": "https://falconventures.zascita.com/about"
+                },
+                {
+                    "@type": "SiteNavigationElement",
+                    "position": 2,
+                    "name": "Noticias",
+                    "url": "https://falconventures.zascita.com/news"
+                },
+                {
+                    "@type": "SiteNavigationElement",
+                    "position": 3,
+                    "name": "Portafolio",
+                    "url": "https://falconventures.zascita.com/portfolio"
+                },
+                {
+                    "@type": "SiteNavigationElement",
+                    "position": 4,
+                    "name": "Contacto",
+                    "url": "https://falconventures.zascita.com/contact"
+                }
+            ]
         }
+    ]
     </script>
 
 </head>
