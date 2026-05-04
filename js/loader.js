@@ -10,6 +10,12 @@ const rutas = {
     '/contact': '/pages/contact.html'
 };
 
+const estilosPorRuta = {
+    '/portfolio': ['/css/portfolio.css'],
+    '/team': ['/css/team.css'],
+    '/contact': ['/css/contact.css']
+};
+
 const pagina404 = '/pages/404.html';
 let teamModalScrollY = 0;
 let scrollProgressTicking = false;
@@ -90,12 +96,29 @@ function programarActualizacionProgreso() {
     });
 }
 
+function asegurarEstilosRuta(path) {
+    const estilos = estilosPorRuta[path] || [];
+
+    estilos.forEach((href) => {
+        if (document.querySelector(`link[data-route-style="${href}"]`)) {
+            return;
+        }
+
+        const link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.href = href;
+        link.setAttribute('data-route-style', href);
+        document.head.appendChild(link);
+    });
+}
+
 /* =========================================
    2. EL MOTOR DE ENRUTAMIENTO (ROUTER)
    ========================================= */
 async function enrutador() {
     // Obtenemos la ruta desde el hash (ej. "#/about" -> "/about")
     const path = obtenerRutaActual();
+    asegurarEstilosRuta(path);
     
     // Si la ruta no existe, mostramos el 404 dentro de la app
     const archivoRuta = rutas[path];
@@ -304,7 +327,7 @@ function prepararModalTeam() {
                 <div class="team-modal__topbar">
                     <span class="team-modal__topbar-label">Perfil</span>
                     <button type="button" class="team-modal__close" aria-label="Cerrar" data-team-close="true">
-                        <i class="bi bi-x-lg"></i>
+                        <span class="icon icon--close icon--md" aria-hidden="true"></span>
                     </button>
                 </div>
                 <div class="team-modal__scroll">

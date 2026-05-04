@@ -136,7 +136,7 @@
     border-color: rgba(132, 155, 196, 0.2);
 }
 
-.contact-details-list i {
+.contact-details-list .icon {
     font-size: 1.25rem;
     color: var(--accent-blue, #65789A);
     background: rgba(101, 120, 154, 0.1);
@@ -151,7 +151,7 @@
     transition: transform 0.35s ease, background-color 0.35s ease, color 0.35s ease;
 }
 
-.contact-details-list li:hover i {
+.contact-details-list li:hover .icon {
     transform: scale(1.08);
     background: rgba(101, 120, 154, 0.16);
     color: #435879;
@@ -505,13 +505,13 @@
     .contact-info-shell,
     .contact-form-shell,
     .contact-details-list li,
-    .contact-details-list i,
+    .contact-details-list .icon,
     .contact-map-wrapper iframe,
     .form-group input,
     .form-group select,
     .form-group textarea,
     .btn-submit-premium,
-    .btn-submit-premium i,
+    .btn-submit-premium .icon,
     .btn-submit-premium::before {
         transition: none !important;
     }

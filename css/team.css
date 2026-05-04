@@ -196,9 +196,8 @@
 }
 
 .team-card-cta::after {
-    content: "\F138";
-    font-family: bootstrap-icons !important;
-    font-size: 0.9rem;
+    content: "\2192";
+    font-size: 0.95rem;
     color: #65789A;
 }
 
