@@ -1012,8 +1012,14 @@ window.handleLogin = async function(event) {
         }
     };
 
+    const formData = new FormData(form);
+    console.log("Valores que se enviarán:");
+for (let [key, value] of formData.entries()) {
+    console.log(`${key}: ${value}`);
+}
+
+
     try {
-        const formData = new FormData(form);
         const response = await fetch('/api/login.php', {
             method: 'POST',
             body: formData

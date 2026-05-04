@@ -1,9 +1,20 @@
 RewriteEngine On
 
-# Serve existing files and directories normally.
+# 1. EXCEPCIONES CRÍTICAS (Backend y Archivos Reales)
+# Si el archivo existe físicamente (como /api/login.php o /css/style.css), detenemos aquí
+# para que el servidor lo ejecute o entregue normalmente.
 RewriteCond %{REQUEST_FILENAME} -f [OR]
 RewriteCond %{REQUEST_FILENAME} -d
 RewriteRule ^ - [L]
 
-# Send all other routes to the SPA entry point.
+# 2. LIMPIEZA DE URLS (.html)
+# Esto permite que /about cargue about.html sin mostrar la extensión.
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}\.html -f
+RewriteRule ^(.*)$ $1.html [NC,L]
+
+# 3. ENRUTAMIENTO SPA (Single Page Application)
+# Solo si la petición NO es un archivo real y NO es una de tus carpetas de sistema,
+# enviamos al index.html para que el JS maneje la ruta.
+RewriteCond %{REQUEST_URI} !^/(api|php|assets|css|js) [NC]
 RewriteRule ^ index.html [L]
