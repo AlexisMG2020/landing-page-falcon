@@ -1,98 +1,33 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Falcon Ventures | Página no encontrada</title>
-    <meta name="description" content="La página solicitada no existe en Falcon Ventures.">
+    <title>Falcon Ventures | Page Not Found</title>
+    <meta name="description" content="The page you requested could not be found.">
     <meta name="robots" content="noindex,follow">
     <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
     <link rel="stylesheet" href="/css/globales.css">
     <link rel="stylesheet" href="/css/icons.css">
-    <style>
-        .error-standalone {
-            min-height: 100vh;
-            min-height: 100dvh;
-            display: grid;
-            place-items: center;
-            padding: 120px 24px 64px;
-            background:
-                radial-gradient(circle at top, rgba(212, 175, 55, 0.16), transparent 32%),
-                linear-gradient(180deg, #06111f 0%, #0a1a2e 52%, #07101b 100%);
-        }
-
-        .error-standalone__card {
-            width: min(680px, 100%);
-            padding: 40px 28px;
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            border-radius: 24px;
-            background: rgba(4, 12, 24, 0.82);
-            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.35);
-            text-align: center;
-            color: #f5f7fb;
-        }
-
-        .error-standalone__code {
-            margin: 0 0 12px;
-            font-size: 0.85rem;
-            letter-spacing: 0.34em;
-            text-transform: uppercase;
-            color: #c9a54c;
-        }
-
-        .error-standalone__title {
-            margin: 0 0 16px;
-            font-size: clamp(2rem, 6vw, 3.4rem);
-            line-height: 1.05;
-        }
-
-        .error-standalone__text {
-            margin: 0 auto 28px;
-            max-width: 44ch;
-            color: rgba(245, 247, 251, 0.78);
-            line-height: 1.7;
-        }
-
-        .error-standalone__actions {
-            display: flex;
-            justify-content: center;
-            gap: 14px;
-            flex-wrap: wrap;
-        }
-
-        .error-standalone__button {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 48px;
-            padding: 0 20px;
-            border-radius: 999px;
-            border: 1px solid rgba(201, 165, 76, 0.45);
-            color: #f5f7fb;
-            text-decoration: none;
-            transition: transform 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
-        }
-
-        .error-standalone__button:hover {
-            transform: translateY(-1px);
-            border-color: #c9a54c;
-            background: rgba(201, 165, 76, 0.12);
-        }
-    </style>
 </head>
 <body>
-    <main class="error-standalone">
-        <section class="error-standalone__card">
-            <p class="error-standalone__code">Error 404</p>
-            <h1 class="error-standalone__title">Página no encontrada</h1>
-            <p class="error-standalone__text">
-                La ruta que intentaste abrir no existe o ya no está disponible. Puedes volver al inicio y seguir navegando desde ahí.
+    <main id="app-root">
+        <section class="error-page" style="text-align: center; padding: 80px 20px;">
+            <p data-i18n="error-code" style="font-size: 14px; letter-spacing: 4px; text-transform: uppercase; opacity: 0.65;">Error 404</p>
+            <h1 data-i18n="error-title" style="font-size: 42px; margin: 12px 0;">Pagina no encontrada</h1>
+            <p data-i18n="error-description" style="max-width: 540px; margin: 0 auto 28px; line-height: 1.7;">
+                La ruta que intentaste abrir no existe o todavia no fue creada dentro del proyecto.
             </p>
-            <div class="error-standalone__actions">
-                <a class="error-standalone__button" href="/">Volver al inicio</a>
-                <a class="error-standalone__button" href="/contact">Ir a contacto</a>
-            </div>
+            <a href="/" data-i18n="error-back-home" style="display: inline-block; padding: 12px 22px; border: 1px solid currentColor; text-decoration: none;">
+                Volver al inicio
+            </a>
         </section>
     </main>
+    <script src="/js/translante.js"></script>
+    <script>
+        if (typeof traducirPagina === 'function') {
+            traducirPagina();
+        }
+    </script>
 </body>
 </html>
