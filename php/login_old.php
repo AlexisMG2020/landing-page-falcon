@@ -9,17 +9,17 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit;
 }
 
-$config = require __DIR__ . '/config.php';
-require_once __DIR__ . '/db.php';
+$config = require __DIR__ . '/config_old.php';
+require_once __DIR__ . '/db_old.php';
 
-function loginJsonError(string $message, int $status = 400): never
+function loginJsonErrorOld(string $message, int $status = 400): never
 {
     http_response_code($status);
     echo json_encode(['ok' => false, 'message' => $message], JSON_UNESCAPED_UNICODE);
     exit;
 }
 
-function quoteIdentifier(string $identifier): string
+function quoteIdentifierOld(string $identifier): string
 {
     $parts = explode('.', $identifier);
 
@@ -30,12 +30,12 @@ function quoteIdentifier(string $identifier): string
     }
 
     return implode('.', array_map(
-        static fn(string $part): string => '`' . $part . '`',
+        static fn(string $part): string => '"' . $part . '"',
         $parts
     ));
 }
 
-function passwordMatches(string $inputPassword, string $storedPassword): bool
+function passwordMatchesOld(string $inputPassword, string $storedPassword): bool
 {
     if ($storedPassword === '') {
         return false;
@@ -52,18 +52,18 @@ $email = trim((string) ($_POST['email'] ?? ''));
 $password = (string) ($_POST['password'] ?? '');
 
 if ($email === '' || $password === '') {
-    loginJsonError('Ingresa tu correo y tu contrasena.');
+    loginJsonErrorOld('Ingresa tu correo y tu contrasena.');
 }
 
 $loginConfig = $config['login'] ?? [];
 
 try {
-    $table = quoteIdentifier((string) ($loginConfig['table'] ?? 'users'));
-    $emailColumn = quoteIdentifier((string) ($loginConfig['email_column'] ?? 'email'));
-    $passwordColumn = quoteIdentifier((string) ($loginConfig['password_column'] ?? 'password_hash'));
-    $linkColumn = quoteIdentifier((string) ($loginConfig['access_link_column'] ?? 'access_link'));
-    $companyNameColumn = quoteIdentifier((string) ($loginConfig['company_name_column'] ?? 'company_name'));
-    $companyLogoColumn = quoteIdentifier((string) ($loginConfig['company_logo_column'] ?? 'company_logo_url'));
+    $table = quoteIdentifierOld((string) ($loginConfig['table'] ?? 'users'));
+    $emailColumn = quoteIdentifierOld((string) ($loginConfig['email_column'] ?? 'email'));
+    $passwordColumn = quoteIdentifierOld((string) ($loginConfig['password_column'] ?? 'password_hash'));
+    $linkColumn = quoteIdentifierOld((string) ($loginConfig['access_link_column'] ?? 'access_link'));
+    $companyNameColumn = quoteIdentifierOld((string) ($loginConfig['company_name_column'] ?? 'company_name'));
+    $companyLogoColumn = quoteIdentifierOld((string) ($loginConfig['company_logo_column'] ?? 'company_logo_url'));
     $activeColumn = trim((string) ($loginConfig['active_column'] ?? ''));
 
     $sql = "SELECT {$emailColumn} AS email, {$passwordColumn} AS password_value, {$linkColumn} AS access_link,
@@ -72,18 +72,18 @@ try {
             WHERE LOWER({$emailColumn}) = LOWER(:email)";
 
     if ($activeColumn !== '') {
-        $sql .= ' AND ' . quoteIdentifier($activeColumn) . ' = 1';
+        $sql .= ' AND ' . quoteIdentifierOld($activeColumn) . ' = TRUE';
     }
 
     $sql .= ' LIMIT 1';
 
-    $pdo = obtenerConexionMySQL($config);
+    $pdo = obtenerConexionPostgres($config);
     $statement = $pdo->prepare($sql);
     $statement->execute(['email' => $email]);
     $user = $statement->fetch();
 
-    if (!$user || !passwordMatches($password, (string) ($user['password_value'] ?? ''))) {
-        loginJsonError('Credenciales invalidas.', 401);
+    if (!$user || !passwordMatchesOld($password, (string) ($user['password_value'] ?? ''))) {
+        loginJsonErrorOld('Credenciales invalidas.', 401);
     }
 
     $accessLink = trim((string) ($user['access_link'] ?? ''));
@@ -113,14 +113,14 @@ try {
     $sqlState = (string) ($exception->errorInfo[0] ?? '');
 
     if ($sqlState === '42P01') {
-        loginJsonError('La tabla configurada para el login no existe en esta base de datos.', 500);
+        loginJsonErrorOld('La tabla configurada para el login no existe en esta base de datos.', 500);
     }
 
     if ($sqlState === '42S22' || $sqlState === '42703') {
-        loginJsonError('Faltan columnas requeridas para el login en la base de datos.', 500);
+        loginJsonErrorOld('Faltan columnas requeridas para el login en la base de datos.', 500);
     }
 
-    loginJsonError('No fue posible consultar la base de datos.', 500);
+    loginJsonErrorOld('No fue posible consultar la base de datos.', 500);
 } catch (Throwable $exception) {
-    loginJsonError($exception->getMessage(), 500);
+    loginJsonErrorOld($exception->getMessage(), 500);
 }

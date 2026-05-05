@@ -1,39 +1,28 @@
 <?php
 declare(strict_types=1);
 
-function obtenerConexionPostgres(array $config): PDO
+function obtenerConexionMySQL(array $config): PDO
 {
-    $postgres = $config['postgres'] ?? [];
+    $mysql = $config['mysql'] ?? [];
 
-    $host = (string) ($postgres['host'] ?? '127.0.0.1');
-    $port = (int) ($postgres['port'] ?? 5432);
-    $dbname = (string) ($postgres['dbname'] ?? '');
-    $user = (string) ($postgres['user'] ?? '');
-    $password = (string) ($postgres['password'] ?? '');
-    $sslmode = (string) ($postgres['sslmode'] ?? 'prefer');
-    $options = trim((string) ($postgres['options'] ?? ''));
+    $host = (string) ($mysql['host'] ?? '127.0.0.1');
+    $port = (int) ($mysql['port'] ?? 3306);
+    $dbname = (string) ($mysql['dbname'] ?? '');
+    $user = (string) ($mysql['user'] ?? '');
+    $password = (string) ($mysql['password'] ?? '');
+    $charset = (string) ($mysql['charset'] ?? 'utf8mb4');
 
     if ($dbname === '' || $user === '') {
-        throw new RuntimeException('La configuracion de PostgreSQL esta incompleta.');
+        throw new RuntimeException('La configuracion de MySQL esta incompleta.');
     }
 
-    // Neon puede requerir el endpoint explicito cuando la libreria libpq no soporta SNI.
-    if ($options === '' && preg_match('/^(ep-[^.]+)\./i', $host, $matches) === 1) {
-        $options = 'endpoint=' . $matches[1];
-    }
-
-    $dsnParts = [
-        sprintf('host=%s', $host),
-        sprintf('port=%d', $port),
-        sprintf('dbname=%s', $dbname),
-        sprintf('sslmode=%s', $sslmode),
-    ];
-
-    if ($options !== '') {
-        $dsnParts[] = sprintf('options=%s', $options);
-    }
-
-    $dsn = 'pgsql:' . implode(';', $dsnParts);
+    $dsn = sprintf(
+        'mysql:host=%s;port=%d;dbname=%s;charset=%s',
+        $host,
+        $port,
+        $dbname,
+        $charset
+    );
 
     return new PDO($dsn, $user, $password, [
         PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,

@@ -14,13 +14,13 @@ return [
         'alexis.morales@zascita.com',
         'angel.gonzalez@zascita.com'
     ],
-    'mysql' => [
-        'host' => 'bsrwfywovs2tcfak7lki-mysql.services.clever-cloud.com',
-        'port' => 3306,
-        'dbname' => 'bsrwfywovs2tcfak7lki',
-        'user' => 'u8hfijy5flmiax0b',
-        'password' => 'SmxQpOEscyMRnIWB5kKQ',
-        'charset' => 'utf8mb4',
+    'postgres' => [
+        'host' => 'ep-still-glade-an1bse9o.c-6.us-east-1.aws.neon.tech',
+        'port' => 5432,
+        'dbname' => 'neondb',
+        'user' => 'neondb_owner',
+        'password' => 'npg_jFUxmH0ywq1p',
+        'sslmode' => 'require',
     ],
     'login' => [
         'table' => 'users',
